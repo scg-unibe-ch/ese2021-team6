@@ -3,6 +3,7 @@ import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { UserService } from '../services/user.service';
+import { Userinformation } from '../models/userinformation.model';
 
 @Component({
   selector: 'app-user',
@@ -16,6 +17,8 @@ export class UserComponent {
   user: User | undefined;
 
   userToRegister: User = new User(0, '', '');
+
+  userinformationToRegister: Userinformation = new Userinformation('', '', '', '', 0, '', 0, 0);
 
   userToLogin: User = new User(0, '', '');
 
@@ -38,9 +41,27 @@ export class UserComponent {
   registerUser(): void {
     this.httpClient.post(environment.endpointURL + "user/register", {
       userName: this.userToRegister.username,
-      password: this.userToRegister.password
+      password: this.userToRegister.password,
+      firstName: this.userinformationToRegister.firstname,
+      lastname: this.userinformationToRegister.lastname,
+      email: this.userinformationToRegister.email,
+      address: this.userinformationToRegister.address,
+      zipCode: this.userinformationToRegister.zipCode,
+      city: this.userinformationToRegister.city,
+      birthday: this.userinformationToRegister.birthday,
+      phonenumber: this.userinformationToRegister.phonenumber
     }).subscribe(() => {
       this.userToRegister.username = this.userToRegister.password = '';
+
+      this.userinformationToRegister.firstname = 
+      this.userinformationToRegister.lastname =
+      this.userinformationToRegister.email =
+      this.userinformationToRegister.address =
+      this.userinformationToRegister.city = '';
+
+      this.userinformationToRegister.zipCode =
+      this.userinformationToRegister.birthday =
+      this.userinformationToRegister.phonenumber = 0;
     });
   }
 
