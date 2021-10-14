@@ -2,11 +2,14 @@
 import express, { Router, Request, Response } from 'express';
 import { UserService } from '../services/user.service';
 import { verifyToken } from '../middlewares/checkAuth';
+import { checkRegist } from '../middlewares/checkRegist';
 
 const userController: Router = express.Router();
 const userService = new UserService();
 
-userController.post('/register',
+// userController.use(checkRegist);
+
+userController.post('/register', checkRegist,
     (req: Request, res: Response) => {
         userService.register(req.body).then(registered => res.send(registered)).catch(err => res.status(500).send(err));
     }
