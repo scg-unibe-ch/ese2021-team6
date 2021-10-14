@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a9d02cdf-54f7-4856-b4c3-bdb027f23325" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/models/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/models/user.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1zAjb0HnNP16gHxE5oyStQwc2G6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RunManager" selected="npm.Angular CLI Server">
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a9d02cdf-54f7-4856-b4c3-bdb027f23325" name="Changes" comment="" />
+      <created>1633597859824</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1633597859824</updated>
+      <workItem from="1633597861889" duration="4413000" />
+      <workItem from="1633609395248" duration="1700000" />
+      <workItem from="1634148270496" duration="14000" />
+      <workItem from="1634195072460" duration="669000" />
+      <workItem from="1634199022857" duration="1378000" />
+      <workItem from="1634201653069" duration="1171000" />
+      <workItem from="1634205649428" duration="592000" />
+      <workItem from="1634208032522" duration="602000" />
+      <workItem from="1634221557584" duration="532000" />
+      <workItem from="1634223451298" duration="588000" />
+      <workItem from="1634240675092" duration="3935000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

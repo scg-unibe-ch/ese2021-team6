@@ -43,17 +43,17 @@ export class UserComponent {
       userName: this.userToRegister.username,
       password: this.userToRegister.password,
       firstName: this.userinformationToRegister.firstname,
-      lastname: this.userinformationToRegister.lastname,
+      lastName: this.userinformationToRegister.lastname,
       email: this.userinformationToRegister.email,
       address: this.userinformationToRegister.address,
       zipCode: this.userinformationToRegister.zipCode,
       city: this.userinformationToRegister.city,
       birthday: this.userinformationToRegister.birthday,
-      phonenumber: this.userinformationToRegister.phonenumber
+      phoneNumber: this.userinformationToRegister.phonenumber
     }).subscribe(() => {
       this.userToRegister.username = this.userToRegister.password = '';
 
-      this.userinformationToRegister.firstname = 
+      this.userinformationToRegister.firstname =
       this.userinformationToRegister.lastname =
       this.userinformationToRegister.email =
       this.userinformationToRegister.address =
