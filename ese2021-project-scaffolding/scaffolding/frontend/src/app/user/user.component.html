@@ -6,6 +6,7 @@
   <p>
   <mat-form-field>
     <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="userToRegister.password">
+    <p style="color:red">{{ registerErrorMsg }}</p>
   </mat-form-field>
   <p>
   <mat-form-field>
@@ -53,6 +54,7 @@
       <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="userToLogin.password">
     </mat-form-field>
     <button mat-flat-button color="primary" (click)="loginUser()">Login</button>
+    <p style="color:red">{{ loginErrorMsg }}</p>
   </div>
 
   <div *ngIf="loggedIn">
