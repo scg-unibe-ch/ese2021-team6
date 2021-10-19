@@ -4,6 +4,12 @@
     <list default="true" id="00a9b3d9-f2a0-422e-89ff-80bd413c2780" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
+=======
+      <change beforePath="$PROJECT_DIR$/backend/db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/middlewares/checkAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/middlewares/checkAuth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/middlewares/checkRegist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/middlewares/checkRegist.ts" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,8 +76,13 @@
       <workItem from="1634223461021" duration="645000" />
       <workItem from="1634240676161" duration="4566000" />
       <workItem from="1634245374657" duration="4688000" />
+<<<<<<< Updated upstream
       <workItem from="1634677707576" duration="521000" />
       <workItem from="1634678263815" duration="66000" />
+=======
+      <workItem from="1634568044573" duration="4572000" />
+      <workItem from="1634673755812" duration="3091000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
