@@ -15,7 +15,6 @@ export class UserService {
 
   private user: User | undefined;
 
-  
   /*******************************************************************************************************************
    * OBSERVABLE SOURCES & STREAMS
    ******************************************************************************************************************/
@@ -60,7 +59,7 @@ export class UserService {
     // Observer
     this.loggedIn$.subscribe(res => this.loggedIn = res);
     this.user$.subscribe(res => this.user = res);
-
+  
     // Default values
     this.setLoggedIn(false);
   }
