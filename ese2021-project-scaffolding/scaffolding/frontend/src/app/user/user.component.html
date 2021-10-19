@@ -6,6 +6,7 @@
   <p>
   <mat-form-field>
     <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="userToRegister.password">
+    <p style="color:red">{{ passwordConditionErrorMsg }}</p>
   </mat-form-field>
   <p>
   <mat-form-field>
@@ -39,6 +40,7 @@
   <mat-form-field>
     <input matInput type="text" placeholder="Phonenumber" name="Phonenumber" [(ngModel)]="userinformationToRegister.phonenumber">
   </mat-form-field>
+  <p style="color:red">{{ registerErrorMsg }}</p>
   <button mat-flat-button color="primary" (click)="registerUser()">Register</button>
 </mat-card>
 
@@ -53,6 +55,7 @@
       <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="userToLogin.password">
     </mat-form-field>
     <button mat-flat-button color="primary" (click)="loginUser()">Login</button>
+    <p style="color:red">{{ loginErrorMsg }}</p>
   </div>
 
   <div *ngIf="loggedIn">

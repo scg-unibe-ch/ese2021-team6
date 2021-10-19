@@ -12,6 +12,8 @@ import { Userinformation } from '../models/userinformation.model';
 })
 export class UserComponent {
 
+  testMode: boolean = true;
+
   loggedIn: boolean | undefined;
 
   user: User | undefined;
@@ -24,6 +26,10 @@ export class UserComponent {
 
   endpointMsgUser: string = '';
   endpointMsgAdmin: string = '';
+
+  loginErrorMsg: string = '';
+  passwordConditionErrorMsg: string = '';
+  registerErrorMsg: string = '';
 
   constructor(
     public httpClient: HttpClient,
@@ -38,46 +44,127 @@ export class UserComponent {
     this.user = userService.getUser();
   }
 
+  checkPasswordConditions(): boolean {
+    this.passwordConditionErrorMsg = '';
+    //console.log(this.userToRegister.password);
+
+    let userPassword = this.userToRegister.password;
+    let hasANumber = false;
+    let hasACapitalLetter = false;
+    let hasASmallLetter = false;
+    let hasASpecialCharacter = false;
+
+    console.log(this.passwordConditionErrorMsg);
+    // Password condition check
+    if (userPassword.length > 7) {
+      for (let i = 0; i < userPassword.length; i++) {
+        // Checks that character is a ASCII character
+        if (userPassword.charCodeAt(i) > 31 && userPassword.charCodeAt(i) < 127) {
+          if (userPassword.charCodeAt(i) > 47 && userPassword.charCodeAt(i) < 58) {
+            hasANumber = true;
+            continue;
+          }
+          if (userPassword.charCodeAt(i) > 96 && userPassword.charCodeAt(i) < 123) {
+            hasASmallLetter = true;
+            continue;
+          }
+          if (userPassword.charCodeAt(i) > 64 && userPassword.charCodeAt(i) < 91) {
+            hasACapitalLetter = true;
+            continue;
+          }
+          hasASpecialCharacter = true;
+        }
+        else{
+          this.passwordConditionErrorMsg = "Unknown character usage";
+          return false;
+        }
+      }
+      let errorMsg = '';
+      if (!hasANumber) {errorMsg += 'Number missing\n'}
+      if (!hasASmallLetter) {errorMsg += 'Small letter missing\n'}
+      if (!hasACapitalLetter) {errorMsg += 'Capital letter missing\n'}
+      if (!hasASpecialCharacter) {errorMsg += 'Special character missing'}
+      this.passwordConditionErrorMsg = errorMsg;
+      if (hasANumber && hasACapitalLetter && hasASmallLetter && hasASpecialCharacter) {
+        return true;
+      }
+      return false;
+    }
+    else{
+      this.passwordConditionErrorMsg = 'Password must contain at least 8 characters'
+      return false;
+    }
+  }
+  
+  checkNoEmptyFields(): boolean{
+    this.registerErrorMsg = '';
+    let noEmptyFields = true;
+    if (this.userToRegister.username.length == 0){noEmptyFields = false}
+    if (this.userinformationToRegister.firstname.length == 0){noEmptyFields = false}
+    if (this.userinformationToRegister.lastname.length == 0){noEmptyFields = false}
+    if (this.userinformationToRegister.email.length == 0){noEmptyFields = false}
+    if (this.userinformationToRegister.address.length == 0){noEmptyFields = false}
+    if (this.userinformationToRegister.zipCode == 0){noEmptyFields = false}
+    if (this.userinformationToRegister.city.length == 0){noEmptyFields = false}
+    if (this.userinformationToRegister.birthday == 0){noEmptyFields = false}
+    if (this.userinformationToRegister.phonenumber == 0){noEmptyFields = false}
+    if(!noEmptyFields){
+      this.registerErrorMsg = 'Please fill out all the fields';
+    }
+    return this.testMode || noEmptyFields;
+    
+  }
+
   registerUser(): void {
-    this.httpClient.post(environment.endpointURL + "user/register", {
-      userName: this.userToRegister.username,
-      password: this.userToRegister.password,
-      firstName: this.userinformationToRegister.firstname,
-      lastName: this.userinformationToRegister.lastname,
-      email: this.userinformationToRegister.email,
-      address: this.userinformationToRegister.address,
-      zipCode: this.userinformationToRegister.zipCode,
-      city: this.userinformationToRegister.city,
-      birthday: this.userinformationToRegister.birthday,
-      phoneNumber: this.userinformationToRegister.phonenumber
-    }).subscribe(() => {
-      this.userToRegister.username = this.userToRegister.password = '';
-
-      this.userinformationToRegister.firstname =
-      this.userinformationToRegister.lastname =
-      this.userinformationToRegister.email =
-      this.userinformationToRegister.address =
-      this.userinformationToRegister.city = '';
-
-      this.userinformationToRegister.zipCode =
-      this.userinformationToRegister.birthday =
-      this.userinformationToRegister.phonenumber = 0;
-    });
+    if (this.checkNoEmptyFields() && this.checkPasswordConditions()) {
+      this.httpClient.post(environment.endpointURL + "user/register", {
+        userName: this.userToRegister.username,
+        password: this.userToRegister.password,
+        firstName: this.userinformationToRegister.firstname,
+        lastName: this.userinformationToRegister.lastname,
+        email: this.userinformationToRegister.email,
+        address: this.userinformationToRegister.address,
+        zipCode: this.userinformationToRegister.zipCode,
+        city: this.userinformationToRegister.city,
+        birthday: this.userinformationToRegister.birthday,
+        phoneNumber: this.userinformationToRegister.phonenumber
+      }).subscribe(() => {
+        this.passwordConditionErrorMsg = '';
+  
+        this.userToRegister.username = this.userToRegister.password = '';
+  
+        this.userinformationToRegister.firstname =
+        this.userinformationToRegister.lastname =
+        this.userinformationToRegister.email =
+        this.userinformationToRegister.address =
+        this.userinformationToRegister.city = '';
+  
+        this.userinformationToRegister.zipCode =
+        this.userinformationToRegister.birthday =
+        this.userinformationToRegister.phonenumber = 0;
+      });
+    }
   }
 
   loginUser(): void {
-    this.httpClient.post(environment.endpointURL + "user/login", {
-      userName: this.userToLogin.username,
-      password: this.userToLogin.password
-    }).subscribe((res: any) => {
-      this.userToLogin.username = this.userToLogin.password = '';
+    if(this.userToLogin.username.length > 0){
+      this.httpClient.post(environment.endpointURL + "user/login", {
+        userName: this.userToLogin.username,
+        password: this.userToLogin.password
+      }).subscribe((res: any) => {
+        this.loginErrorMsg = "";
+        this.userToLogin.username = this.userToLogin.password = '';
 
-      localStorage.setItem('userName', res.user.userName);
-      localStorage.setItem('userToken', res.token);
+        localStorage.setItem('userName', res.user.userName);
+        localStorage.setItem('userToken', res.token);
 
-      this.userService.setLoggedIn(true);
-      this.userService.setUser(new User(res.user.userId, res.user.userName, res.user.password));
-    });
+        this.userService.setLoggedIn(true);
+        this.userService.setUser(new User(res.user.userId, res.user.userName, res.user.password));
+      }, () => {
+        this.loginErrorMsg = "Username or password not found!";
+        this.userToLogin.username = this.userToLogin.password = '';
+      });
+    }
   }
 
   logoutUser(): void {
