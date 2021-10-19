@@ -6,32 +6,34 @@ import { UserAttributes, User } from '../models/user.model';
 export function checkRegist(req: Request, res: Response, next: any) {
 
         let sameName = false;
-        let sameMail = false;
-
+        // const sameMail: false;
+        // since the authorization header consists of "Bearer <token>" where <token> is a JWT token
         const desiredUserName = req.body.userName;
         const desiredEmail = req.body.email;
-
+        console.log(desiredUserName);
+        console.log(desiredEmail);
+        // console.log(User.findOne({where: {userName: desiredUserName}}));
 
         User.findAndCountAll({where: {userName: desiredUserName}}).then(result => {
+            console.log('beforIf');
+            console.log(result.count);
             if (result.count > 1) {
                     sameName = true;
+                console.log(sameName);
             }
         });
 
-        User.findAndCountAll({where: {email: desiredEmail}}).then(result => {
-            if (result.count > 1) {
-                sameMail = true;
-            }
-        });
+        // User.findOne(({where: {userName: desiredUserName}})).then({
+        //        res.status(403).send({ message: 'Username already in use.' }));
+        console.log(sameName);
+        if (sameName) {
+            console.log('yep');
+            res.status(403).send({ message: 'Username already in use.' });
+        }
+     //   if (User.findOne({where: {email: desiredEmail}})) {
+      //      res.status(403).send({ message: 'E-mail already in use.' });
+      //  }
+        // adds the field "tokenPayload" to the request enabling following functions to use data from the token
 
-        setTimeout(() => {if (sameName) {
-            res.status(403).send({ message: 'Username already in use.' }); }}, 2000);
-
-        setTimeout(() => {if (sameMail) {
-            res.status(403).send({ message: 'Email already in use.' }); }}, 2000);
-
-        setTimeout( () => {
-            next();
-        }, 5000);
-
+        next();
 }

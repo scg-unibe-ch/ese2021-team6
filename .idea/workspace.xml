@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9d02cdf-54f7-4856-b4c3-bdb027f23325" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/.idea/workspace.xml" afterDir="false" />
-<<<<<<< Updated upstream
-=======
       <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/middlewares/checkAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/middlewares/checkAuth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/middlewares/checkRegist.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/middlewares/checkRegist.ts" afterDir="false" />
->>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,13 +58,6 @@
       <workItem from="1634221557584" duration="532000" />
       <workItem from="1634223451298" duration="588000" />
       <workItem from="1634240675092" duration="3935000" />
-<<<<<<< Updated upstream
-      <workItem from="1634677566857" duration="659000" />
-      <workItem from="1634678262246" duration="65000" />
-=======
-      <workItem from="1634568051222" duration="1637000" />
-      <workItem from="1634673749719" duration="1389000" />
->>>>>>> Stashed changes
     </task>
     <servers />
   </component>
