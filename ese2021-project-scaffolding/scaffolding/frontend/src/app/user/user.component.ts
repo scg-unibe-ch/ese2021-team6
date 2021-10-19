@@ -46,7 +46,6 @@ export class UserComponent {
 
   checkPasswordConditions(): boolean {
     this.passwordConditionErrorMsg = '';
-    //console.log(this.userToRegister.password);
 
     let userPassword = this.userToRegister.password;
     let hasANumber = false;
