@@ -41,36 +41,88 @@ export class UserComponent {
     this.user = userService.getUser();
   }
 
+  checkPasswordConditions(): boolean {
+    this.registerErrorMsg = '';
+    console.log(this.userToRegister.password);
+
+    let userPassword = this.userToRegister.password;
+    let hasANumber = false;
+    let hasACapitalLetter = false;
+    let hasASmallLetter = false;
+    let hasASpecialCharacter = false;
+
+    console.log(this.registerErrorMsg);
+    // Password condition check
+    if (userPassword.length > 7) {
+      for (let i = 0; i < userPassword.length; i++) {
+        // Checks that character is a ASCII character
+        if (userPassword.charCodeAt(i) > 31 && userPassword.charCodeAt(i) < 127) {
+          if (userPassword.charCodeAt(i) > 47 && userPassword.charCodeAt(i) < 58) {
+            hasANumber = true;
+            continue;
+          }
+          if (userPassword.charCodeAt(i) > 96 && userPassword.charCodeAt(i) < 123) {
+            hasASmallLetter = true;
+            continue;
+          }
+          if (userPassword.charCodeAt(i) > 64 && userPassword.charCodeAt(i) < 91) {
+            hasACapitalLetter = true;
+            continue;
+          }
+          hasASpecialCharacter = true;
+        }
+        else{
+          this.registerErrorMsg = "Unknown character usage";
+          return false;
+        }
+      }
+      let errorMsg = '';
+      if (!hasANumber) {errorMsg += 'Number missing\n'}
+      if (!hasASmallLetter) {errorMsg += 'Small letter missing\n'}
+      if (!hasACapitalLetter) {errorMsg += 'Capital letter missing\n'}
+      if (!hasASpecialCharacter) {errorMsg += 'Special character missing'}
+      this.registerErrorMsg = errorMsg;
+      if (hasANumber && hasACapitalLetter && hasASmallLetter && hasASpecialCharacter) {
+        return true;
+      }
+      return false;
+    }
+    else{
+      this.registerErrorMsg = 'Password must contain at least 8 characters'
+      return false;
+    }
+  }
+  
   registerUser(): void {
-    this.httpClient.post(environment.endpointURL + "user/register", {
-      userName: this.userToRegister.username,
-      password: this.userToRegister.password,
-      firstName: this.userinformationToRegister.firstname,
-      lastName: this.userinformationToRegister.lastname,
-      email: this.userinformationToRegister.email,
-      address: this.userinformationToRegister.address,
-      zipCode: this.userinformationToRegister.zipCode,
-      city: this.userinformationToRegister.city,
-      birthday: this.userinformationToRegister.birthday,
-      phoneNumber: this.userinformationToRegister.phonenumber
-    }).subscribe(() => {
-      this.registerErrorMsg = '';
-
-      this.userToRegister.username = this.userToRegister.password = '';
-
-      this.userinformationToRegister.firstname =
-      this.userinformationToRegister.lastname =
-      this.userinformationToRegister.email =
-      this.userinformationToRegister.address =
-      this.userinformationToRegister.city = '';
-
-      this.userinformationToRegister.zipCode =
-      this.userinformationToRegister.birthday =
-      this.userinformationToRegister.phonenumber = 0;
-    }, () => {
-      console.log("Conditions for password not met")
-      this.registerErrorMsg = "Conditions for password not met"
-    });
+    if (this.checkPasswordConditions()) {
+      console.log("Password correct");
+      this.httpClient.post(environment.endpointURL + "user/register", {
+        userName: this.userToRegister.username,
+        password: this.userToRegister.password,
+        firstName: this.userinformationToRegister.firstname,
+        lastName: this.userinformationToRegister.lastname,
+        email: this.userinformationToRegister.email,
+        address: this.userinformationToRegister.address,
+        zipCode: this.userinformationToRegister.zipCode,
+        city: this.userinformationToRegister.city,
+        birthday: this.userinformationToRegister.birthday,
+        phoneNumber: this.userinformationToRegister.phonenumber
+      }).subscribe(() => {
+        this.registerErrorMsg = '';
+  
+        this.userToRegister.username = this.userToRegister.password = '';
+  
+        this.userinformationToRegister.firstname =
+        this.userinformationToRegister.lastname =
+        this.userinformationToRegister.email =
+        this.userinformationToRegister.address =
+        this.userinformationToRegister.city = '';
+  
+        this.userinformationToRegister.zipCode =
+        this.userinformationToRegister.birthday =
+        this.userinformationToRegister.phonenumber = 0;
+      });
+    }
   }
 
   loginUser(): void {
