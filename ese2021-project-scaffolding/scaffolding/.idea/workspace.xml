@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00a9b3d9-f2a0-422e-89ff-80bd413c2780" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/middlewares/checkRegist.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/controllers/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/user.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/models/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/user.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/user/user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/user/user.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

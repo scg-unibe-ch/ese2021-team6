@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9d02cdf-54f7-4856-b4c3-bdb027f23325" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/models/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/models/user.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
