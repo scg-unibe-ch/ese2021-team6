@@ -25,6 +25,9 @@ export class UserComponent {
   endpointMsgUser: string = '';
   endpointMsgAdmin: string = '';
 
+  loginErrorMsg: string = '';
+  registerErrorMsg: string = '';
+
   constructor(
     public httpClient: HttpClient,
     public userService: UserService
@@ -51,6 +54,8 @@ export class UserComponent {
       birthday: this.userinformationToRegister.birthday,
       phoneNumber: this.userinformationToRegister.phonenumber
     }).subscribe(() => {
+      this.registerErrorMsg = '';
+
       this.userToRegister.username = this.userToRegister.password = '';
 
       this.userinformationToRegister.firstname =
@@ -62,6 +67,9 @@ export class UserComponent {
       this.userinformationToRegister.zipCode =
       this.userinformationToRegister.birthday =
       this.userinformationToRegister.phonenumber = 0;
+    }, () => {
+      console.log("Conditions for password not met")
+      this.registerErrorMsg = "Conditions for password not met"
     });
   }
 
@@ -70,6 +78,7 @@ export class UserComponent {
       userName: this.userToLogin.username,
       password: this.userToLogin.password
     }).subscribe((res: any) => {
+      this.loginErrorMsg = "";
       this.userToLogin.username = this.userToLogin.password = '';
 
       localStorage.setItem('userName', res.user.userName);
@@ -77,6 +86,9 @@ export class UserComponent {
 
       this.userService.setLoggedIn(true);
       this.userService.setUser(new User(res.user.userId, res.user.userName, res.user.password));
+    }, () => {
+      this.loginErrorMsg = "Username or password not found!";
+      this.userToLogin.username = this.userToLogin.password = '';
     });
   }
 

@@ -7,6 +7,7 @@ export class UserService {
 
     public register(user: UserAttributes): Promise<UserAttributes> {
         const saltRounds = 12;
+
         user.password = bcrypt.hashSync(user.password, saltRounds); // hashes the password, never store passwords as plaintext
         return User.create(user).then(inserted => Promise.resolve(inserted)).catch(err => Promise.reject(err));
     }
@@ -26,7 +27,7 @@ export class UserService {
                 return Promise.reject({ message: 'not authorized' });
             }
         })
-        .catch(err => Promise.reject({ message: err }));
+        .catch(err => Promise.reject({ message: 'Wrong username/password' }));
     }
 
     public getAll(): Promise<User[]> {
