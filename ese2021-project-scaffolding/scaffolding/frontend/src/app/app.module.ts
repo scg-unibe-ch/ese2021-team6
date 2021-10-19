@@ -16,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserComponent } from './user/user.component';
+import { ProfileComponent } from './profile/profile.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     AppComponent,
     TodoListComponent,
     TodoItemComponent,
-    UserComponent
+    UserComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

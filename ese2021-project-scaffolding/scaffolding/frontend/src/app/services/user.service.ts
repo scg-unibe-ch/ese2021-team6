@@ -15,7 +15,6 @@ export class UserService {
 
   private user: User | undefined;
 
-
   /*******************************************************************************************************************
    * OBSERVABLE SOURCES & STREAMS
    ******************************************************************************************************************/
@@ -27,7 +26,6 @@ export class UserService {
   // Observable Streams
   loggedIn$ = this.loggedInSource.asObservable();
   user$ = this.userSource.asObservable();
-
 
   /*******************************************************************************************************************
    * GETTERS
@@ -41,7 +39,6 @@ export class UserService {
     return this.user;
   }
 
-
   /*******************************************************************************************************************
    * SETTERS
    ******************************************************************************************************************/
@@ -54,7 +51,6 @@ export class UserService {
     this.userSource.next(user);
   }
 
-
   /*******************************************************************************************************************
    * CONSTRUCTOR
    ******************************************************************************************************************/
@@ -63,7 +59,7 @@ export class UserService {
     // Observer
     this.loggedIn$.subscribe(res => this.loggedIn = res);
     this.user$.subscribe(res => this.user = res);
-
+  
     // Default values
     this.setLoggedIn(false);
   }

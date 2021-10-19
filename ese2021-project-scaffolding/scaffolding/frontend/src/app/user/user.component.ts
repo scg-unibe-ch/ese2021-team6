@@ -12,8 +12,6 @@ import { Userinformation } from '../models/userinformation.model';
 })
 export class UserComponent {
 
-  testMode: boolean = true;
-
   loggedIn: boolean | undefined;
 
   user: User | undefined;
@@ -46,7 +44,6 @@ export class UserComponent {
 
   checkPasswordConditions(): boolean {
     this.passwordConditionErrorMsg = '';
-    //console.log(this.userToRegister.password);
 
     let userPassword = this.userToRegister.password;
     let hasANumber = false;
@@ -111,7 +108,7 @@ export class UserComponent {
     if(!noEmptyFields){
       this.registerErrorMsg = 'Please fill out all the fields';
     }
-    return this.testMode || noEmptyFields;
+    return noEmptyFields;
     
   }
 
