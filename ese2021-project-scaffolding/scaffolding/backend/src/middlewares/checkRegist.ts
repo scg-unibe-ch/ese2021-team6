@@ -6,7 +6,7 @@ import { UserAttributes, User } from '../models/user.model';
 export function checkRegist(req: Request, res: Response, next: any) {
 
         let sameName = false;
-        // const sameMail: false;
+        let sameMail = false;
         // since the authorization header consists of "Bearer <token>" where <token> is a JWT token
         const desiredUserName = req.body.userName;
         const desiredEmail = req.body.email;
