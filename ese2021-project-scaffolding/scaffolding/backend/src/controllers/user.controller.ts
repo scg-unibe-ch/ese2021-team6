@@ -9,7 +9,7 @@ const userService = new UserService();
 
 // userController.use(checkRegist);
 
-userController.post('/register', checkRegist,
+userController.post('/register',
     (req: Request, res: Response) => {
         userService.register(req.body).then(registered => res.send(registered)).catch(err => res.status(500).send(err));
     }

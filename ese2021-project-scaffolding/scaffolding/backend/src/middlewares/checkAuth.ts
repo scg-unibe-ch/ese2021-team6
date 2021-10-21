@@ -11,12 +11,6 @@ export function verifyToken(req: Request, res: Response, next: any) {
         const decoded = jwt.verify(token, secret);
         const lenght = decoded.length;
 
-        console.log(decoded);
-       // if(lenght < 8){
-        //    res.status(403).send({ message: 'Password has to contain at least 8 characters.' });
-       // }
-
-
         if (decoded == null) {
             res.status(403).send({ message: 'Unauthorized' });
         }
