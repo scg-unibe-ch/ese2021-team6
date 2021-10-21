@@ -5,19 +5,31 @@ import { UserAttributes, User } from '../models/user.model';
 // this way you can just define a function and export it instead of a whole class
 export function checkRegist(req: Request, res: Response, next: any) {
 
+
       /*  let sameName = false;
         let sameMail = false;
 
+=======
+        let sameName = false;
+        // const sameMail: false;
+        // since the authorization header consists of "Bearer <token>" where <token> is a JWT token
+>>>>>>> main
         const desiredUserName = req.body.userName;
         const desiredEmail = req.body.email;
-
+        console.log(desiredUserName);
+        console.log(desiredEmail);
+        // console.log(User.findOne({where: {userName: desiredUserName}}));
 
         User.findAndCountAll({where: {userName: desiredUserName}}).then(result => {
+            console.log('beforIf');
+            console.log(result.count);
             if (result.count > 1) {
                     sameName = true;
+                console.log(sameName);
             }
         });
 
+<<<<<<< HEAD
         User.findAndCountAll({where: {email: desiredEmail}}).then(result => {
             if (result.count > 1) {
                 sameMail = true;
