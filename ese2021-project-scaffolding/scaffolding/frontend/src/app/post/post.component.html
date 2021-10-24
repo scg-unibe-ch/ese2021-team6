@@ -1,0 +1,59 @@
+<h1 mat-dialog-title> Create a new Post </h1>
+<div mat-dialog-content>
+  <mat-form-field [style.width.px]=500>
+      <textarea matInput
+            matInput placeholder="Write something..."
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="9"
+      ></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="closePopUp()">Close</button>
+  <button mat-raised-button color="primary" (click)="createItem()">Post</button>
+   <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+  <!--<button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
+</div>
+
+
+
+<!--
+  <mat-card>
+    Input field with list name 
+    <mat-form-field>
+      <input matInput placeholder="List Name" [(ngModel)]="post.name" name="name" (ngModelChange)="updateList()">
+    </mat-form-field>
+    Button to delete list 
+    <button mat-flat-button color="warn" (click)="deleteList()" [disabled]="post.postItems.length != 0">
+      Delete list
+    </button>
+
+    <br>
+
+    <Input field for new item name
+    <mat-form-field>
+      <input matInput placeholder="Item Name" [(ngModel)]="newPostItemName">
+    </mat-form-field>
+    <Button to create item 
+    <button mat-flat-button color="primary" (click)="createItem()" [disabled]="newPostItemName === ''">Create new item</button>
+
+    <hr>
+
+    List of PostItemComponents displaying all items of list
+    <mat-list>
+      <mat-list-item *ngFor="let postItem of post.postItems">
+        <app-post-item
+          [postItem]="postItem"
+          (update)="updateItem($event)"
+          (delete)="deleteItem($event)"
+        ></app-post-item>
+      </mat-list-item>
+    </mat-list>
+
+    <div *ngIf="post.postItems.length === 0">
+      No Posts available.
+    </div>
+  </mat-card>
+-->

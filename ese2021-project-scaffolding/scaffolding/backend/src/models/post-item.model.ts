@@ -1,35 +1,35 @@
 import {Optional, Model, Sequelize, DataTypes, Association} from 'sequelize';
-import { TodoList } from './todolist.model';
+import { Post } from './post.model';
 import {ItemImage} from './itemImage.model';
 
-export interface TodoItemAttributes {
-    todoItemId: number;
+export interface PostItemAttributes {
+    postItemId: number;
     name: string;
     done: boolean;
-    todoListId: number;
+    postId: number;
     itemImage: string;
 }
 
-// tells sequelize that todoItemId is not a required field
-export interface TodoItemCreationAttributes extends Optional<TodoItem, 'todoItemId'> { }
+// tells sequelize that postItemId is not a required field
+export interface PostItemCreationAttributes extends Optional<PostItem, 'postItemId'> { }
 
 
-export class TodoItem extends Model<TodoItemAttributes, TodoItemCreationAttributes> implements TodoItemAttributes {
+export class PostItem extends Model<PostItemAttributes, PostItemCreationAttributes> implements PostItemAttributes {
 
     public static associations: {
-        images: Association<TodoItem, ItemImage>
+        images: Association<PostItem, ItemImage>
     };
 
-    todoItemId!: number;
+    postItemId!: number;
     name!: string;
     done!: boolean;
-    todoListId!: number;
+    postId!: number;
     itemImage!: string;
 
 
     public static initialize(sequelize: Sequelize) { // definition for database
-        TodoItem.init({
-            todoItemId: {
+        PostItem.init({
+            postItemId: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
                 primaryKey: true
@@ -46,25 +46,25 @@ export class TodoItem extends Model<TodoItemAttributes, TodoItemCreationAttribut
                 type: DataTypes.BOOLEAN,
                 allowNull: true
             },
-            todoListId: {
+            postId: {
                 type: DataTypes.INTEGER,
                 allowNull: false
             }
         },
-        { sequelize, tableName: 'todoItems' }
+        { sequelize, tableName: 'postItems' }
         );
 
     }
     public static createAssociations() {
-        TodoItem.belongsTo(TodoList, {
-            targetKey: 'todoListId',
-            as: 'todoList',
+        PostItem.belongsTo(Post, {
+            targetKey: 'postId',
+            as: 'post',
             onDelete: 'cascade',
-            foreignKey: 'todoListId'
+            foreignKey: 'postId'
         });
-        TodoItem.hasMany(ItemImage, {
+        PostItem.hasMany(ItemImage, {
             as: 'images',
-            foreignKey: 'todoItemId'
+            foreignKey: 'postItemId'
         });
     }
 

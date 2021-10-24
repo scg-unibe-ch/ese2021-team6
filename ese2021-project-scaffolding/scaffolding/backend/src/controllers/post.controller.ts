@@ -1,18 +1,18 @@
 import express from 'express';
 import { Router, Request, Response } from 'express';
-import { TodoList } from '../models/todolist.model';
+import { Post } from '../models/post.model';
 
-const todoListController: Router = express.Router();
+const postController: Router = express.Router();
 
-todoListController.post('/', (req: Request, res: Response) => {
-    TodoList.create(req.body).then(created => {
+postController.post('/', (req: Request, res: Response) => {
+    Post.create(req.body).then(created => {
         res.status(201).send(created);
     })
         .catch(err => res.status(500).send(err));
 });
 
-todoListController.put('/:id', (req: Request, res: Response) => {
-    TodoList.findByPk(req.params.id)
+postController.put('/:id', (req: Request, res: Response) => {
+    Post.findByPk(req.params.id)
         .then(found => {
             if (found != null) {
                 found.update(req.body).then(updated => {
@@ -26,8 +26,8 @@ todoListController.put('/:id', (req: Request, res: Response) => {
         .catch(err => res.status(500).send(err));
 });
 
-todoListController.delete('/:id', (req: Request, res: Response) => {
-    TodoList.findByPk(req.params.id)
+postController.delete('/:id', (req: Request, res: Response) => {
+    Post.findByPk(req.params.id)
         .then(found => {
             if (found != null) {
                 found.destroy()
@@ -40,11 +40,11 @@ todoListController.delete('/:id', (req: Request, res: Response) => {
         .catch(err => res.status(500).send(err));
 });
 
-todoListController.get('/', (req: Request, res: Response) => {
-    // this automatically fills each todolist with the according todoitems
-    TodoList.findAll({ include: [TodoList.associations.todoItems] })
+postController.get('/', (req: Request, res: Response) => {
+    // this automatically fills each post with the according postitems
+    Post.findAll({ include: [Post.associations.todoItems] })
         .then(list => res.status(200).send(list))
         .catch(err => res.status(500).send(err));
 });
 
-export const TodoListController: Router = todoListController;
+export const PostController: Router = postController;
