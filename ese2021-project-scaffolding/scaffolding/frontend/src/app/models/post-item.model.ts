@@ -1,8 +1,8 @@
-export class TodoItem {
+export class PostItem {
 
   constructor(
-    public itemId: number,
-    public listId: number,
+    public postItemId: number,
+    public postId: number,
     public name: string,
     public image: string,
     public done: boolean

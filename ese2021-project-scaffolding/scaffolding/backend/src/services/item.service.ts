@@ -1,19 +1,19 @@
 import {upload} from '../middlewares/fileFilter';
-import {TodoItem} from '../models/todoitem.model';
+import {PostItem} from '../models/post-item.model';
 import {ItemImage, ItemImageAttributes} from '../models/itemImage.model';
 import {MulterRequest} from '../models/multerRequest.model';
 
 export class ItemService {
 
     public addImage(req: MulterRequest): Promise<ItemImageAttributes> {
-        return TodoItem.findByPk(req.params.id)
+        return PostItem.findByPk(req.params.id)
             .then(found => {
                 if (!found) {
                     return Promise.reject('Product not found!');
                 } else {
                     return new Promise<ItemImageAttributes>((resolve, reject) => {
                         upload.single('image')(req, null, (error: any) => {
-                            ItemImage.create({ fileName: req.file.filename, todoItemId: found.todoItemId })
+                            ItemImage.create({ fileName: req.file.filename, postItemId: found.postItemId })
                                 .then(created => resolve(created))
                                 .catch(() => reject('Could not upload image!'));
                         });

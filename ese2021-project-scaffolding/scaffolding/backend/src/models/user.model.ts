@@ -1,4 +1,4 @@
-import { TodoItem, TodoItemAttributes, TodoItemCreationAttributes } from './todoitem.model';
+import { PostItem, PostItemAttributes, PostItemCreationAttributes } from './post-item.model';
 import { Optional, Model, Sequelize, DataTypes } from 'sequelize';
 
 export interface UserAttributes {
