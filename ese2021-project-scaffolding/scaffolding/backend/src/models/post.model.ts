@@ -3,7 +3,12 @@ import { PostItem } from './post-item.model';
 
 export interface PostAttributes {
     postId: number;
-    name: string;
+    title: string;
+    text: string;
+    imageId: number;
+    upvoteCount: number;
+    downvoteCount: number;
+    userId: number;
 }
 
 export interface PostCreationAttributes extends Optional<PostAttributes, 'postId'> { }
@@ -14,7 +19,12 @@ export class Post extends Model<PostAttributes, PostCreationAttributes> implemen
         todoItems: Association<Post, PostItem>;
     };
     postId!: number;
-    name!: string;
+    title!: string;
+    text!: string;
+    imageId!: number;
+    upvoteCount!: number;
+    downvoteCount!: number;
+    userId!: number;
 
     public getTodoItems!: HasManyGetAssociationsMixin<PostItem>;
     public addItem!: HasManyAddAssociationMixin<PostItem, number>;
@@ -29,12 +39,34 @@ export class Post extends Model<PostAttributes, PostCreationAttributes> implemen
                     autoIncrement: true,
                     primaryKey: true
                 },
-                name: {
+                title: {
                     type: DataTypes.STRING,
                     allowNull: false
-                }
+                },
+                text: {
+                    type: DataTypes.STRING,
+                    allowNull: true
+                },
+                imageId: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false
+                },
+                upvoteCount: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false
+                },
+                downvoteCount: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false
+                },
+                userId: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false,
+                    unique: true
+                },
             },
-            { tableName: 'posts', sequelize }
+
+            { tableName: 'posts12', sequelize }
         );
     }
     public static createAssociations() {

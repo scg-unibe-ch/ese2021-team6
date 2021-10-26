@@ -4,10 +4,11 @@ import {ItemImage} from './itemImage.model';
 
 export interface PostItemAttributes {
     postItemId: number;
-    name: string;
-    done: boolean;
+    text: string;
+    upvoteCount: number;
+    downvoteCount: number;
     postId: number;
-    itemImage: string;
+    userId: number;
 }
 
 // tells sequelize that postItemId is not a required field
@@ -21,10 +22,11 @@ export class PostItem extends Model<PostItemAttributes, PostItemCreationAttribut
     };
 
     postItemId!: number;
-    name!: string;
-    done!: boolean;
+    text!: string;
+    upvoteCount!: number;
+    downvoteCount!: number;
     postId!: number;
-    itemImage!: string;
+    userId!: number;
 
 
     public static initialize(sequelize: Sequelize) { // definition for database
@@ -34,24 +36,28 @@ export class PostItem extends Model<PostItemAttributes, PostItemCreationAttribut
                 autoIncrement: true,
                 primaryKey: true
             },
-            name: {
+            text: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            done: {
-                type: DataTypes.BOOLEAN,
-                allowNull: false
+            upvoteCount: {
+                 type: DataTypes.INTEGER,
+                 allowNull: false
             },
-            itemImage: {
-                type: DataTypes.BOOLEAN,
-                allowNull: true
+            downvoteCount: {
+                type: DataTypes.INTEGER,
+                allowNull: false
             },
             postId: {
                 type: DataTypes.INTEGER,
                 allowNull: false
+            },
+            userId: {
+                type: DataTypes.INTEGER,
+                allowNull: false
             }
         },
-        { sequelize, tableName: 'postItems' }
+        { sequelize, tableName: 'comments' }
         );
 
     }
@@ -61,10 +67,6 @@ export class PostItem extends Model<PostItemAttributes, PostItemCreationAttribut
             as: 'post',
             onDelete: 'cascade',
             foreignKey: 'postId'
-        });
-        PostItem.hasMany(ItemImage, {
-            as: 'images',
-            foreignKey: 'postItemId'
         });
     }
 

@@ -25,6 +25,7 @@ export class UserComponent {
   endpointMsgUser: string = '';
   endpointMsgAdmin: string = '';
 
+
   loginErrorMsg: string = '';
   passwordConditionErrorMsg: string = '';
   registerErrorMsg: string = '';
@@ -92,28 +93,28 @@ export class UserComponent {
       return false;
     }
   }
-  
+
   checkNoEmptyFields(): boolean{
     this.registerErrorMsg = '';
     let noEmptyFields = true;
     if (this.userToRegister.username.length == 0){noEmptyFields = false}
-    if (this.userinformationToRegister.firstname.length == 0){noEmptyFields = false}
-    if (this.userinformationToRegister.lastname.length == 0){noEmptyFields = false}
+    //if (this.userinformationToRegister.firstname.length == 0){noEmptyFields = false}
+    //if (this.userinformationToRegister.lastname.length == 0){noEmptyFields = false}
     if (this.userinformationToRegister.email.length == 0){noEmptyFields = false}
-    if (this.userinformationToRegister.address.length == 0){noEmptyFields = false}
-    if (this.userinformationToRegister.zipCode == 0){noEmptyFields = false}
-    if (this.userinformationToRegister.city.length == 0){noEmptyFields = false}
-    if (this.userinformationToRegister.birthday == 0){noEmptyFields = false}
-    if (this.userinformationToRegister.phonenumber == 0){noEmptyFields = false}
+    //if (this.userinformationToRegister.address.length == 0){noEmptyFields = false}
+    //if (this.userinformationToRegister.zipCode == 0){noEmptyFields = false}
+    //if (this.userinformationToRegister.city.length == 0){noEmptyFields = false}
+    //if (this.userinformationToRegister.birthday == 0){noEmptyFields = false}
+    //if (this.userinformationToRegister.phonenumber == 0){noEmptyFields = false}
     if(!noEmptyFields){
-      this.registerErrorMsg = 'Please fill out all the fields';
+      this.registerErrorMsg = 'Please fill out the required fields.';
     }
     return noEmptyFields;
-    
+
   }
 
   registerUser(): void {
-    if (this.checkNoEmptyFields() && this.checkPasswordConditions()) {
+    if (this.checkNoEmptyFields() /*&& this.checkPasswordConditions()*/) {
       this.httpClient.post(environment.endpointURL + "user/register", {
         userName: this.userToRegister.username,
         password: this.userToRegister.password,
@@ -127,18 +128,20 @@ export class UserComponent {
         phoneNumber: this.userinformationToRegister.phonenumber
       }).subscribe(() => {
         this.passwordConditionErrorMsg = '';
-  
+
         this.userToRegister.username = this.userToRegister.password = '';
-  
+
         this.userinformationToRegister.firstname =
         this.userinformationToRegister.lastname =
         this.userinformationToRegister.email =
         this.userinformationToRegister.address =
         this.userinformationToRegister.city = '';
-  
+
         this.userinformationToRegister.zipCode =
         this.userinformationToRegister.birthday =
         this.userinformationToRegister.phonenumber = 0;
+      }, () => {
+        this.registerErrorMsg = "Username or Email already exists.";
       });
     }
   }
