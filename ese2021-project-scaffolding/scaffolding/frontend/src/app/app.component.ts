@@ -48,8 +48,7 @@ export class AppComponent implements OnInit {
     this.checkUserStatus();
   }
 
-  // CREATE - Post (Pop-Up)
-  createPost(): void {
+  openPopUp(): void {
     //public dialogRef: MatDialogRef<DialogOverviewExampleDialog>
    //@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
@@ -57,7 +56,6 @@ export class AppComponent implements OnInit {
       width: '750px',
       height: '350px'
     });
-
     /*
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

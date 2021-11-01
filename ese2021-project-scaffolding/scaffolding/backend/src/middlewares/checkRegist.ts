@@ -9,11 +9,11 @@ export function checkRegist(req: Request, res: Response, next: any) {
       /*  let sameName = false;
         let sameMail = false;
 
-=======
+
         let sameName = false;
         // const sameMail: false;
         // since the authorization header consists of "Bearer <token>" where <token> is a JWT token
->>>>>>> main
+        main
         const desiredUserName = req.body.userName;
         const desiredEmail = req.body.email;
         console.log(desiredUserName);
@@ -29,7 +29,7 @@ export function checkRegist(req: Request, res: Response, next: any) {
             }
         });
 
-<<<<<<< HEAD
+
         User.findAndCountAll({where: {email: desiredEmail}}).then(result => {
             if (result.count > 1) {
                 sameMail = true;

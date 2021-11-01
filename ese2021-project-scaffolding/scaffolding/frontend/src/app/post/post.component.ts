@@ -16,6 +16,8 @@ export class PostComponent {
 
   postTitle: string = '';
 
+  title: string = '';
+
   @Input()
   post: Post = new Post(0, '', '', 0, 0, 0, 0, []);
 
@@ -23,10 +25,13 @@ export class PostComponent {
   create = new EventEmitter<string>();
 
   @Output()
-  update = new EventEmitter<Post>();
+  postEvent = new EventEmitter<string>();
 
   @Output()
-  delete = new EventEmitter<Post>();
+  updateEvent = new EventEmitter<Post>();
+
+  @Output()
+  deleteEvent = new EventEmitter<Post>();
 
   constructor(
     public httpClient: HttpClient,
@@ -47,13 +52,13 @@ export class PostComponent {
   // EVENT - Update Post
   updateList(): void {
     // Emits event to parent component that Post got updated
-    this.update.emit(this.post);
+    this.updateEvent.emit(this.post);
   }
 
   // EVENT - Delete Post
   deleteList(): void {
     // Emits event to parent component that Post got delete
-    this.delete.emit(this.post);
+    this.deleteEvent.emit(this.post);
   }
 
   /*
