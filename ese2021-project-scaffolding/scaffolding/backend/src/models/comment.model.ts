@@ -2,8 +2,8 @@ import {Optional, Model, Sequelize, DataTypes, Association} from 'sequelize';
 import { Post } from './post.model';
 import {ItemImage} from './itemImage.model';
 
-export interface PostItemAttributes {
-    postItemId: number;
+export interface CommentAttributes {
+    commentId: number;
     text: string;
     upvoteCount: number;
     downvoteCount: number;
@@ -11,17 +11,17 @@ export interface PostItemAttributes {
     userId: number;
 }
 
-// tells sequelize that postItemId is not a required field
-export interface PostItemCreationAttributes extends Optional<PostItem, 'postItemId'> { }
+// tells sequelize that commentId is not a required field
+export interface CommentCreationAttributes extends Optional<Comment, 'commentId'> { }
 
 
-export class PostItem extends Model<PostItemAttributes, PostItemCreationAttributes> implements PostItemAttributes {
+export class Comment extends Model<CommentAttributes, CommentCreationAttributes> implements CommentAttributes {
 
     public static associations: {
-        images: Association<PostItem, ItemImage>
+        images: Association<Comment, ItemImage>
     };
 
-    postItemId!: number;
+    commentId!: number;
     text!: string;
     upvoteCount!: number;
     downvoteCount!: number;
@@ -30,8 +30,8 @@ export class PostItem extends Model<PostItemAttributes, PostItemCreationAttribut
 
 
     public static initialize(sequelize: Sequelize) { // definition for database
-        PostItem.init({
-            postItemId: {
+        Comment.init({
+            commentId: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
                 primaryKey: true
@@ -62,7 +62,7 @@ export class PostItem extends Model<PostItemAttributes, PostItemCreationAttribut
 
     }
     public static createAssociations() {
-        PostItem.belongsTo(Post, {
+        Comment.belongsTo(Post, {
             targetKey: 'postId',
             as: 'post',
             onDelete: 'cascade',

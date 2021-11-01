@@ -1,5 +1,5 @@
 import { Optional, Model, HasManyGetAssociationsMixin, HasManyAddAssociationMixin, DataTypes, Sequelize, Association } from 'sequelize';
-import { PostItem } from './post-item.model';
+import { Comment } from './comment.model';
 
 export interface PostAttributes {
     postId: number;
@@ -16,7 +16,7 @@ export interface PostCreationAttributes extends Optional<PostAttributes, 'postId
 export class Post extends Model<PostAttributes, PostCreationAttributes> implements PostAttributes {
 
     public static associations: {
-        todoItems: Association<Post, PostItem>;
+        comments: Association<Post, Comment>;
     };
     postId!: number;
     title!: string;
@@ -26,10 +26,10 @@ export class Post extends Model<PostAttributes, PostCreationAttributes> implemen
     downvoteCount!: number;
     userId!: number;
 
-    public getTodoItems!: HasManyGetAssociationsMixin<PostItem>;
-    public addItem!: HasManyAddAssociationMixin<PostItem, number>;
+    public getTodoItems!: HasManyGetAssociationsMixin<Comment>;
+    public addItem!: HasManyAddAssociationMixin<Comment, number>;
 
-    public readonly postItems?: PostItem[];
+    public readonly comments?: Comment[];
 
     public static initialize(sequelize: Sequelize) {
         Post.init(
@@ -66,12 +66,12 @@ export class Post extends Model<PostAttributes, PostCreationAttributes> implemen
                 },
             },
 
-            { tableName: 'posts12', sequelize }
+            { tableName: 'posts', sequelize }
         );
     }
     public static createAssociations() {
-        Post.hasMany(PostItem, {
-            as: 'postItems',
+        Post.hasMany(Comment, {
+            as: 'comments',
             foreignKey: 'postId'
         });
     }

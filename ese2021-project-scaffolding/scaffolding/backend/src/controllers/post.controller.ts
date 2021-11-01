@@ -41,8 +41,8 @@ postController.delete('/:id', (req: Request, res: Response) => {
 });
 
 postController.get('/', (req: Request, res: Response) => {
-    // this automatically fills each post with the according postitems
-    Post.findAll({ include: [Post.associations.todoItems] })
+    // this automatically fills each post with the according comments
+    Post.findAll({ include: [Post.associations.comments] })
         .then(list => res.status(200).send(list))
         .catch(err => res.status(500).send(err));
 });

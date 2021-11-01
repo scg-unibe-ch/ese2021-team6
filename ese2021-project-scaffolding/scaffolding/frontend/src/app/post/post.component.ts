@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Post } from '../models/post.model';
 import { HttpClient } from '@angular/common/http';
-import { PostItem } from '../models/post-item.model';
+import { Comment } from '../models/comment.model';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -12,16 +12,26 @@ import { environment } from '../../environments/environment';
 })
 export class PostComponent {
 
-  newPostItemName: string = '';
+  newCommentName: string = '';
+
+  postTitle: string = '';
+
+  title: string = '';
 
   @Input()
-  post: Post = new Post(0, '', []);
+  post: Post = new Post(0, '', '', 0, 0, 0, 0, []);
 
   @Output()
-  update = new EventEmitter<Post>();
+  create = new EventEmitter<string>();
 
   @Output()
-  delete = new EventEmitter<Post>();
+  postEvent = new EventEmitter<string>();
+
+  @Output()
+  updateEvent = new EventEmitter<Post>();
+
+  @Output()
+  deleteEvent = new EventEmitter<Post>();
 
   constructor(
     public httpClient: HttpClient,
@@ -32,46 +42,55 @@ export class PostComponent {
     this.dialogRef.close();
   }
 
+  createList(): void {
+    console.log("Creating list")
+    // Emits event to parent component that Post got updated
+    this.create.emit(this.postTitle);
+    console.log("...")
+  }
+
   // EVENT - Update Post
   updateList(): void {
     // Emits event to parent component that Post got updated
-    this.update.emit(this.post);
+    this.updateEvent.emit(this.post);
   }
 
   // EVENT - Delete Post
   deleteList(): void {
     // Emits event to parent component that Post got delete
-    this.delete.emit(this.post);
+    this.deleteEvent.emit(this.post);
   }
 
-  // CREATE - PostItem
+  /*
+  // CREATE - Comment
   createItem(): void {
-    this.httpClient.post(environment.endpointURL + "post-item", {
-      name: this.newPostItemName,
+    this.httpClient.post(environment.endpointURL + "comment", {
+      name: this.newCommentName,
       done: false,
       postId: this.post.postId
     }).subscribe((item: any) => {
-      this.post.postItems.push(new PostItem(item.postItemId, item.postId, item.name, '', item.done));
-      this.newPostItemName = '';
+      this.post.comments.push(new Comment(item.commentId, item.postId, item.name, '', item.done));
+      this.newCommentName = '';
     });
   }
 
-  // READ - PostItem
-  // Not required since all PostItems of a Post are provided with the list itself
+  // READ - Comment
+  // Not required since all Comments of a Post are provided with the list itself
 
-  // UPDATE - PostItem
-  updateItem(postItem: PostItem): void {
-    this.httpClient.put(environment.endpointURL + "post-item/" + postItem.postItemId, {
-      name: postItem.name,
-      done: postItem.done,
-      postId: postItem.postId
+  // UPDATE - Comment
+  updateItem(comment: Comment): void {
+    this.httpClient.put(environment.endpointURL + "comment/" + comment.commentId, {
+      name: comment.name,
+      done: comment.done,
+      postId: comment.postId
     }).subscribe();
   }
 
-  // DELETE - PostItem
-  deleteItem(postItem: PostItem): void {
-    this.httpClient.delete(environment.endpointURL + "post-item/" + postItem.postItemId).subscribe(() => {
-      this.post.postItems.splice(this.post.postItems.indexOf(postItem), 1);
+  // DELETE - Comment
+  deleteItem(comment: Comment): void {
+    this.httpClient.delete(environment.endpointURL + "comment/" + comment.commentId).subscribe(() => {
+      this.post.comments.splice(this.post.comments.indexOf(comment), 1);
     });
   }
+  */
 }

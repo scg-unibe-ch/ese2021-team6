@@ -11,7 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostComponent } from './post/post.component';
-import { PostItemComponent } from './post/post-item/post-item.component';
+import { CommentComponent } from './post/comment/comment.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
@@ -24,7 +24,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
   declarations: [
     AppComponent,
     PostComponent,
-    PostItemComponent,
+    CommentComponent,
     UserComponent,
     ProfileComponent
   ],
