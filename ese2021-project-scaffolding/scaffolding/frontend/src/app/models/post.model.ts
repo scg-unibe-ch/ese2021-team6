@@ -1,10 +1,15 @@
-import { PostItem } from './post-item.model';
+import { Comment } from './comment.model';
 
 export class Post {
 
   constructor(
     public postId: number,
-    public name: string,
-    public postItems: PostItem[]
+    public title: string,
+    public text: string,
+    public imageId: number,
+    public userId: number,
+    public upvoteCount: number,
+    public downvoteCount: number,
+    public comments: Comment[]
   ) {}
 }

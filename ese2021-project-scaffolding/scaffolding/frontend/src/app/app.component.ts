@@ -2,7 +2,7 @@ import { Component, OnInit, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Post } from './models/post.model';
-import { PostItem } from './models/post-item.model';
+import { Comment } from './models/comment.model';
 import { PostComponent } from './post/post.component';
 import { environment } from '../environments/environment';
 import { UserService } from './services/user.service';
@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
   title = 'frontend';
 
   posts: Post[] = [];
+
+  items = ['item1', 'item2', 'item3', 'item4'];
 
   newPostName: string = '';
 
@@ -42,7 +44,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.readLists();
+    //this.readLists(); //ERROR 500
     this.checkUserStatus();
   }
 
@@ -65,30 +67,20 @@ export class AppComponent implements OnInit {
   }
 
   // CREATE - Post
-  createList(): void {
+  createList(newItem: string) {
+    this.items.push(newItem);
+    console.log("string")
+    /*
     this.httpClient.post(environment.endpointURL + "post", {
       name: this.newPostName
     }).subscribe((list: any) => {
       this.posts.push(new Post(list.postId, list.name, []));
       this.newPostName = '';
     })
+    */
   }
-
-  // READ - Post, PostItem
-  readLists(): void {
-    this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
-      lists.forEach((list: any) => {
-        const postItems: PostItem[] = [];
-
-        list.postItems.forEach((item: any) => {
-          postItems.push(new PostItem(item.postItemId, item.postId, item.name, item.itemImage, item.done));
-        });
-
-        this.posts.push(new Post(list.postId, list.name, postItems))
-      });
-    });
-  }
-
+  
+  /*
   // UPDATE - Post
   updateList(post: Post): void {
     this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
@@ -102,13 +94,29 @@ export class AppComponent implements OnInit {
       this.posts.splice(this.posts.indexOf(post), 1);
     });
   }
-
+*/
   checkUserStatus(): void {
     // Get user data from local storage
     const userToken = localStorage.getItem('userToken');
 
     // Set boolean whether a user is logged in or not
     this.userService.setLoggedIn(!!userToken);
-
   }
+
+  /*
+  // READ - Post, Comment
+  readLists(): void {
+    this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
+      lists.forEach((list: any) => {
+        const comments: Comment[] = [];
+
+        list.comments.forEach((item: any) => {
+          comments.push(new Comment(item.commentId, item.postId, item.name, item.itemImage, item.done));
+        });
+
+        this.posts.push(new Post(list.postId, list.name, comments))
+      });
+    });
+  }
+  */
 }

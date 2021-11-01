@@ -7,12 +7,13 @@
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="9"
+            [(ngModel)] = "postTitle"
       ></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="warn" (click)="closePopUp()">Close</button>
-  <button mat-raised-button color="primary" (click)="createItem()">Post</button>
+  <button mat-raised-button color="primary" (click)="createList()">Post</button>
    <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
   <!--<button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
 </div>
@@ -26,7 +27,7 @@
       <input matInput placeholder="List Name" [(ngModel)]="post.name" name="name" (ngModelChange)="updateList()">
     </mat-form-field>
     Button to delete list 
-    <button mat-flat-button color="warn" (click)="deleteList()" [disabled]="post.postItems.length != 0">
+    <button mat-flat-button color="warn" (click)="deleteList()" [disabled]="post.comments.length != 0">
       Delete list
     </button>
 
@@ -34,25 +35,25 @@
 
     <Input field for new item name
     <mat-form-field>
-      <input matInput placeholder="Item Name" [(ngModel)]="newPostItemName">
+      <input matInput placeholder="Item Name" [(ngModel)]="newCommentName">
     </mat-form-field>
     <Button to create item 
-    <button mat-flat-button color="primary" (click)="createItem()" [disabled]="newPostItemName === ''">Create new item</button>
+    <button mat-flat-button color="primary" (click)="createItem()" [disabled]="newCommentName === ''">Create new item</button>
 
     <hr>
 
-    List of PostItemComponents displaying all items of list
+    List of CommentComponents displaying all items of list
     <mat-list>
-      <mat-list-item *ngFor="let postItem of post.postItems">
-        <app-post-item
-          [postItem]="postItem"
+      <mat-list-item *ngFor="let comment of post.comments">
+        <app-comment
+          [comment]="comment"
           (update)="updateItem($event)"
           (delete)="deleteItem($event)"
-        ></app-post-item>
+        ></app-comment>
       </mat-list-item>
     </mat-list>
 
-    <div *ngIf="post.postItems.length === 0">
+    <div *ngIf="post.comments.length === 0">
       No Posts available.
     </div>
   </mat-card>

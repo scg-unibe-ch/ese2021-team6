@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d511c670-ac53-45d4-8786-dc8de55dedfb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/models/post-item.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/post-item.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/comment.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/comment.model.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/models/post.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/post.model.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/user/user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/user/user.component.ts" afterDir="false" />
     </list>

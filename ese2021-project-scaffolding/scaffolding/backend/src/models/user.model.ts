@@ -1,4 +1,4 @@
-import { PostItem, PostItemAttributes, PostItemCreationAttributes } from './post-item.model';
+import { Comment, CommentAttributes, CommentCreationAttributes } from './comment.model';
 import { Optional, Model, Sequelize, DataTypes } from 'sequelize';
 
 export interface UserAttributes {

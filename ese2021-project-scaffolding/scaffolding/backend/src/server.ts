@@ -1,12 +1,12 @@
 import express, { Application , Request, Response } from 'express';
 import morgan from 'morgan';
-import { PostItemController } from './controllers/post-item.controller';
+import { CommentController } from './controllers/comment.controller';
 import { PostController } from './controllers/post.controller';
 import { UserController } from './controllers/user.controller';
 import { SecuredController } from './controllers/secured.controller';
 import { Sequelize } from 'sequelize';
 import { Post } from './models/post.model';
-import { PostItem } from './models/post-item.model';
+import { Comment } from './models/comment.model';
 import { User } from './models/user.model';
 
 
@@ -24,11 +24,11 @@ export class Server {
         this.server = this.configureServer();
         this.sequelize = this.configureSequelize();
 
-        PostItem.initialize(this.sequelize); // creates the tables if they dont exist
+        Comment.initialize(this.sequelize); // creates the tables if they dont exist
         Post.initialize(this.sequelize);
         User.initialize(this.sequelize);
         ItemImage.initialize(this.sequelize);
-        PostItem.createAssociations();
+        Comment.createAssociations();
         Post.createAssociations();
         ItemImage.createAssociations();
 
@@ -62,7 +62,7 @@ export class Server {
             .use(cors())
             .use(express.json())                    // parses an incoming json to an object
             .use(morgan('tiny'))                    // logs incoming requests
-            .use('/post-item', PostItemController)   // any request on this path is forwarded to the TodoItemController
+            .use('/comment', CommentController)   // any request on this path is forwarded to the TodoItemController
             .use('/post', PostController)
             .use('/user', UserController)
             .use('/secured', SecuredController)
@@ -76,7 +76,7 @@ export class Server {
     private configureSequelize(): Sequelize {
         return new Sequelize({
             dialect: 'sqlite',
-            storage: 'C:/Users/Roman/db.sqlite',
+            storage: 'db.sqlite',
             logging: false // can be set to true for debugging
         });
     }

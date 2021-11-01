@@ -1,35 +1,35 @@
 import express from 'express';
 import {Router, Request, Response} from 'express';
-import {PostItem} from '../models/post-item.model';
+import {Comment} from '../models/comment.model';
 import {ItemService} from '../services/item.service';
 import {MulterRequest} from '../models/multerRequest.model';
 
 
 
-const postItemController: Router = express.Router();
+const commentController: Router = express.Router();
 const itemService = new ItemService();
 
 
-postItemController.post('/', (req: Request, res: Response) => {
-    PostItem.create(req.body)
+commentController.post('/', (req: Request, res: Response) => {
+    Comment.create(req.body)
         .then(inserted => res.send(inserted))
         .catch(err => res.status(500).send(err));
 });
 
 // add image to a todoItem
-postItemController.post('/:id/image', (req: MulterRequest, res: Response) => {
+commentController.post('/:id/image', (req: MulterRequest, res: Response) => {
     itemService.addImage(req).then(created => res.send(created)).catch(err => res.status(500).send(err));
 });
 
 // get the filename of an image
-postItemController.get('/:id/image', (req: Request, res: Response) => {
+commentController.get('/:id/image', (req: Request, res: Response) => {
     itemService.getImageItem(Number(req.params.id)).then(products => res.send(products))
         .catch(err => res.status(500).send(err));
 });
 
 
-postItemController.put('/:id', (req: Request, res: Response) => {
-    PostItem.findByPk(req.params.id)
+commentController.put('/:id', (req: Request, res: Response) => {
+    Comment.findByPk(req.params.id)
         .then(found => {
             if (found != null) {
                 found.update(req.body).then(updated => {
@@ -43,8 +43,8 @@ postItemController.put('/:id', (req: Request, res: Response) => {
 
 });
 
-postItemController.delete('/:id', (req: Request, res: Response) => {
-    PostItem.findByPk(req.params.id)
+commentController.delete('/:id', (req: Request, res: Response) => {
+    Comment.findByPk(req.params.id)
         .then(found => {
             if (found != null) {
                 found.destroy().then(() => res.status(200).send());
@@ -55,4 +55,4 @@ postItemController.delete('/:id', (req: Request, res: Response) => {
         .catch(err => res.status(500).send(err));
 });
 
-export const PostItemController: Router = postItemController;
+export const CommentController: Router = commentController;

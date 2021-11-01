@@ -17,9 +17,12 @@
     <app-post
       *ngFor="let post of posts"
       [post]="post"
+      (create)="createList($event)"
+    ></app-post>
+    <!--
       (update)="updateList($event)"
       (delete)="deleteList($event)"
-    ></app-post>
+    -->
   </mat-tab>
 
   <mat-tab label="Authentication">
