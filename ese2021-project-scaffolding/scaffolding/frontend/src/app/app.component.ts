@@ -7,7 +7,7 @@ import { PostComponent } from './post/post.component';
 import { environment } from '../environments/environment';
 import { UserService } from './services/user.service';
 import { User } from './models/user.model';
-
+import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -15,13 +15,12 @@ import { User } from './models/user.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
+
+  title: string = ''
+  text: string = ''
+  imageId: number = 0
 
   posts: Post[] = [];
-
-  items = ['item1', 'item2', 'item3', 'item4'];
-
-  newPostName: string = '';
 
   loggedIn: boolean | undefined;
 
@@ -30,8 +29,7 @@ export class AppComponent implements OnInit {
   constructor(
     public httpClient: HttpClient,
     public userService: UserService,
-    public dialog: MatDialog, // constructing a popup dialog only one time
-    //public dialogRef: MatDialogRef<post>,
+    public dialog: MatDialog, 
   ) {
 
     // Listen for changes
@@ -44,53 +42,71 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.readLists(); //ERROR 500
+    this.readLists(); 
     this.checkUserStatus();
   }
 
   openPopUp(): void {
-    //public dialogRef: MatDialogRef<DialogOverviewExampleDialog>
-   //@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-    const dialogRef = this.dialog.open(PostComponent, {
+    const dialogRef = this.dialog.open(DialogComponent, {
       width: '750px',
-      height: '350px'
+      height: '350px',
     });
-    /*
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.animal = result;
-    });
-    */
+    const sub = dialogRef.componentInstance.createPost.subscribe(result => {
+      this.createList(result);
+    })
+    const subTitle = dialogRef.componentInstance.addTitle.subscribe(result => {
+      this.title = result;
+    })
   }
 
   // CREATE - Post
-  createList(newItem: string) {
-    this.items.push(newItem);
-    console.log("string")
-    /*
+  // Mach das man nur posten kann wenn man eingeloggt ist!
+  createList(text: string) {
     this.httpClient.post(environment.endpointURL + "post", {
-      name: this.newPostName
+      postId: 0, 
+      title: this.title,
+      text: text,
+      imageId: 0,
+      upvoteCount: 0,
+      downvoteCount:0,
+      userId: 0 //this.userService.getUser()?.userId
     }).subscribe((list: any) => {
-      this.posts.push(new Post(list.postId, list.name, []));
-      this.newPostName = '';
+      this.posts.push(new Post(list.postId, list.title, list.text, list.imageId, 
+        list.upvoteCount, list.downvoteCount, list.userId, []));
     })
-    */
   }
   
+ // DELETE - Post
+ deleteList(post: Post): void {
+  this.httpClient.delete(environment.endpointURL + "post/" + post.postId).subscribe(() => {
+    this.posts.splice(this.posts.indexOf(post), 1);
+  });
+}
+
+upvotePost(post: Post): void {
+  this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+    upvoteCount: post.upvoteCount + 1
+  }).subscribe(res => {
+    post.upvoteCount += 1
+  });
+ }
+
+downvotePost(post: Post): void {
+  this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+    downvoteCount: post.downvoteCount + 1
+  }).subscribe(res => {
+    post.downvoteCount += 1
+  });
+ }
+
+
+
   /*
   // UPDATE - Post
   updateList(post: Post): void {
     this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
       name: post.name
     }).subscribe();
-  }
-
-  // DELETE - Post
-  deleteList(post: Post): void {
-    this.httpClient.delete(environment.endpointURL + "post/" + post.postId).subscribe(() => {
-      this.posts.splice(this.posts.indexOf(post), 1);
-    });
   }
 */
   checkUserStatus(): void {
@@ -101,20 +117,21 @@ export class AppComponent implements OnInit {
     this.userService.setLoggedIn(!!userToken);
   }
 
-  /*
+
   // READ - Post, Comment
   readLists(): void {
     this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
       lists.forEach((list: any) => {
+
         const comments: Comment[] = [];
 
         list.comments.forEach((item: any) => {
-          comments.push(new Comment(item.commentId, item.postId, item.name, item.itemImage, item.done));
+          comments.push(new Comment(0, 0, '', 0, 0, 0));
         });
 
-        this.posts.push(new Post(list.postId, list.name, comments))
+        this.posts.push(new Post(list.postId, list.title, list.text, list.imageId, 
+          list.upvoteCount, list.downvoteCount, list.userId, comments))
       });
     });
   }
-  */
 }

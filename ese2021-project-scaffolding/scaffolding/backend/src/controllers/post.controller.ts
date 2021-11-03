@@ -5,6 +5,7 @@ import { Post } from '../models/post.model';
 const postController: Router = express.Router();
 
 postController.post('/', (req: Request, res: Response) => {
+    console.log(req.body);
     Post.create(req.body).then(created => {
         res.status(201).send(created);
     })

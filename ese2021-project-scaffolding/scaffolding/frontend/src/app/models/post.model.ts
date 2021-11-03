@@ -7,9 +7,9 @@ export class Post {
     public title: string,
     public text: string,
     public imageId: number,
-    public userId: number,
     public upvoteCount: number,
     public downvoteCount: number,
+    public userId: number,
     public comments: Comment[]
   ) {}
 }

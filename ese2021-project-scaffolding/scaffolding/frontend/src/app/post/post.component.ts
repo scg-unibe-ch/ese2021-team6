@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter, Inject, Optional} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Post } from '../models/post.model';
 import { HttpClient } from '@angular/common/http';
@@ -12,8 +12,6 @@ import { environment } from '../../environments/environment';
 })
 export class PostComponent {
 
-  newCommentName: string = '';
-
   postTitle: string = '';
 
   title: string = '';
@@ -25,29 +23,20 @@ export class PostComponent {
   create = new EventEmitter<string>();
 
   @Output()
-  postEvent = new EventEmitter<string>();
-
-  @Output()
   updateEvent = new EventEmitter<Post>();
 
   @Output()
   deleteEvent = new EventEmitter<Post>();
 
+  @Output()
+  upvoteEvent = new EventEmitter<Post>();
+
+  @Output()
+  downvoteEvent = new EventEmitter<Post>();
+
   constructor(
     public httpClient: HttpClient,
-    public dialogRef: MatDialogRef<PostComponent> // Connects to the popup in the postcomponent
   ) {}
-
-  closePopUp(): void {
-    this.dialogRef.close();
-  }
-
-  createList(): void {
-    console.log("Creating list")
-    // Emits event to parent component that Post got updated
-    this.create.emit(this.postTitle);
-    console.log("...")
-  }
 
   // EVENT - Update Post
   updateList(): void {
@@ -57,8 +46,21 @@ export class PostComponent {
 
   // EVENT - Delete Post
   deleteList(): void {
+    console.log(this.post);
     // Emits event to parent component that Post got delete
     this.deleteEvent.emit(this.post);
+  }
+
+  upVote(): void {
+    this.upvoteEvent.emit(this.post);
+  }
+
+  downVote(): void {
+    this.downvoteEvent.emit(this.post);
+  }
+
+  createComment(): void {
+
   }
 
   /*
