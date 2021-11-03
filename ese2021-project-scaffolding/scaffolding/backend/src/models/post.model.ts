@@ -26,8 +26,8 @@ export class Post extends Model<PostAttributes, PostCreationAttributes> implemen
     downvoteCount!: number;
     userId!: number;
 
-    public getTodoItems!: HasManyGetAssociationsMixin<Comment>;
-    public addItem!: HasManyAddAssociationMixin<Comment, number>;
+    public getComments!: HasManyGetAssociationsMixin<Comment>;
+    public addComment!: HasManyAddAssociationMixin<Comment, number>;
 
     public readonly comments?: Comment[];
 

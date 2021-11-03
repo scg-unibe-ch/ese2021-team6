@@ -4,7 +4,7 @@ export class Comment {
     public commentId: number,
     public postId: number,
     public text: string,
-    public userId: boolean,
+    public userId: number,
     public upvoteCount: number,
     public downvoteCount: number,
   ) {}

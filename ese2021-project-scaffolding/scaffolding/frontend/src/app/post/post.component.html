@@ -1,24 +1,20 @@
-<h1 mat-dialog-title> Create a new Post </h1>
-<div mat-dialog-content>
-  <mat-form-field [style.width.px]=500>
-      <textarea matInput
-            matInput placeholder="Write something..."
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="9"
-            [(ngModel)] = "postTitle"
-      ></textarea>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-raised-button color="warn" (click)="closePopUp()">Close</button>
-  <button mat-raised-button color="primary" (click)="createList()">Post</button>
-   <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
-  <!--<button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
-</div>
+ <mat-card>
+ <button mat-flat-button color="primary" (click)="upVote()">
+    {{post.upvoteCount}}
+  </button>
 
+  <button mat-flat-button color="warn" (click)="downVote()">
+    {{post.downvoteCount}}
+  </button>
+</mat-card>
+ 
+<button mat-flat-button color="primary" (click)="createComment()" [disabled]="post.comments.length != 0">
+  Comment
+</button>
 
+<button mat-flat-button color="warn" (click)="deleteList()" [disabled]="post.comments.length != 0">
+  Delete Post
+</button>
 
 <!--
   <mat-card>
@@ -33,17 +29,12 @@
 
     <br>
 
-    <Input field for new item name
-    <mat-form-field>
-      <input matInput placeholder="Item Name" [(ngModel)]="newCommentName">
-    </mat-form-field>
-    <Button to create item 
-    <button mat-flat-button color="primary" (click)="createItem()" [disabled]="newCommentName === ''">Create new item</button>
 
-    <hr>
+ <mat-card>
+ <hr>
 
-    List of CommentComponents displaying all items of list
-    <mat-list>
+  List of CommentComponents displaying all items of list
+   <mat-list>
       <mat-list-item *ngFor="let comment of post.comments">
         <app-comment
           [comment]="comment"
@@ -57,4 +48,11 @@
       No Posts available.
     </div>
   </mat-card>
+
+    <Input field for new item name
+    <mat-form-field>
+      <input matInput placeholder="Item Name" [(ngModel)]="newCommentName">
+    </mat-form-field>
+    <Button to create item 
+    <button mat-flat-button color="primary" (click)="createItem()" [disabled]="newCommentName === ''">Create new item</button>
 -->

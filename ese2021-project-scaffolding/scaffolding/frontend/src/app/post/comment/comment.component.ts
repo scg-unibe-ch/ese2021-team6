@@ -9,7 +9,7 @@ import { Comment } from '../../models/comment.model';
 export class CommentComponent {
 
   @Input()
-  comment: Comment = new Comment(0, 0, '', false, 0, 0);
+  comment: Comment = new Comment(0, 0, '', 0, 0, 0);
 
   @Output()
   update = new EventEmitter<Comment>();
