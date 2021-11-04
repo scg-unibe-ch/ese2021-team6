@@ -50,6 +50,7 @@ export class AppComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '750px',
       height: '350px',
+      data: { value: "post" },
     });
     const sub = dialogRef.componentInstance.createPost.subscribe(result => {
       this.createList(result);
@@ -99,16 +100,6 @@ downvotePost(post: Post): void {
   });
  }
 
-
-
-  /*
-  // UPDATE - Post
-  updateList(post: Post): void {
-    this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-      name: post.name
-    }).subscribe();
-  }
-*/
   checkUserStatus(): void {
     // Get user data from local storage
     const userToken = localStorage.getItem('userToken');
@@ -116,7 +107,6 @@ downvotePost(post: Post): void {
     // Set boolean whether a user is logged in or not
     this.userService.setLoggedIn(!!userToken);
   }
-
 
   // READ - Post, Comment
   readLists(): void {
@@ -126,7 +116,7 @@ downvotePost(post: Post): void {
         const comments: Comment[] = [];
 
         list.comments.forEach((item: any) => {
-          comments.push(new Comment(0, 0, '', 0, 0, 0));
+          comments.push(new Comment(0, '', 0, 0, 0, 0));
         });
 
         this.posts.push(new Post(list.postId, list.title, list.text, list.imageId, 
