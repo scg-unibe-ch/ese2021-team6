@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { Post } from '../models/post.model';
 import { HttpClient } from '@angular/common/http';
 import { Comment } from '../models/comment.model';
+import { DialogComponent } from '../dialog/dialog.component';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -12,15 +13,8 @@ import { environment } from '../../environments/environment';
 })
 export class PostComponent {
 
-  postTitle: string = '';
-
-  title: string = '';
-
   @Input()
   post: Post = new Post(0, '', '', 0, 0, 0, 0, []);
-
-  @Output()
-  create = new EventEmitter<string>();
 
   @Output()
   updateEvent = new EventEmitter<Post>();
@@ -34,8 +28,11 @@ export class PostComponent {
   @Output()
   downvoteEvent = new EventEmitter<Post>();
 
+  commentText: string = '';
+
   constructor(
     public httpClient: HttpClient,
+    public dialog: MatDialog, 
   ) {}
 
   // EVENT - Update Post
@@ -59,23 +56,34 @@ export class PostComponent {
     this.downvoteEvent.emit(this.post);
   }
 
-  createComment(): void {
-
+  openPopUp(): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '750px',
+      height: '350px',
+      data: { value: "comment" },
+    });
+     const commentEvent = dialogRef.componentInstance.createComment.subscribe(result => {
+       console.log("EVENT RECEIVED")
+      this.createComment(result);
+    })
   }
 
-  /*
-  // CREATE - Comment
-  createItem(): void {
+  createComment(text: string): void {
+    console.log(text)
     this.httpClient.post(environment.endpointURL + "comment", {
-      name: this.newCommentName,
-      done: false,
-      postId: this.post.postId
+      commentId: 0, 
+      text: text,
+      upvoteCount: 0,
+      downvoteCount:0,
+      postId: this.post.postId,
+      userId: 0 //this.userService.getUser()?.userId
     }).subscribe((item: any) => {
-      this.post.comments.push(new Comment(item.commentId, item.postId, item.name, '', item.done));
-      this.newCommentName = '';
+      this.post.comments.push(new Comment(item.commentId, item.text, item.upvoteCount 
+        ,item.downvoteCount, item.postId, item.userId));
     });
   }
 
+  /*
   // READ - Comment
   // Not required since all Comments of a Post are provided with the list itself
 

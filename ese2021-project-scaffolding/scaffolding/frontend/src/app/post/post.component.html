@@ -8,13 +8,30 @@
   </button>
 </mat-card>
  
-<button mat-flat-button color="primary" (click)="createComment()" [disabled]="post.comments.length != 0">
+<button mat-flat-button color="primary" (click)="openPopUp()">
   Comment
 </button>
 
-<button mat-flat-button color="warn" (click)="deleteList()" [disabled]="post.comments.length != 0">
+<button mat-flat-button color="warn" (click)="deleteList()">
   Delete Post
 </button>
+
+  <mat-list>
+     <mat-list-item *ngFor="let comment of post.comments">
+      <mat-card>
+          {{comment.text}}
+        </mat-card>
+        <app-comment
+          [comment]="comment"
+        ></app-comment>
+      </mat-list-item>
+    </mat-list>
+
+ <mat-card>
+    <div *ngIf="post.comments.length === 0">
+      No Posts available.
+    </div>
+  </mat-card>
 
 <!--
   <mat-card>

@@ -10,7 +10,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 export class DialogComponent {
 
   postTitle: string = '';
-  postText: string = '';
+  text: string = '';
 
   @Output()
   addTitle = new EventEmitter<string>();
@@ -18,13 +18,22 @@ export class DialogComponent {
   @Output()
   createPost = new EventEmitter<string>();
 
+  @Output()
+  createComment = new EventEmitter<string>();
+
   constructor(
-    public dialogRef: MatDialogRef<DialogComponent>
+    public dialogRef: MatDialogRef<DialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {value: string}
     ){}
 
   publishPost(): void {
     this.addTitle.emit(this.postTitle);
-    this.createPost.emit(this.postText);
+    this.createPost.emit(this.text);
+    this.dialogRef.close();
+  }
+
+  publishComment(): void {
+    this.createComment.emit(this.text);
     this.dialogRef.close();
   }
 

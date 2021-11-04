@@ -1,7 +1,11 @@
 <h1 mat-dialog-title>
-<mat-form-field>
+
+<div *ngIf="data.value === 'post'">
+  <mat-form-field>
    <input matInput placeholder="Write a title..." [(ngModel)]="postTitle" name="name">
- </mat-form-field>
+  </mat-form-field>
+</div>
+
 </h1>
 <div mat-dialog-content>
   <mat-form-field [style.width.px]=500>
@@ -11,13 +15,21 @@
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="9"
-            [(ngModel)] = "postText"
+            [(ngModel)] = "text"
       ></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="warn" (click)="closeDialog()">Close</button>
+
+  <div *ngIf="data.value === 'post'">
   <button mat-raised-button color="primary" (click)="publishPost()">Post</button>
+  </div>
+
+  <div *ngIf="data.value === 'comment'">
+  <button mat-raised-button color="primary" (click)="publishComment()">Comment</button>
+  </div>
+
    <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
   <!--<button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
 </div>
