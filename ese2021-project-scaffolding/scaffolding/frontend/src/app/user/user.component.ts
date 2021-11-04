@@ -25,10 +25,11 @@ export class UserComponent {
   endpointMsgUser: string = '';
   endpointMsgAdmin: string = '';
 
-
+  // Tons of messages to tell the user that he did something
   loginErrorMsg: string = '';
   passwordConditionErrorMsg: string = '';
   registerErrorMsg: string = '';
+  registrationAcceptedMsg: string = '';
 
   constructor(
     public httpClient: HttpClient,
@@ -45,6 +46,7 @@ export class UserComponent {
 
   checkPasswordConditions(): boolean {
     this.passwordConditionErrorMsg = '';
+    this.registrationAcceptedMsg = '';
 
     let userPassword = this.userToRegister.password;
     let hasANumber = false;
@@ -77,6 +79,7 @@ export class UserComponent {
           return false;
         }
       }
+      // Returns what's wrong with the password
       let errorMsg = '';
       if (!hasANumber) {errorMsg += 'Number missing\n'}
       if (!hasASmallLetter) {errorMsg += 'Small letter missing\n'}
@@ -95,6 +98,7 @@ export class UserComponent {
   }
 
   checkNoEmptyFields(): boolean{
+    // The commented checks are here to ease testing
     this.registerErrorMsg = '';
     let noEmptyFields = true;
     if (this.userToRegister.username.length == 0){noEmptyFields = false}
@@ -107,6 +111,7 @@ export class UserComponent {
     //if (this.userinformationToRegister.birthday == 0){noEmptyFields = false}
     //if (this.userinformationToRegister.phonenumber == 0){noEmptyFields = false}
     if(!noEmptyFields){
+      this.registrationAcceptedMsg = '';
       this.registerErrorMsg = 'Please fill out the required fields.';
     }
     return noEmptyFields;
@@ -114,6 +119,7 @@ export class UserComponent {
   }
 
   registerUser(): void {
+    // If all registration conditions are met, the user information will be saved in the DB
     if (this.checkNoEmptyFields() /*&& this.checkPasswordConditions()*/) {
       this.httpClient.post(environment.endpointURL + "user/register", {
         userName: this.userToRegister.username,
@@ -125,7 +131,7 @@ export class UserComponent {
         zipCode: this.userinformationToRegister.zipCode,
         city: this.userinformationToRegister.city,
         birthday: this.userinformationToRegister.birthday,
-        phoneNumber: this.userinformationToRegister.phonenumber
+        phoneNumber: this.userinformationToRegister.phonenumber       
       }).subscribe(() => {
         this.passwordConditionErrorMsg = '';
 
@@ -140,12 +146,14 @@ export class UserComponent {
         this.userinformationToRegister.zipCode =
         this.userinformationToRegister.birthday =
         this.userinformationToRegister.phonenumber = 0;
+        this.registrationAcceptedMsg = "Your Account is now registered";
       }, () => {
+        this.registrationAcceptedMsg = '';
         this.registerErrorMsg = "Username or Email already exists.";
       });
     }
   }
-
+  // Logs in the user or tells the user, that username or password weren't found
   loginUser(): void {
     if(this.userToLogin.username.length > 0){
       this.httpClient.post(environment.endpointURL + "user/login", {
@@ -166,7 +174,7 @@ export class UserComponent {
       });
     }
   }
-
+  //Logs out the user
   logoutUser(): void {
     localStorage.removeItem('userName');
     localStorage.removeItem('userToken');
@@ -174,7 +182,7 @@ export class UserComponent {
     this.userService.setLoggedIn(false);
     this.userService.setUser(undefined);
   }
-
+  //Endpoint testing
   accessUserEndpoint(): void {
     this.httpClient.get(environment.endpointURL + "secured").subscribe(() => {
       this.endpointMsgUser = "Access granted";

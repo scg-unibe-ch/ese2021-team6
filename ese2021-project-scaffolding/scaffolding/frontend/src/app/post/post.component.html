@@ -1,4 +1,13 @@
- <mat-card>
+<!--This is how the posts will appear on the front page-->
+<mat-card>
+  {{post.title}}
+</mat-card>
+
+<mat-card>
+  {{post.text}}
+</mat-card>
+
+<mat-card>
  <button mat-flat-button color="primary" (click)="upVote()">
     {{post.upvoteCount}}
   </button>
@@ -23,16 +32,16 @@
         </mat-card>
         <app-comment
           [comment]="comment"
+          (deleteEvent)="deleteComment($event)"
         ></app-comment>
       </mat-list-item>
     </mat-list>
 
+<div *ngIf="post.comments.length === 0">
  <mat-card>
-    <div *ngIf="post.comments.length === 0">
-      No Posts available.
-    </div>
+      No comments available.
   </mat-card>
-
+</div>
 <!--
   <mat-card>
     Input field with list name 

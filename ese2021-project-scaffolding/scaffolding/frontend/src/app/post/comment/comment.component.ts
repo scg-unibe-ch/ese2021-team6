@@ -12,18 +12,18 @@ export class CommentComponent {
   comment: Comment = new Comment(0, '', 0, 0, 0, 0);
 
   @Output()
-  update = new EventEmitter<Comment>();
+  updateEvent = new EventEmitter<Comment>();
 
   @Output()
-  delete = new EventEmitter<Comment>();
+  deleteEvent = new EventEmitter<Comment>();
 
-  updateItem(): void {
+  updateComment(): void {
     // Emits event to parent component that Comment got updated
-    this.update.emit(this.comment);
+    this.updateEvent.emit(this.comment);
   }
 
-  deleteItem(): void {
+  deleteComment(): void {
     // Emits event to parent component that Comment got deleted
-    this.delete.emit(this.comment);
+    this.deleteEvent.emit(this.comment);
   }
 }
