@@ -5,7 +5,7 @@
 </mat-toolbar>
 
 <mat-tab-group>
-  <mat-tab label="Post Example">
+  <mat-tab label="Forum">
     <mat-card>
       <!--<mat-form-field>-->
         <button mat-raised-button (click)="openPopUp()">New Post</button>
@@ -13,23 +13,18 @@
       <!--</mat-form-field>-->
       <!--<button mat-flat-button color="primary" (click)="createList()" [disabled]="newPostName === ''">Create new list</button>-->
     </mat-card>
+<!--This makes the posts appear on the post page-->
+    <mat-list-item *ngFor="let post of posts">
+      <mat-card>
+            <app-post
+              [post]="post"
+              (deleteEvent)="deleteList($event)"
+              (upvoteEvent)="upvotePost($event)"
+              (downvoteEvent)="downvotePost($event)"
+            ></app-post>
+      </mat-card>
+    </mat-list-item>
 
-<mat-card>
-   <mat-list-item *ngFor="let post of posts">
-        <mat-card>
-          {{post.title}}
-        </mat-card>
-        <mat-card>
-          {{post.text}}
-        </mat-card>
-        <app-post
-          [post]="post"
-          (deleteEvent)="deleteList($event)"
-          (upvoteEvent)="upvotePost($event)"
-          (downvoteEvent)="downvotePost($event)"
-        ></app-post>
-   </mat-list-item>
-</mat-card>
   
     <!--
       (update)="updateList($event)"
