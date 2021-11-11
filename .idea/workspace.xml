@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9d02cdf-54f7-4856-b4c3-bdb027f23325" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +25,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
     <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
@@ -58,6 +61,8 @@
       <workItem from="1634221557584" duration="532000" />
       <workItem from="1634223451298" duration="588000" />
       <workItem from="1634240675092" duration="3935000" />
+      <workItem from="1636637742750" duration="158000" />
+      <workItem from="1636637926968" duration="3221000" />
     </task>
     <servers />
   </component>
