@@ -5,13 +5,14 @@ import { HttpClient } from '@angular/common/http';
 import { Comment } from '../models/comment.model';
 import { DialogComponent } from '../dialog/dialog.component';
 import { environment } from '../../environments/environment';
+import { IEvent } from '..//IEvent'
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent {
+export class PostComponent implements IEvent{
   //Event Emitters to interact with Backend
   @Input()
   post: Post = new Post(0, '', '', 0, 0, 0, 0, []);
@@ -36,13 +37,13 @@ export class PostComponent {
   ) {}
 
   // EVENT - Update Post
-  updateList(): void {
+  update(): void {
     // Emits event to parent component that Post got updated
     this.updateEvent.emit(this.post);
   }
 
   // EVENT - Delete Post
-  deleteList(): void {
+  delete(): void {
     console.log(this.post);
     // Emits event to parent component that Post got delete
     this.deleteEvent.emit(this.post);

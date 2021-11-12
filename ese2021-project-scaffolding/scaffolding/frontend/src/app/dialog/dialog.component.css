@@ -1,0 +1,9 @@
+.file-input {
+    display: none;
+}
+
+.upload-btn {
+    position: fixed;
+    right: 190px;
+    bottom: 160px;
+}

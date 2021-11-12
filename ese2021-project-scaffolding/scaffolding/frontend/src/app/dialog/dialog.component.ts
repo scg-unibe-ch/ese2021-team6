@@ -1,3 +1,4 @@
+import { flatten } from '@angular/compiler';
 import { Component, Input, Output, EventEmitter, Inject, Optional} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
@@ -21,6 +22,9 @@ export class DialogComponent {
   @Output()
   createComment = new EventEmitter<string>();
 
+  @Output()
+  addImage = new EventEmitter<any>();
+
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {value: string}
@@ -30,6 +34,15 @@ export class DialogComponent {
     this.addTitle.emit(this.postTitle);
     this.createPost.emit(this.text);
     this.dialogRef.close();
+  }
+
+  onFileSelected(event: any): void {
+    const file:File = event.target.files[0];
+
+    if (file) {
+        console.log(file)
+        this.addImage.emit(file)
+    }
   }
 
   publishComment(): void {

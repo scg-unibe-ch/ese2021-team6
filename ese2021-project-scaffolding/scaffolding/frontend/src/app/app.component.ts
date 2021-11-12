@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   title: string = ''
   text: string = ''
   imageId: number = 0
+  file: File | undefined; // Temporary file that is used after post is created to load into db
 
   posts: Post[] = [];
 
@@ -58,6 +59,11 @@ export class AppComponent implements OnInit {
     const subTitle = dialogRef.componentInstance.addTitle.subscribe(result => {
       this.title = result;
     })
+    const subImage = dialogRef.componentInstance.addImage.subscribe(result => {
+      console.log("File:")
+      console.log(result)
+      this.file = result
+    })
   }
 
   // CREATE - Post
@@ -72,8 +78,20 @@ export class AppComponent implements OnInit {
       downvoteCount:0,
       userId: 0 //this.userService.getUser()?.userId
     }).subscribe((list: any) => {
+
       this.posts.push(new Post(list.postId, list.title, list.text, list.imageId, 
         list.upvoteCount, list.downvoteCount, list.userId, []));
+
+        if (this.file != undefined) {
+          console.log("Loading image" + this.file + "...with id:" + list.postId)
+          this.httpClient.post(environment.endpointURL + "post/" + list.postId + "/image" , {
+            file: this.file // Check if file is passed correctly
+          }
+          ).subscribe(() => {
+            console.log("Uploaded to database")
+            this.file = undefined
+          })
+        }
     })
   }
   

@@ -1,6 +1,10 @@
 import express from 'express';
 import { Router, Request, Response } from 'express';
 import { Post } from '../models/post.model';
+import { ItemService } from '../services/item.service';
+import {MulterRequest} from '../models/multerRequest.model';
+
+const itemService = new ItemService();
 
 const postController: Router = express.Router();
 
@@ -45,6 +49,20 @@ postController.get('/', (req: Request, res: Response) => {
     // this automatically fills each post with the according comments
     Post.findAll({ include: [Post.associations.comments] })
         .then(list => res.status(200).send(list))
+        .catch(err => res.status(500).send(err));
+});
+
+
+// add image to a post
+postController.post('/:id/image', (req: MulterRequest, res: Response) => {
+    console.log('From controller:');
+    console.log(req.body);
+    itemService.addImage(req).then(created => res.send(created)).catch(err => res.status(500).send(err));
+});
+
+// get the filename of an image
+postController.get('/:id/image', (req: Request, res: Response) => {
+    itemService.getImageItem(Number(req.params.id)).then(products => res.send(products))
         .catch(err => res.status(500).send(err));
 });
 

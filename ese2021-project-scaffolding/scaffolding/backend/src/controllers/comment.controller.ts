@@ -17,18 +17,6 @@ commentController.post('/', (req: Request, res: Response) => {
         .catch(err => res.status(500).send(err));
 });
 
-// add image to a todoItem
-commentController.post('/:id/image', (req: MulterRequest, res: Response) => {
-    itemService.addImage(req).then(created => res.send(created)).catch(err => res.status(500).send(err));
-});
-
-// get the filename of an image
-commentController.get('/:id/image', (req: Request, res: Response) => {
-    itemService.getImageItem(Number(req.params.id)).then(products => res.send(products))
-        .catch(err => res.status(500).send(err));
-});
-
-
 commentController.put('/:id', (req: Request, res: Response) => {
     Comment.findByPk(req.params.id)
         .then(found => {
