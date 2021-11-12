@@ -20,6 +20,7 @@ import { UserComponent } from './user/user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import {MatIcon, MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     MatToolbarModule,
     MatTabsModule,
     MatCardModule,
+    MatIconModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

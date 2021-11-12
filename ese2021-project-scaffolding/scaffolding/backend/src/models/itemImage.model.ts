@@ -1,22 +1,22 @@
 import { Optional, Model, DataTypes, Sequelize, Association } from 'sequelize';
-import {Comment} from './comment.model';
+import {Post} from './post.model';
 
 export interface ItemImageAttributes {
     imageId: number;
     fileName: string;
-    commentId: number;
+    postId: number;
 }
 
 export interface ItemCreationAttributes extends Optional<ItemImageAttributes, 'imageId'> { }
 
 export class ItemImage extends Model<ItemImageAttributes, ItemCreationAttributes> implements ItemImageAttributes {
     public static associations: {
-        product: Association<Comment, ItemImage>;
+        product: Association<Post, ItemImage>;
     };
 
     imageId!: number;
     fileName!: string;
-    commentId!: number;
+    postId!: number;
 
     public static initialize(sequelize: Sequelize) {
         ItemImage.init(
@@ -30,7 +30,7 @@ export class ItemImage extends Model<ItemImageAttributes, ItemCreationAttributes
                     type: DataTypes.STRING,
                     allowNull: false
                 },
-                commentId: {
+                postId: {
                     type: DataTypes.INTEGER,
                     allowNull: false
                 }
@@ -40,11 +40,11 @@ export class ItemImage extends Model<ItemImageAttributes, ItemCreationAttributes
     }
 
     public static createAssociations() {
-        ItemImage.belongsTo(Comment, {
-            targetKey: 'commentId',
+        ItemImage.belongsTo(Post, {
+            targetKey: 'postId',
             as: 'item',
             onDelete: 'cascade',
-            foreignKey: 'commentId'
+            foreignKey: 'postId'
         });
     }
 }

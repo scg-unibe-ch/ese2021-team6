@@ -24,7 +24,17 @@
   <button mat-raised-button color="warn" (click)="closeDialog()">Close</button>
 
   <div *ngIf="data.value === 'post'">
-  <button mat-raised-button color="primary" (click)="publishPost()">Post</button>
+    <button mat-raised-button color="primary" (click)="publishPost()">Post</button>
+
+    <input type="file" class="file-input"
+       (change)="onFileSelected($event)" #fileUpload>
+
+    <div class="file-upload">
+        <button mat-mini-fab color="primary" class="upload-btn"
+          (click)="fileUpload.click()">
+            <mat-icon>+</mat-icon>
+        </button>
+    </div>
   </div>
 
   <div *ngIf="data.value === 'comment'">
