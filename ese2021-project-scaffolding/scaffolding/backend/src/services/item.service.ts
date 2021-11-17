@@ -8,6 +8,8 @@ export class ItemService {
     public addImage(req: MulterRequest): Promise<ItemImageAttributes> {
         console.log('From itemService:');
         console.log(req.params);
+        const name = String(req.body.filename);
+        console.log(name);
         return Post.findByPk(req.params.id)
             .then(found => {
                 if (!found) {

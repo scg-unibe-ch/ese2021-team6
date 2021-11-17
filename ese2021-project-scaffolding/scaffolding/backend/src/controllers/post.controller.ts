@@ -9,7 +9,8 @@ const itemService = new ItemService();
 const postController: Router = express.Router();
 
 postController.post('/', (req: Request, res: Response) => {
-    console.log(req.body);
+    const name = String(req.body.filename);
+    console.log(name);
     Post.create(req.body).then(created => {
         res.status(201).send(created);
     })
