@@ -12,6 +12,7 @@ export class DialogComponent {
 
   postTitle: string = '';
   text: string = '';
+  category: string = '';
 
   @Output()
   addTitle = new EventEmitter<string>();
@@ -25,6 +26,9 @@ export class DialogComponent {
   @Output()
   addImage = new EventEmitter<any>();
 
+  @Output()
+  addCategory = new EventEmitter<string>();
+
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {value: string}
@@ -32,6 +36,8 @@ export class DialogComponent {
 
   publishPost(): void {
     this.addTitle.emit(this.postTitle);
+    this.addCategory.emit(this.category);
+    
     this.createPost.emit(this.text);
     this.dialogRef.close();
   }

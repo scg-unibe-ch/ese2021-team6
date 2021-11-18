@@ -9,6 +9,7 @@ export interface PostAttributes {
     upvoteCount: number;
     downvoteCount: number;
     userId: number;
+    category: string;
 }
 
 export interface PostCreationAttributes extends Optional<PostAttributes, 'postId'> { }
@@ -25,6 +26,7 @@ export class Post extends Model<PostAttributes, PostCreationAttributes> implemen
     upvoteCount!: number;
     downvoteCount!: number;
     userId!: number;
+    category!: string;
 
     public getComments!: HasManyGetAssociationsMixin<Comment>;
     public addComment!: HasManyAddAssociationMixin<Comment, number>;
@@ -64,6 +66,10 @@ export class Post extends Model<PostAttributes, PostCreationAttributes> implemen
                     allowNull: false,
                     unique: true
                 },
+                category: {
+                    type: DataTypes.STRING,
+                    allowNull: true
+                }
             },
 
             { tableName: 'posts', sequelize }

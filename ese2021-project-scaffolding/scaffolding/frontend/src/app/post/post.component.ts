@@ -15,7 +15,7 @@ import { IEvent } from '..//IEvent'
 export class PostComponent implements IEvent{
   //Event Emitters to interact with Backend
   @Input()
-  post: Post = new Post(0, '', '', 0, 0, 0, 0, []);
+  post: Post = new Post(0, '', '', 0, 0, 0, 0, [], '', '');
 
   @Output()
   updateEvent = new EventEmitter<Post>();

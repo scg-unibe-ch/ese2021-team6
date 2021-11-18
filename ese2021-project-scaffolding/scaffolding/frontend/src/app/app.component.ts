@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 
   title: string = ''
   text: string = ''
+  category: string = ''
   imageId: number = 0
   file: File | undefined; // Temporary file that is used after post is created to load into db
 
@@ -60,6 +61,9 @@ export class AppComponent implements OnInit {
     const subTitle = dialogRef.componentInstance.addTitle.subscribe(result => {
       this.title = result;
     })
+    const subCategory = dialogRef.componentInstance.addCategory.subscribe(result => {
+      this.category = result;
+    })
     const subImage = dialogRef.componentInstance.addImage.subscribe(result => {
       console.log("File:")
       console.log(result)
@@ -78,11 +82,12 @@ export class AppComponent implements OnInit {
       imageId: 0,
       upvoteCount: 0,
       downvoteCount:0,
-      userId: 0 //this.userService.getUser()?.userId
+      userId: 0, //this.userService.getUser()?.userId
+      category: this.category
     }).subscribe((list: any) => {
 
       this.posts.push(new Post(list.postId, list.title, list.text, list.imageId, 
-        list.upvoteCount, list.downvoteCount, list.userId, []));
+        list.upvoteCount, list.downvoteCount, list.userId, [], list.category, list.createdAt));
 
         if (this.file != undefined) {
           console.log("Loading image" + this.file + "...with id:" + list.postId)
@@ -139,7 +144,7 @@ downvotePost(post: Post): void {
         });
 
         this.posts.push(new Post(list.postId, list.title, list.text, list.imageId, 
-          list.upvoteCount, list.downvoteCount, list.userId, comments))
+          list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
       });
     });
   }

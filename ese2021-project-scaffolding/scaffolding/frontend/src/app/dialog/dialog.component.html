@@ -21,9 +21,28 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
+
+  
+  <div *ngIf="data.value === 'post'">
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <select matNativeControl [(ngModel)] = category>
+        <optgroup label="Type of game">
+          <option value="Rpg">Rpg</option>
+          <option value="Shooter">Shooter</option>
+        </optgroup>
+        <optgroup label="General">
+          <option value="Memes">Memes</option>
+          <option value="Help">Help</option>
+        </optgroup>
+      </select>
+    </mat-form-field>
+  </div>
+
   <button mat-raised-button color="warn" (click)="closeDialog()">Close</button>
 
   <div *ngIf="data.value === 'post'">
+
     <button mat-raised-button color="primary" (click)="publishPost()">Post</button>
 
     <form action="http://localhost:3000" method="post" enctype="multipart/form-data">

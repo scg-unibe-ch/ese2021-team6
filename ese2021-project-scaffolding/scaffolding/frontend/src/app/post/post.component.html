@@ -1,4 +1,7 @@
 <!--This is how the posts will appear on the front page-->
+{{post.category}} 
+{{post.createdAt |  date:'dd/MM/yyyy'}}
+
 <mat-card>
   {{post.title}}
 </mat-card>
@@ -9,12 +12,13 @@
 
 <mat-card>
  <button mat-flat-button color="primary" (click)="upVote()">
-    {{post.upvoteCount}}
+   UpVote
   </button>
-
+  {{post.upvoteCount - post.downvoteCount}}
   <button mat-flat-button color="warn" (click)="downVote()">
-    {{post.downvoteCount}}
+    DownVote
   </button>
+  
 </mat-card>
  
 <button mat-flat-button color="primary" (click)="openPopUp()">
