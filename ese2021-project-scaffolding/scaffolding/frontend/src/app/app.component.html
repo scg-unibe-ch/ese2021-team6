@@ -1,17 +1,13 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>ESE-2021 Frontend Scaffolding</span>
+    <span>xXUltr4G4m1ngP4g3Xx</span>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-tab-group>
   <mat-tab label="Forum">
-    <mat-card>
-      <!--<mat-form-field>-->
+    <mat-card *ngIf="loggedIn && !isAdmin">
         <button mat-raised-button (click)="openPopUp()">New Post</button>
-        <!--<input matInput placeholder="List Name" [(ngModel)]="newPostName" name="name">--> 
-      <!--</mat-form-field>-->
-      <!--<button mat-flat-button color="primary" (click)="createList()" [disabled]="newPostName === ''">Create new list</button>-->
     </mat-card>
 <!--This makes the posts appear on the post page-->
     <mat-list-item *ngFor="let post of posts">

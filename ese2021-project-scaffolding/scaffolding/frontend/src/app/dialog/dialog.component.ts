@@ -13,6 +13,8 @@ export class DialogComponent {
   postTitle: string = '';
   text: string = '';
   category: string = '';
+  titleErrorMsg: string = '';
+  categoryErrorMsg: string = '';
 
   @Output()
   addTitle = new EventEmitter<string>();
@@ -35,11 +37,31 @@ export class DialogComponent {
     ){}
 
   publishPost(): void {
-    this.addTitle.emit(this.postTitle);
-    this.addCategory.emit(this.category);
+    this.titleErrorMsg = '';
+    this.categoryErrorMsg = '';
+    if( this.checkNoEmptyTitle() && this.checkNoEmptyCategory() ){
+      this.addTitle.emit(this.postTitle);
+      this.addCategory.emit(this.category);      
+      this.createPost.emit(this.text);
+      this.dialogRef.close();
+    }
     
-    this.createPost.emit(this.text);
-    this.dialogRef.close();
+  }
+
+  checkNoEmptyTitle(): boolean{
+    if(this.postTitle != ''){
+      return true;
+    }
+    this.titleErrorMsg = "Please enter a title";
+    return false;
+  }
+
+  checkNoEmptyCategory(): boolean{
+    if(this.category != ''){
+      return true;
+    }
+    this.categoryErrorMsg = "Please select a category";
+    return false;
   }
 
   onFileSelected(event: any): void {

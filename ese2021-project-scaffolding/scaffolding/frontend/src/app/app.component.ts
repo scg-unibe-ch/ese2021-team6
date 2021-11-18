@@ -29,6 +29,8 @@ export class AppComponent implements OnInit {
 
   user: User | undefined;
 
+  isAdmin: boolean | undefined;
+
   constructor(
     public httpClient: HttpClient,
     public userService: UserService,
@@ -38,10 +40,12 @@ export class AppComponent implements OnInit {
     // Listen for changes
     userService.loggedIn$.subscribe(res => this.loggedIn = res);
     userService.user$.subscribe(res => this.user = res);
+    userService.isAdmin$.subscribe(res => this.isAdmin);
 
     // Current value
     this.loggedIn = userService.getLoggedIn();
     this.user = userService.getUser();
+    this.isAdmin = userService.getIsAdmin();
   }
 
   ngOnInit() {
