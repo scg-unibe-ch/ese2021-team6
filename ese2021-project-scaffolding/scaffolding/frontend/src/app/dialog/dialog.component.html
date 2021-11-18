@@ -26,8 +26,10 @@
   <div *ngIf="data.value === 'post'">
     <button mat-raised-button color="primary" (click)="publishPost()">Post</button>
 
-    <input type="file" class="file-input"
+    <form action="http://localhost:3000" method="post" enctype="multipart/form-data">
+      <input type="file" class="file-input"
        (change)="onFileSelected($event)" #fileUpload>
+    </form>
 
     <div class="file-upload">
         <button mat-mini-fab color="primary" class="upload-btn"

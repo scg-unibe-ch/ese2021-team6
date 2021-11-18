@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 import { UserService } from './services/user.service';
 import { User } from './models/user.model';
 import { DialogComponent } from './dialog/dialog.component';
+import { Form } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -62,7 +63,8 @@ export class AppComponent implements OnInit {
     const subImage = dialogRef.componentInstance.addImage.subscribe(result => {
       console.log("File:")
       console.log(result)
-      this.file = result
+
+      this.file = result;
     })
   }
 
@@ -84,9 +86,8 @@ export class AppComponent implements OnInit {
 
         if (this.file != undefined) {
           console.log("Loading image" + this.file + "...with id:" + list.postId)
-          this.httpClient.post(environment.endpointURL + "post/" + list.postId + "/image" , {
-            file: this.file // Check if file is passed correctly
-          }
+          this.httpClient.post(environment.endpointURL + "post/" + list.postId + "/image" , 
+            this.file, // Check if file is passed correctly
           ).subscribe(() => {
             console.log("Uploaded to database")
             this.file = undefined

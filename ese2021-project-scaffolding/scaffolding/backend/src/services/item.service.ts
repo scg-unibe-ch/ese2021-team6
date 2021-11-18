@@ -6,17 +6,14 @@ import {MulterRequest} from '../models/multerRequest.model';
 export class ItemService {
 
     public addImage(req: MulterRequest): Promise<ItemImageAttributes> {
-        console.log('From itemService:');
-        console.log(req.params);
         return Post.findByPk(req.params.id)
             .then(found => {
                 if (!found) {
                     return Promise.reject('Product not found!');
                 } else {
                     return new Promise<ItemImageAttributes>((resolve, reject) => {
-                        console.log(req.file);
                         upload.single('image')(req, null, (error: any) => {
-                            ItemImage.create({ fileName: req.file.filename, postId: found.postId })
+                            ItemImage.create({ imageId: found.postId, fileName: req.file.filename })
                                 .then(created => resolve(created))
                                 .catch(() => reject('Could not upload image!'));
                         });

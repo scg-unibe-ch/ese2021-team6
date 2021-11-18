@@ -39,10 +39,8 @@ export class DialogComponent {
   onFileSelected(event: any): void {
     const file:File = event.target.files[0];
 
-    if (file) {
-        console.log(file)
-        this.addImage.emit(file)
-    }
+    console.log(file)
+    this.addImage.emit(file)
   }
 
   publishComment(): void {
