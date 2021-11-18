@@ -29,7 +29,7 @@ import {MatIcon, MatIconModule} from '@angular/material/icon';
     CommentComponent,
     UserComponent,
     ProfileComponent,
-    DialogComponent
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
