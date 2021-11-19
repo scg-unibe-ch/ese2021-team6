@@ -5,6 +5,7 @@
   <mat-form-field>
    <input matInput placeholder="Write a title..." [(ngModel)]="postTitle" name="name">
   </mat-form-field>
+  <p style="color:red">{{ titleErrorMsg }}</p>
 </div>
 
 </h1>
@@ -37,6 +38,7 @@
         </optgroup>
       </select>
     </mat-form-field>
+    <p style="color:red">{{ categoryErrorMsg }}</p>
   </div>
 
   <button mat-raised-button color="warn" (click)="closeDialog()">Close</button>

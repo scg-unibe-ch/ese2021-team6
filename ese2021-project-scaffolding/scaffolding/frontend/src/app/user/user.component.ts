@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { UserService } from '../services/user.service';
 import { Userinformation } from '../models/userinformation.model';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -24,6 +25,9 @@ export class UserComponent {
 
   endpointMsgUser: string = '';
   endpointMsgAdmin: string = '';
+
+  @Output()
+  checkAdminEvent = new EventEmitter<string>();
 
   // Tons of messages to tell the user that he did something
   loginErrorMsg: string = '';
@@ -168,6 +172,7 @@ export class UserComponent {
 
         this.userService.setLoggedIn(true);
         this.userService.setUser(new User(res.user.userId, res.user.userName, res.user.password));
+        this.checkAdminEvent.emit()
       }, () => {
         this.loginErrorMsg = "Username or password not found!";
         this.userToLogin.username = this.userToLogin.password = '';
@@ -178,9 +183,11 @@ export class UserComponent {
   logoutUser(): void {
     localStorage.removeItem('userName');
     localStorage.removeItem('userToken');
+    localStorage.removeItem('user');
 
     this.userService.setLoggedIn(false);
     this.userService.setUser(undefined);
+    this.userService.setIsAdmin(false)
   }
   //Endpoint testing
   accessUserEndpoint(): void {
