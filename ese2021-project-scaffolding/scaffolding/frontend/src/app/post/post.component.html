@@ -11,21 +11,29 @@
 </mat-card>
 
 <mat-card>
- <button mat-flat-button color="primary" (click)="upVote()">
+ <button 
+ *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
+ mat-flat-button color="primary" (click)="upVote()">
    UpVote
   </button>
   {{post.upvoteCount - post.downvoteCount}}
-  <button mat-flat-button color="warn" (click)="downVote()">
+  <button 
+  *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
+  mat-flat-button color="warn" (click)="downVote()">
     DownVote
   </button>
   
 </mat-card>
  
-<button mat-flat-button color="primary" (click)="openPopUp()">
-  Comment
-</button>
+  <button 
+  *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
+  mat-flat-button color="primary" (click)="openPopUp()">
+    Comment
+  </button>
 
-<button mat-flat-button color="warn" (click)="delete()">
+<button
+*ngIf="userService.getLoggedIn() && userService.getUser()?.userId === post.userId"
+mat-flat-button color="warn" (click)="delete()">
   Delete Post
 </button>
 

@@ -6,7 +6,7 @@
 
 <mat-tab-group>
   <mat-tab label="Forum">
-    <mat-card *ngIf="loggedIn && !isAdmin">
+    <mat-card *ngIf="loggedIn && !userService.getIsAdmin()">
         <button mat-raised-button (click)="openPopUp()">New Post</button>
     </mat-card>
 <!--This makes the posts appear on the post page-->
@@ -28,7 +28,9 @@
   </mat-tab>
 
   <mat-tab label="Authentication">
-    <app-user></app-user>
+    <app-user
+    (checkAdminEvent)="accessAdminEndpoint()">
+    </app-user>
   </mat-tab>
 
   <mat-tab *ngIf="loggedIn" label="Profile Page">

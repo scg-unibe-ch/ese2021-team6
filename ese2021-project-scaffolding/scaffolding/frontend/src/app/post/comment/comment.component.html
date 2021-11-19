@@ -1,4 +1,6 @@
-<button mat-flat-button color="warn" (click)="delete()">
+<button 
+*ngIf="userService.getLoggedIn() && userService.getUser()?.userId === comment.userId"
+mat-flat-button color="warn" (click)="delete()">
   Delete Comment
 </button>
 <!-- Input field with item name -->

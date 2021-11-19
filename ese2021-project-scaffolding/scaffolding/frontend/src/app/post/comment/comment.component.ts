@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Comment } from '../../models/comment.model';
+import { UserService } from '../../services/user.service';
 import { IEvent } from '../../IEvent';
 
 @Component({
@@ -17,6 +18,10 @@ export class CommentComponent implements IEvent{
 
   @Output()
   deleteEvent = new EventEmitter<Comment>();
+
+  constructor(
+    public userService: UserService,
+  ) {}
 
   update(): void {
     // Emits event to parent component that Comment got updated

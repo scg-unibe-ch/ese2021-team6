@@ -25,14 +25,11 @@ export class ProfileComponent {
 
     // Current value
     this.user = userService.getUser();
-    console.log(this.user)
 
     // Gets all users from database
     this.httpClient.get(environment.endpointURL + "user").subscribe((res: any) => {
-      console.log(res);
       // Filters to current user
       this.userInfo =  res.filter((info: any) => info.userId === this.user?.userId)
-      console.log(this.userInfo[0].firstName);
     },)
   }
 }

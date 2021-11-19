@@ -6,6 +6,8 @@ import { Comment } from '../models/comment.model';
 import { DialogComponent } from '../dialog/dialog.component';
 import { environment } from '../../environments/environment';
 import { IEvent } from '..//IEvent'
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-post',
@@ -33,6 +35,7 @@ export class PostComponent implements IEvent{
 
   constructor(
     public httpClient: HttpClient,
+    public userService: UserService,
     public dialog: MatDialog, 
   ) {}
 
@@ -78,7 +81,7 @@ export class PostComponent implements IEvent{
       upvoteCount: 0,
       downvoteCount:0,
       postId: this.post.postId,
-      userId: 0 //this.userService.getUser()?.userId
+      userId: this.userService.getUser()?.userId
     }).subscribe((item: any) => {
       this.post.comments.push(new Comment(item.commentId, item.text, item.upvoteCount 
         ,item.downvoteCount, item.postId, item.userId));

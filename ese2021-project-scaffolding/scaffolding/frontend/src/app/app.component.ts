@@ -51,6 +51,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.readLists(); 
     this.checkUserStatus();
+    console.log("Admin: ", this.userService.getIsAdmin())
+    console.log("Logged in: ", this.userService.getLoggedIn())
+    console.log("User: ", this.userService.getUser())
   }
 
   openPopUp(): void {
@@ -86,7 +89,7 @@ export class AppComponent implements OnInit {
       imageId: 0,
       upvoteCount: 0,
       downvoteCount:0,
-      userId: 0, //this.userService.getUser()?.userId
+      userId: this.userService.getUser()?.userId,
       category: this.category
     }).subscribe((list: any) => {
 
@@ -131,9 +134,17 @@ downvotePost(post: Post): void {
   checkUserStatus(): void {
     // Get user data from local storage
     const userToken = localStorage.getItem('userToken');
-
+   
     // Set boolean whether a user is logged in or not
     this.userService.setLoggedIn(!!userToken);
+   
+    this.httpClient.get(environment.endpointURL + "admin").subscribe(() => {
+      this.userService.setIsAdmin(true)
+      this.isAdmin = this.userService.getIsAdmin()
+    }, () => {
+      this.userService.setIsAdmin(false)
+      this.isAdmin = this.userService.getIsAdmin()
+    });
   }
 
   // READ - Post, Comment
@@ -150,6 +161,17 @@ downvotePost(post: Post): void {
         this.posts.push(new Post(list.postId, list.title, list.text, list.imageId, 
           list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
       });
+    });
+  }
+
+  accessAdminEndpoint(): void {
+    this.httpClient.get(environment.endpointURL + "admin").subscribe(() => {
+      console.log("Setting to true...")
+      this.userService.setIsAdmin(true)
+      this.isAdmin = this.userService.getIsAdmin()
+    }, () => {
+      this.userService.setIsAdmin(false)
+      this.isAdmin = this.userService.getIsAdmin()
     });
   }
 }
