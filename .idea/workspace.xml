@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9d02cdf-54f7-4856-b4c3-bdb027f23325" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/controllers/product.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/models/product.model.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/services/product.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/controllers/post.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/controllers/post.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/services/item.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/services/item.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +68,8 @@
       <workItem from="1634240675092" duration="3935000" />
       <workItem from="1636637742750" duration="158000" />
       <workItem from="1636637926968" duration="3221000" />
+      <workItem from="1637268101565" duration="4439000" />
+      <workItem from="1637620672962" duration="618000" />
     </task>
     <servers />
   </component>
@@ -90,5 +86,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
