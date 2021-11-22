@@ -37,6 +37,12 @@ mat-flat-button color="warn" (click)="delete()">
   Delete Post
 </button>
 
+<button
+*ngIf="userService.getLoggedIn() && userService.getUser()?.userId === post.userId || userService.getIsAdmin()"
+mat-flat-button color="accent" (click)="edit()">
+  Edit Post
+</button>
+
   <mat-list>
      <mat-list-item *ngFor="let comment of post.comments">
       <mat-card>
