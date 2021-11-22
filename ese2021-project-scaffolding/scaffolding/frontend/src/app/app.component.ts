@@ -8,7 +8,7 @@ import { environment } from '../environments/environment';
 import { UserService } from './services/user.service';
 import { User } from './models/user.model';
 import { DialogComponent } from './dialog/dialog.component';
-import { Form } from '@angular/forms';
+import { Form, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +22,10 @@ export class AppComponent implements OnInit {
   category: string = ''
   imageId: number = 0
   file: File | undefined; // Temporary file that is used after post is created to load into db
+
+  tags = new FormControl();
+  tagList: string[] = ['Rpg', 'Memes', 'Help', 'Shooter'];
+  selectedTags: string = ""
 
   posts: Post[] = [];
 
@@ -62,6 +66,7 @@ export class AppComponent implements OnInit {
       height: '350px',
       data: { value: "post" },
     });
+
     const sub = dialogRef.componentInstance.createPost.subscribe(result => {
       this.createList(result);
     })
@@ -128,6 +133,46 @@ downvotePost(post: Post): void {
     downvoteCount: post.downvoteCount + 1
   }).subscribe(res => {
     post.downvoteCount += 1
+  });
+ }
+
+ sortPosts(tag: string) {
+
+ }
+
+ filterPosts() {
+   console.log(this.selectedTags)
+   this.posts = []
+
+   this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
+    lists.forEach((list: any) => {
+
+      const comments: Comment[] = [];
+
+      list.comments.forEach((item: any) => {
+        comments.push(new Comment(0, '', 0, 0, 0, 0));
+      });
+
+      if (this.selectedTags.length>0) {
+        for (let tag of this.selectedTags) {
+          if (tag == list.category) {
+           this.posts.push(new Post(list.postId, list.title, list.text, list.imageId, 
+             list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
+          }
+         }
+      }
+      else
+        this.posts.push(new Post(list.postId, list.title, list.text, list.imageId, 
+          list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
+    });
+  });
+ }
+
+ editPost(post: Post): void {
+  this.httpClient.put(environment.endpointURL + "post/edit" + post.postId, {
+   
+  }).subscribe(res => {
+   
   });
  }
 

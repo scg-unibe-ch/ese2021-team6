@@ -8,6 +8,23 @@
   <mat-tab label="Forum">
     <mat-card *ngIf="loggedIn && !userService.getIsAdmin()">
         <button mat-raised-button (click)="openPopUp()">New Post</button>
+      
+        <mat-form-field>
+          <mat-label>Filter</mat-label>
+          <mat-select [(ngModel)]="selectedTags" [formControl]="tags" multiple>
+            <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag}}</mat-option>
+            <button mat-raised-button (click)="filterPosts()" >Apply</button>
+          </mat-select>
+        </mat-form-field>
+
+        <p>{{selectedTags}}</p>
+
+        <button mat-button [matMenuTriggerFor]="menu">Sort</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+          </mat-menu>
+
     </mat-card>
 <!--This makes the posts appear on the post page-->
     <mat-list-item *ngFor="let post of posts">
@@ -17,6 +34,7 @@
               (deleteEvent)="deleteList($event)"
               (upvoteEvent)="upvotePost($event)"
               (downvoteEvent)="downvotePost($event)"
+              (editEvent)="editPost($event)"
             ></app-post>
       </mat-card>
     </mat-list-item>

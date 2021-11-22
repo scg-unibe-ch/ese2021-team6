@@ -31,6 +31,9 @@ export class PostComponent implements IEvent{
   @Output()
   downvoteEvent = new EventEmitter<Post>();
 
+  @Output()
+  editEvent = new EventEmitter<Post>();
+
   commentText: string = '';
 
   constructor(
@@ -50,6 +53,10 @@ export class PostComponent implements IEvent{
     console.log(this.post);
     // Emits event to parent component that Post got delete
     this.deleteEvent.emit(this.post);
+  }
+
+  edit(): void {
+    this.editEvent.emit(this.post)
   }
 
   upVote(): void {
