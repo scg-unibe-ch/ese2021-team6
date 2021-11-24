@@ -19,10 +19,10 @@
 
         <p>{{selectedTags}}</p>
 
-        <button mat-button [matMenuTriggerFor]="menu">Sort</button>
+        <button mat-button [matMenuTriggerFor]="menu">Sort by</button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>Item 1</button>
-            <button mat-menu-item>Item 2</button>
+            <button mat-menu-item (click)="sortPosts('Date')" >Date</button>
+            <button mat-menu-item (click)="sortPosts('Score')" >Score</button>
           </mat-menu>
 
     </mat-card>

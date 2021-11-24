@@ -3,6 +3,7 @@ import express, { Router, Request, Response } from 'express';
 import { UserService } from '../services/user.service';
 import { verifyToken } from '../middlewares/checkAuth';
 import { checkRegist } from '../middlewares/checkRegist';
+import { User } from '../models/user.model';
 
 const userController: Router = express.Router();
 const userService = new UserService();

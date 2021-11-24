@@ -11,7 +11,6 @@ const itemService = new ItemService();
 
 
 commentController.post('/', (req: Request, res: Response) => {
-    console.log(req.body);
     Comment.create(req.body)
         .then(inserted => res.send(inserted))
         .catch(err => res.status(500).send(err));

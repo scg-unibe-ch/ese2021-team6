@@ -9,6 +9,7 @@ import { UserService } from './services/user.service';
 import { User } from './models/user.model';
 import { DialogComponent } from './dialog/dialog.component';
 import { Form, FormControl } from '@angular/forms';
+import { ConditionalExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -117,28 +118,144 @@ export class AppComponent implements OnInit {
  deleteList(post: Post): void {
   this.httpClient.delete(environment.endpointURL + "post/" + post.postId).subscribe(() => {
     this.posts.splice(this.posts.indexOf(post), 1);
-  });
+  })
 }
 
 upvotePost(post: Post): void {
-  this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-    upvoteCount: post.upvoteCount + 1
-  }).subscribe(res => {
-    post.upvoteCount += 1
-  });
+  var votedPost: any |undefined
+  this.httpClient.get(environment.endpointURL + "votedPosts").subscribe((res: any) => {
+    votedPost = res.filter((info: any) => info.userId === this.user?.userId && 
+    info.postId === post.postId)
+
+    if (votedPost[0] == undefined) {
+      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+        upvoteCount: post.upvoteCount + 1
+      }).subscribe(res => {
+        post.upvoteCount += 1
+        this.votePost(post, 1)
+      });  
+    }
+    else 
+      if (votedPost[0].voted == 0) {
+      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+        upvoteCount: post.upvoteCount + 1
+      }).subscribe(res => {
+        post.upvoteCount += 1
+        this.updateVotedPost(votedPost[0].voteId, 1)
+      });
+    }
+    else
+      if (votedPost[0].voted == 1) {
+        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+          upvoteCount: post.upvoteCount - 1
+        }).subscribe(res => {
+          post.upvoteCount -= 1
+          this.updateVotedPost(votedPost[0].voteId, 0)
+        });
+      }
+    else
+      if (votedPost[0].voted == -1) {
+        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+          upvoteCount: post.upvoteCount + 2
+        }).subscribe(res => {
+          post.upvoteCount += 2
+          this.updateVotedPost(votedPost[0].voteId, 1)
+        });
+      }
+  })
  }
 
 downvotePost(post: Post): void {
-  this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-    downvoteCount: post.downvoteCount + 1
+  var votedPost: any |undefined
+  this.httpClient.get(environment.endpointURL + "votedPosts").subscribe((res: any) => {
+    votedPost = res.filter((info: any) => info.userId === this.user?.userId && 
+    info.postId === post.postId)
+
+    if (votedPost[0] == undefined) {
+      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+        downvoteCount: post.downvoteCount + 1
+      }).subscribe(res => {
+        post.downvoteCount += 1
+        this.votePost(post, -1)
+      });  
+    }
+    else 
+      if (votedPost[0].voted == 0) {
+      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+        downvoteCount: post.downvoteCount + 1
+      }).subscribe(res => {
+        post.downvoteCount += 1
+        this.updateVotedPost(votedPost[0].voteId, -1)
+      });
+    }
+    else
+      if (votedPost[0].voted == 1) {
+        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+          downvoteCount: post.downvoteCount + 2
+        }).subscribe(res => {
+          post.downvoteCount += 2
+          this.updateVotedPost(votedPost[0].voteId, -1)
+        });
+      }
+    else
+      if (votedPost[0].voted == -1) {
+        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+          downvoteCount: post.downvoteCount - 1
+        }).subscribe(res => {
+          post.downvoteCount -= 1
+          this.updateVotedPost(votedPost[0].voteId, 0)
+        });
+      }
+  })
+ }
+
+updateVotedPost(voteId: number, value: number) {
+  this.httpClient.put(environment.endpointURL + "votedPosts/" + voteId, {
+    voted: value
   }).subscribe(res => {
-    post.downvoteCount += 1
-  });
+    console.log("Updated votes!")
+  })
+}
+
+ votePost(post: Post, value: number) {
+  this.httpClient.post(environment.endpointURL + "votedPosts", {
+    voteId: 0,
+    userId: this.userService.getUser()?.userId,
+    postId: post.postId,
+    voted: value
+  }).subscribe((list: any) => {
+    console.log("Voted!")
+  })
  }
 
- sortPosts(tag: string) {
+ sortPosts(sortCondition: string) {
+   /*
+  if (sortCondition == "Score") {
+    this.sortByScore()
+  }
+  else
+    this.sortByDate()
+    */
+}
 
- }
+/*
+sortByDate() {
+
+}
+
+sortByScore() {
+  this.posts = this.posts.sort((n1,n2) => {
+    if ((n1.upvoteCount - n1.downvoteCount) > (n2.upvoteCount - n2.downvoteCount)) {
+        return 1;
+    }
+    else {
+        return -1;
+    }
+    return 0;
+    })
+  console.log(this.posts)
+}
+*/
 
  filterPosts() {
    console.log(this.selectedTags)
