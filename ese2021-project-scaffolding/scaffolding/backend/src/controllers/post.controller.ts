@@ -56,8 +56,6 @@ postController.get('/', (req: Request, res: Response) => {
 
 // add image to a post
 postController.post('/:id/image', (req: MulterRequest, res: Response) => {
-    console.log('From controller:');
-    console.log(req.file);
     itemService.addImage(req).then(created => res.send(created)).catch(err => res.status(500).send(err));
 });
 
