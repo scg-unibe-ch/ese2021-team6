@@ -104,12 +104,15 @@ export class AppComponent implements OnInit {
         list.upvoteCount, list.downvoteCount, list.userId, [], list.category, list.createdAt));
 
         if (this.file != undefined) {
-          console.log("Loading image" + this.file + "...with id:" + list.postId)
+          
+          const fd = new FormData();
+          fd.append('image', this.file);
+
           this.httpClient.post(environment.endpointURL + "post/" + list.postId + "/image" ,
-            this.file, // Check if file is passed correctly
-          ).subscribe(() => {
+            fd, // Check if file is passed correctly
+          ).subscribe((res: any) => {
             console.log("Uploaded to database")
-            this.file = undefined
+            console.log(res)
           })
         }
     })
