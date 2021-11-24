@@ -29,7 +29,7 @@ export class ProfileComponent {
     // Gets all users from database
     this.httpClient.get(environment.endpointURL + "user").subscribe((res: any) => {
       // Filters to current user
-      this.userInfo =  res.filter((info: any) => info.userId === this.user?.userId)
+      this.userInfo = res.filter((info: any) => info.userId === this.user?.userId)
     },)
   }
 }

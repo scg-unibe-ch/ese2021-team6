@@ -1,5 +1,6 @@
 import { Optional, Model, HasManyGetAssociationsMixin, HasManyAddAssociationMixin, DataTypes, Sequelize, Association } from 'sequelize';
 import { Comment } from './comment.model';
+import { VotedPost } from './votedPosts.model';
 
 export interface PostAttributes {
     postId: number;
@@ -78,6 +79,10 @@ export class Post extends Model<PostAttributes, PostCreationAttributes> implemen
     public static createAssociations() {
         Post.hasMany(Comment, {
             as: 'comments',
+            foreignKey: 'postId'
+        });
+        Post.hasMany(VotedPost, {
+            as: 'votedPosts',
             foreignKey: 'postId'
         });
     }

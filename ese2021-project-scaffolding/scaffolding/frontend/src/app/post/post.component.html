@@ -32,13 +32,13 @@
   </button>
 
 <button
-*ngIf="userService.getLoggedIn() && userService.getUser()?.userId === post.userId"
+*ngIf="userService.getLoggedIn() && userService.getUser()?.userId === post.userId || userService.getIsAdmin()"
 mat-flat-button color="warn" (click)="delete()">
   Delete Post
 </button>
 
 <button
-*ngIf="userService.getLoggedIn() && userService.getUser()?.userId === post.userId || userService.getIsAdmin()"
+*ngIf="userService.getLoggedIn() && userService.getUser()?.userId === post.userId"
 mat-flat-button color="accent" (click)="edit()">
   Edit Post
 </button>
