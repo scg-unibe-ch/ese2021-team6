@@ -1,7 +1,7 @@
 <!--This it the popup dialogue window for posts-->
 <h1 mat-dialog-title>
 
-<div *ngIf="data.value === 'post'">
+<div *ngIf="data.value === 'post' || data.value === 'editPost'">
   <mat-form-field>
    <input matInput placeholder="Write a title..." [(ngModel)]="postTitle" name="name">
   </mat-form-field>
@@ -62,6 +62,10 @@
 
   <div *ngIf="data.value === 'comment'">
   <button mat-raised-button color="primary" (click)="publishComment()">Comment</button>
+  </div>
+
+  <div *ngIf="data.value === 'editPost' || data.value === 'editComment'">
+  <button mat-raised-button color="primary" (click)="publishEdit()">Save edit</button>
   </div>
 
    <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
