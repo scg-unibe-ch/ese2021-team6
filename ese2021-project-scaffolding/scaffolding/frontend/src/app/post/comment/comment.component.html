@@ -3,6 +3,12 @@
 mat-flat-button color="warn" (click)="delete()">
   Delete Comment
 </button>
+
+<button
+*ngIf="userService.getLoggedIn() && userService.getUser()?.userId === comment.userId"
+mat-flat-button color="accent" (click)="openEditPopUp()">
+  Edit Comment
+</button>
 <!-- Input field with item name -->
 <!--
 <mat-form-field>

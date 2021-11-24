@@ -26,6 +26,12 @@ export class DialogComponent {
   createComment = new EventEmitter<string>();
 
   @Output()
+  editPost = new EventEmitter<any>();
+
+  @Output()
+  editComment = new EventEmitter<string>();
+
+  @Output()
   addImage = new EventEmitter<any>();
 
   @Output()
@@ -76,6 +82,29 @@ export class DialogComponent {
     this.dialogRef.close();
   }
 
+  publishEdit(): void {
+    if (this.data.value == "editPost") {
+      if (this.postTitle == '') {
+        var editArray = ["Text", this.text]
+        this.editPost.emit(editArray);
+      }
+      else
+        if (this.text == '') {
+          var editArray = ["Title", this.postTitle]
+          this.editPost.emit(editArray);
+        }
+      else
+        if (this.text != '' && this.postTitle != '') {
+          var editArray = ["Both", this.postTitle, this.text]
+          this.editPost.emit(editArray)
+        }
+      }
+    else
+     if (this.data.value == "editComment") {
+      this.editComment.emit(this.text);
+     }
+    this.dialogRef.close();
+  }
   closeDialog(): void {
     this.dialogRef.close();
   }

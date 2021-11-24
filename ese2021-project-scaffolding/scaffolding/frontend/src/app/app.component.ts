@@ -286,13 +286,6 @@ sortByScore() {
   });
  }
 
- editPost(post: Post): void {
-  this.httpClient.put(environment.endpointURL + "post/edit" + post.postId, {
-
-  }).subscribe(res => {
-
-  });
- }
 
   checkUserStatus(): void {
     // Get user data from local storage

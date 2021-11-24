@@ -31,9 +31,6 @@ export class PostComponent implements IEvent{
   @Output()
   downvoteEvent = new EventEmitter<Post>();
 
-  @Output()
-  editEvent = new EventEmitter<Post>();
-
   commentText: string = '';
 
   constructor(
@@ -55,10 +52,6 @@ export class PostComponent implements IEvent{
     this.deleteEvent.emit(this.post);
   }
 
-  edit(): void {
-    this.editEvent.emit(this.post)
-  }
-
   upVote(): void {
     this.upvoteEvent.emit(this.post);
   }
@@ -74,9 +67,47 @@ export class PostComponent implements IEvent{
       data: { value: "comment" },
     });
      const commentEvent = dialogRef.componentInstance.createComment.subscribe(result => {
-      // console.log("EVENT RECEIVED")
       this.createComment(result);
     })
+  }
+
+   // Opens the popup to edit a post
+   openEditPopUp(): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '750px',
+      height: '350px',
+      data: { value: "editPost" },
+    });
+    var editEvent = dialogRef.componentInstance.editPost.subscribe(result => {
+      this.editPost(result);
+    })
+  }
+
+  editPost(result: string[]) {
+    
+    if (result[0] == "Text") {
+      this.httpClient.put(environment.endpointURL + "post/" + this.post.postId, {
+        text: result[1]
+      }).subscribe(res => {
+        this.post.text = result[1]
+      });
+    }
+    if (result[0] == "Title") {
+      this.httpClient.put(environment.endpointURL + "post/" + this.post.postId, {
+        title: result[1]
+      }).subscribe(res => {
+        this.post.title = result[1]
+      });
+    }
+    if (result[0] == "Both") {
+      this.httpClient.put(environment.endpointURL + "post/" + this.post.postId, {
+        title: result[1],
+        text: result[2]
+      }).subscribe(res => {
+        this.post.title = result[1]
+        this.post.text = result[2]
+      });
+    }
   }
 
 // CREATE - Comment

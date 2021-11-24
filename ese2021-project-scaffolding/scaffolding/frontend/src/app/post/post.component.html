@@ -41,7 +41,7 @@ mat-flat-button color="warn" (click)="delete()">
 
 <button
 *ngIf="userService.getLoggedIn() && userService.getUser()?.userId === post.userId"
-mat-flat-button color="accent" (click)="edit()">
+mat-flat-button color="accent" (click)="openEditPopUp()">
   Edit Post
 </button>
 
