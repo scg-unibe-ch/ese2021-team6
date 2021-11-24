@@ -1,14 +1,15 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="title-toolbar">
   <mat-toolbar-row>
-    <span>xXUltr4G4m1ngP4g3Xx</span>
+    <div class="title-toolbar-text"> <span>xXUltr4G4m1ngP4g3Xx</span></div>
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-tab-group>
+
+<mat-tab-group >
   <mat-tab label="Forum">
-    <mat-card *ngIf="loggedIn && !userService.getIsAdmin()">
+    <mat-card class="forum-menu" *ngIf="loggedIn && !userService.getIsAdmin()">
         <button mat-raised-button (click)="openPopUp()">New Post</button>
-      
+
         <mat-form-field>
           <mat-label>Filter</mat-label>
           <mat-select [(ngModel)]="selectedTags" [formControl]="tags" multiple>
@@ -28,7 +29,7 @@
     </mat-card>
 <!--This makes the posts appear on the post page-->
     <mat-list-item *ngFor="let post of posts">
-      <mat-card>
+      <mat-card class="post-list">
             <app-post
               [post]="post"
               (deleteEvent)="deleteList($event)"
@@ -39,7 +40,7 @@
       </mat-card>
     </mat-list-item>
 
-  
+
     <!--
       (update)="updateList($event)"
     -->
@@ -56,4 +57,4 @@
   </mat-tab>
 </mat-tab-group>
 
-  
+

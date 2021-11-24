@@ -1,31 +1,33 @@
 <!--This is how the posts will appear on the front page-->
-{{post.category}} 
-{{post.createdAt |  date:'dd/MM/yyyy'}}
+<p class="post-information">
+  {{post.category}}
+  {{post.createdAt |  date:'dd/MM/yyyy'}}
+</p>
 
-<mat-card>
+<mat-card class="title">
   {{post.title}}
 </mat-card>
 
-<mat-card>
+<mat-card class="text">
   {{post.text}}
 </mat-card>
 
-<mat-card>
- <button 
+<mat-card class="votes">
+ <button
  *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
  mat-flat-button color="primary" (click)="upVote()">
    UpVote
   </button>
   {{post.upvoteCount - post.downvoteCount}}
-  <button 
+  <button
   *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
   mat-flat-button color="warn" (click)="downVote()">
     DownVote
   </button>
-  
+
 </mat-card>
- 
-  <button 
+
+  <button
   *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
   mat-flat-button color="primary" (click)="openPopUp()">
     Comment
@@ -62,11 +64,11 @@ mat-flat-button color="accent" (click)="edit()">
 </div>
 <!--
   <mat-card>
-    Input field with list name 
+    Input field with list name
     <mat-form-field>
       <input matInput placeholder="List Name" [(ngModel)]="post.name" name="name" (ngModelChange)="updateList()">
     </mat-form-field>
-    Button to delete list 
+    Button to delete list
     <button mat-flat-button color="warn" (click)="deleteList()" [disabled]="post.comments.length != 0">
       Delete list
     </button>
@@ -97,6 +99,6 @@ mat-flat-button color="accent" (click)="edit()">
     <mat-form-field>
       <input matInput placeholder="Item Name" [(ngModel)]="newCommentName">
     </mat-form-field>
-    <Button to create item 
+    <Button to create item
     <button mat-flat-button color="primary" (click)="createItem()" [disabled]="newCommentName === ''">Create new item</button>
 -->
