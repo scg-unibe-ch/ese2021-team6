@@ -50,7 +50,7 @@
   </mat-card>
 <!--This is the login card
     TODO: Put it into popup or new page-->
-<mat-card>
+<mat-card class="login-form">
   <h3>Login</h3>
   <!--If not logged in, make login possible-->
   <div *ngIf="!loggedIn">
@@ -60,7 +60,7 @@
     <mat-form-field>
       <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="userToLogin.password">
     </mat-form-field>
-    <button mat-flat-button color="primary" (click)="loginUser()">Login</button>
+    <button class="login-button" mat-flat-button color="primary" (click)="loginUser()">Login</button>
     <p style="color:red">{{ loginErrorMsg }}</p>
   </div>
   <!--Make logout possible-->

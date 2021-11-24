@@ -1,0 +1,21 @@
+.title{
+  font-weight: bold;
+  font-size: 24px;
+  width: 60%;
+  alignment: top;
+}
+
+.text {
+  width: 60%;
+}
+
+.votes{
+  width: 60%;
+ }
+
+.post-information{
+  text-align: right;
+  font-style: italic;
+  color: gray;
+  font-size: 16px;
+}
