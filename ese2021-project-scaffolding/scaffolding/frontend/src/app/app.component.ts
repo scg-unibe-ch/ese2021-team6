@@ -311,10 +311,15 @@ sortByScore() {
     this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
       lists.forEach((list: any) => {
 
-        const comments: Comment[] = [];
+          /*this.httpClient.get(environment.endpointURL + "post/" + list.postId + "/image", {
+          }).subscribe(res => {
+            console.log(res);
+          });*/
 
-        list.comments.forEach((item: any) => {
-          comments.push(new Comment(0, '', 0, 0, 0, 0));
+        const comments: Comment[] = [];
+        
+        list.comments.forEach((comment: any) => {
+          comments.push(new Comment(comment.commentId, comment.text, comment.upvoteCount, comment.downvoteCount, comment.postId, comment.userId));
         });
 
         this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
@@ -322,6 +327,7 @@ sortByScore() {
       });
     });
   }
+
 
   accessAdminEndpoint(): void {
     this.httpClient.get(environment.endpointURL + "admin").subscribe(() => {

@@ -1,5 +1,25 @@
-<!--This is the register card
+<!--This is the login card
     TODO: Put it into popup or new page-->
+    <mat-card class="login-form">
+      <h3>Login</h3>
+      <!--If not logged in, make login possible-->
+      <div *ngIf="!loggedIn">
+        <mat-form-field>
+          <input matInput type="text" placeholder="User Name" name="name" [(ngModel)]="userToLogin.username">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="userToLogin.password">
+        </mat-form-field>
+        <button class="login-button" mat-flat-button color="primary" (click)="loginUser()">Login</button>
+        <p style="color:red">{{ loginErrorMsg }}</p>
+      </div>
+      <!--Make logout possible-->
+      <div *ngIf="loggedIn">
+        <button mat-flat-button color="warn" (click)="logoutUser()">Logout</button>
+      </div>
+    </mat-card>
+
+<!--This is the register card-->
   <mat-card class="registration-form">
     <h3>Register</h3>
     <mat-form-field>
@@ -48,26 +68,7 @@
     <button class="registration-button" mat-flat-button color="primary" (click)="registerUser()">Register</button>
     <p style="color:green">{{ registrationAcceptedMsg }}</p>
   </mat-card>
-<!--This is the login card
-    TODO: Put it into popup or new page-->
-<mat-card class="login-form">
-  <h3>Login</h3>
-  <!--If not logged in, make login possible-->
-  <div *ngIf="!loggedIn">
-    <mat-form-field>
-      <input matInput type="text" placeholder="User Name" name="name" [(ngModel)]="userToLogin.username">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="userToLogin.password">
-    </mat-form-field>
-    <button class="login-button" mat-flat-button color="primary" (click)="loginUser()">Login</button>
-    <p style="color:red">{{ loginErrorMsg }}</p>
-  </div>
-  <!--Make logout possible-->
-  <div *ngIf="loggedIn">
-    <button mat-flat-button color="warn" (click)="logoutUser()">Logout</button>
-  </div>
-</mat-card>
+
 <!--Check endpoints, might be deleted later on-->
 <mat-card>
   <h3>Secure Endpoints</h3>
