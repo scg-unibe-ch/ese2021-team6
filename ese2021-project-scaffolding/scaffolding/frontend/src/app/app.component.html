@@ -8,10 +8,10 @@
 <mat-tab-group >
   <mat-tab label="Forum">
     <mat-card class="forum-menu" *ngIf="loggedIn && !userService.getIsAdmin()">
-        <button mat-raised-button (click)="openPopUp()">New Post</button>
+        <button class="post-button" mat-raised-button (click)="openPopUp()">New Post</button>
 
         <mat-form-field>
-          <mat-label>Filter</mat-label>
+          <mat-label class="select-category">Filter</mat-label>
           <mat-select [(ngModel)]="selectedTags" [formControl]="tags" multiple>
             <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag}}</mat-option>
             <button mat-raised-button (click)="filterPosts()" >Apply</button>

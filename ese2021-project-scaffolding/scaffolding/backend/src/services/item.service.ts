@@ -24,6 +24,7 @@ export class ItemService {
     }
 
     public getImageItem(imageId: number): Promise<ItemImage> {
+        console.log(imageId);
         return ItemImage.findByPk(imageId)
             .then(image => {
                 if (image) {
