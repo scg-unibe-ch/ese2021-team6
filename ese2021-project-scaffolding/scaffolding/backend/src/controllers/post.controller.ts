@@ -53,7 +53,6 @@ postController.get('/', (req: Request, res: Response) => {
         .catch(err => res.status(500).send(err));
 });
 
-
 // add image to a post
 postController.post('/:id/image', (req: MulterRequest, res: Response) => {
     itemService.addImage(req).then(created => res.send(created)).catch(err => res.status(500).send(err));

@@ -1,17 +1,31 @@
 import express from 'express';
 import { Router, Request, Response } from 'express';
 import { Product } from '../models/product.model';
+import { ItemService } from '../services/item.service';
 import { UserService } from '../services/user.service';
 import { ProductService } from '../services/product.service';
 import {MulterRequest} from '../models/multerRequest.model';
 
+const itemService = new ItemService();
 const productService = new ProductService();
 const userService = new UserService();
 
 const productController: Router = express.Router();
 
+
+productController.get('/', (req: Request, res: Response) => {
+    Product.findAll()
+        .then(list => res.status(200).send(list))
+        .catch(err => res.status(500).send(err));
+});
+
+
+export const ProductController: Router = productController;
+
+
 // post a product in shop (admin only)
-productController.post('/post', (req: Request, res: Response) => {
+/*
+productController.post('/product', (req: Request, res: Response) => {
     console.log(req.body);
     Product.create(req.body).then(created => {
         res.status(201).send(created);
@@ -49,6 +63,7 @@ productController.delete('/:id', (req: Request, res: Response) => {
         .catch(err => res.status(500).send(err));
 });
 
+
 // get price of product
 productController.get('/price', (req: Request, res: Response) => {
     const Id = Number(req.body.productId);
@@ -82,4 +97,4 @@ productController.get('/:id', (req: Request, res: Response) => {
         .catch(err => res.status(500).send(err));
 });
 
-export const PostController: Router = productController;
+export const PostController: Router = productController;*/
