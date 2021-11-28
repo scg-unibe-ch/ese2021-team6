@@ -1,0 +1,16 @@
+ <mat-list-item *ngFor="let product of products">
+      <mat-card class="product-list">
+                 <p class="product-information">
+                    {{product.category}}
+                    {{product.createdAt |  date:'dd/MM/yyyy'}}
+                 </p>
+
+                <mat-card class="title">
+                    {{product.title}}
+                </mat-card>
+
+                <mat-card class="description">
+                    {{product.description}}
+                </mat-card>
+      </mat-card>
+    </mat-list-item>

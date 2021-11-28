@@ -6,15 +6,17 @@ import { UserController } from './controllers/user.controller';
 import { SecuredController } from './controllers/secured.controller';
 import { Sequelize } from 'sequelize';
 import { Post } from './models/post.model';
+import { Product } from './models/product.model';
 import { Comment } from './models/comment.model';
 import { User } from './models/user.model';
+import {ItemImage} from './models/itemImage.model';
+import { VotedPost } from './models/votedPosts.model';
 
 
 import cors from 'cors';
 import {AdminController} from './controllers/admin.controller';
-import {ItemImage} from './models/itemImage.model';
 import { VotedPostController } from './controllers/votedPosts.controller';
-import { VotedPost } from './models/votedPosts.model';
+import { ProductController } from './controllers/product.controller';
 
 
 export class Server {
@@ -28,6 +30,7 @@ export class Server {
 
         Comment.initialize(this.sequelize); // creates the tables if they dont exist
         Post.initialize(this.sequelize);
+        Product.initialize(this.sequelize);
         User.initialize(this.sequelize);
         VotedPost.initialize(this.sequelize);
         ItemImage.initialize(this.sequelize);
@@ -68,6 +71,7 @@ export class Server {
             .use('/secured', SecuredController)
             .use('/admin', AdminController)
             .use('/votedPosts', VotedPostController)
+            .use('/product', ProductController)
             .options('*', cors(options))
             .use(express.static('./src/public'))
             // this is the message you get if you open http://localhost:3000/ when the server is running

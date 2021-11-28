@@ -5,6 +5,7 @@ import { User } from './user.model';
 export interface ProductAttributes {
     productId: number;
     title: string;
+    description: string;
     category: string;
     price: number;
     imageId: number;
@@ -23,6 +24,7 @@ export class Product extends Model<ProductAttributes, ProductAttributes> impleme
 
     productId!: number;
     title!: string;
+    description!: string;
     category!: string;
     price!: number;
     imageId!: number;
@@ -37,6 +39,10 @@ export class Product extends Model<ProductAttributes, ProductAttributes> impleme
                 primaryKey: true
             },
             title: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            description: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
@@ -57,7 +63,7 @@ export class Product extends Model<ProductAttributes, ProductAttributes> impleme
                 allowNull: false
             }
         },
-        { sequelize, tableName: 'comments' }
+        { sequelize, tableName: 'products' }
         );
     }
 }

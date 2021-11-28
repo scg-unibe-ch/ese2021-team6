@@ -24,12 +24,14 @@ import { DialogComponent } from './dialog/dialog.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
+import { ShopComponent } from './shop/shop.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostComponent,
     CommentComponent,
+    ShopComponent,
     UserComponent,
     ProfileComponent,
     DialogComponent,
