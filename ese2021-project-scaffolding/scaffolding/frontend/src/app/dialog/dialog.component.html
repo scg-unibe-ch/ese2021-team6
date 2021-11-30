@@ -1,7 +1,7 @@
 <!--This it the popup dialogue window for posts-->
 <h1 mat-dialog-title>
 
-<div *ngIf="data.value === 'post' || data.value === 'editPost'">
+<div *ngIf="data.value === 'post' || data.value === 'editPost' || data.value === 'product' || data.value === 'editProduct'">
   <mat-form-field>
    <input matInput placeholder="Write a title..." [(ngModel)]="postTitle" name="name">
   </mat-form-field>
@@ -9,10 +9,10 @@
 </div>
 
 </h1>
-<div mat-dialog-content>
+<div *ngIf="data.value === 'post' || data.value === 'editPost'" mat-dialog-content>
   <mat-form-field [style.width.px]=500>
       <textarea matInput
-            matInput placeholder="Write something..."
+            matInput placeholder= "Write something..."
             cdkTextareaAutosize
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
@@ -21,9 +21,21 @@
       ></textarea>
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
 
-  
+<div *ngIf="data.value === 'product' || data.value === 'editProduct'" mat-dialog-content>
+  <mat-form-field [style.width.px]=500>
+      <textarea matInput
+            matInput placeholder= "Write description..."
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="9"
+            [(ngModel)] = "text"
+      ></textarea>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
   <div *ngIf="data.value === 'post'">
     <mat-form-field appearance="fill">
       <mat-label>Category</mat-label>
@@ -41,11 +53,31 @@
     <p style="color:red">{{ categoryErrorMsg }}</p>
   </div>
 
+  <div *ngIf="data.value === 'product'">
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <select matNativeControl [(ngModel)] = category>
+          <option value="Merch">Merch</option>
+          <option value="Keyboard">Keyboard</option>
+          <option value="Mouse">Mouse</option>
+          <option value="Mousepad">Mousepad</option>
+      </select>
+    </mat-form-field>
+    <p style="color:red">{{ categoryErrorMsg }}</p>
+  </div>
+
+  <div *ngIf="data.value === 'product' || data.value === 'editProduct'">
+    <mat-form-field>
+     <input matInput placeholder="Put a price" [(ngModel)]="price" name="name">
+    </mat-form-field>
+    <p style="color:red">{{ priceErrorMsg }}</p>
+  </div>
+
   <button mat-raised-button color="warn" (click)="closeDialog()">Close</button>
 
-  <div *ngIf="data.value === 'post'">
+  <div *ngIf="data.value === 'post' || data.value === 'product'">
 
-    <button mat-raised-button color="primary" (click)="publishPost()">Post</button>
+    <button mat-raised-button color="primary" (click)="publish(data.value)">Publish</button>
 
     <form action="http://localhost:3000" method="post" enctype="multipart/form-data">
       <input type="file" class="file-input"
@@ -66,6 +98,10 @@
 
   <div *ngIf="data.value === 'editPost' || data.value === 'editComment'">
   <button mat-raised-button color="primary" (click)="publishEdit()">Save edit</button>
+  </div>
+
+  <div *ngIf="data.value === 'editProduct'">
+    <button mat-raised-button color="primary" (click)="publishProductEdit()">Save edit</button>
   </div>
 
    <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
