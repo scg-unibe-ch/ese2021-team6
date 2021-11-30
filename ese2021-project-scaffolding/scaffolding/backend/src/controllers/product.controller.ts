@@ -12,39 +12,10 @@ const userService = new UserService();
 
 const productController: Router = express.Router();
 
-
-productController.get('/', (req: Request, res: Response) => {
-    Product.findAll()
-        .then(list => res.status(200).send(list))
-        .catch(err => res.status(500).send(err));
-});
-
-
-export const ProductController: Router = productController;
-
-
-// post a product in shop (admin only)
-/*
-productController.post('/product', (req: Request, res: Response) => {
-    console.log(req.body);
+productController.post('/', (req: Request, res: Response) => {
     Product.create(req.body).then(created => {
         res.status(201).send(created);
     })
-        .catch(err => res.status(500).send(err));
-});
-
-productController.put('/:id', (req: Request, res: Response) => {
-    Product.findByPk(req.params.id)
-        .then(found => {
-            if (found != null) {
-                found.update(req.body).then(updated => {
-                    res.status(200).send(updated);
-                });
-            } else {
-                res.sendStatus(404);
-            }
-
-        })
         .catch(err => res.status(500).send(err));
 });
 
@@ -63,7 +34,43 @@ productController.delete('/:id', (req: Request, res: Response) => {
         .catch(err => res.status(500).send(err));
 });
 
+productController.get('/', (req: Request, res: Response) => {
+    Product.findAll()
+        .then(list => res.status(200).send(list))
+        .catch(err => res.status(500).send(err));
+});
 
+productController.put('/:id', (req: Request, res: Response) => {
+    Product.findByPk(req.params.id)
+        .then(found => {
+            if (found != null) {
+                found.update(req.body).then(updated => {
+                    res.status(200).send(updated);
+                });
+            } else {
+                res.sendStatus(404);
+            }
+
+        })
+        .catch(err => res.status(500).send(err));
+});
+
+// add image to a post
+productController.post('/:id/image', (req: MulterRequest, res: Response) => {
+    itemService.addProductImage(req).then(created => res.send(created)).catch(err => res.status(500).send(err));
+});
+
+// get the filename of an image
+productController.get('/:id/image', (req: Request, res: Response) => {
+    itemService.getImageItem(Number(req.params.id)).then(products => res.send(products))
+        .catch(err => res.status(500).send(err));
+});
+
+export const ProductController: Router = productController;
+
+
+// post a product in shop (admin only)
+/*
 // get price of product
 productController.get('/price', (req: Request, res: Response) => {
     const Id = Number(req.body.productId);
@@ -84,17 +91,4 @@ productController.get('/userId',
                 res.status(200).send(userId.toString());
             });
     });
-
-productController.get('/:id', (req: Request, res: Response) => {
-    Product.findByPk(req.params.id)
-        .then(found => {
-            if (found != null) {
-                res.status(200).send(found);
-            } else {
-                res.sendStatus(404);
-            }
-        })
-        .catch(err => res.status(500).send(err));
-});
-
-export const PostController: Router = productController;*/
+*/
