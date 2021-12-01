@@ -52,6 +52,16 @@ export class ShopComponent {
     this.readLists();
   }
 
+  buyProduct(product: Product) {
+    if (!this.loggedIn) {
+      console.log("Redirect")
+    }
+    else {
+      console.log("Proceed buying...")
+
+    }
+  }
+
   openPopUp() {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '750px',

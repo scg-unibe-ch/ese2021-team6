@@ -25,6 +25,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import { ShopComponent } from './shop/shop.component';
+import { OrderComponent } from './orders/order.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ShopComponent } from './shop/shop.component';
     UserComponent,
     ProfileComponent,
     DialogComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,
