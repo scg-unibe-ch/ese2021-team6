@@ -10,8 +10,8 @@
       <button mat-raised-button (click)="filterProducts()" >Apply</button>
     </mat-select>
   </mat-form-field>
- 
- <mat-list-item *ngFor="let product of products">
+
+ <mat-list-item class="shop-items" *ngFor="let product of products">
       <mat-card class="product-list">
                  <p class="product-information">
                     {{product.category}}
@@ -27,7 +27,7 @@
                 </mat-card>
 
                 <mat-card class="price">
-                  Price: {{product.price}}
+                  Price: {{product.price}} €
               </mat-card>
 
               <button

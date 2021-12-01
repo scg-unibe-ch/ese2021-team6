@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9d02cdf-54f7-4856-b4c3-bdb027f23325" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/controllers/order.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/models/order.model.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/db.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/app.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/app.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/post/post.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/post/post.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/post/post.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/post/post.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/user/user.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/backend/src/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/shop/shop.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/shop/shop.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/shop/shop.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ese2021-project-scaffolding/scaffolding/frontend/src/app/shop/shop.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +42,8 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Roman\ese2021-team6\ese2021-project-scaffolding\scaffolding\backend\src\controllers" />
-      <recent name="C:\Users\Roman\ese2021-team6\ese2021-project-scaffolding\scaffolding\backend\src\services" />
       <recent name="C:\Users\Roman\ese2021-team6\ese2021-project-scaffolding\scaffolding\backend\src\models" />
+      <recent name="C:\Users\Roman\ese2021-team6\ese2021-project-scaffolding\scaffolding\backend\src\services" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
@@ -88,6 +85,7 @@
       <workItem from="1637268101565" duration="4439000" />
       <workItem from="1637620672962" duration="618000" />
       <workItem from="1637748273717" duration="11558000" />
+      <workItem from="1638341648737" duration="3343000" />
     </task>
     <servers />
   </component>

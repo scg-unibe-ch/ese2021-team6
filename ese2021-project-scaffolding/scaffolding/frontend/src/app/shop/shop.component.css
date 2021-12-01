@@ -1,0 +1,45 @@
+.title{
+  background-color: rgba(35, 35, 35, 0.5);
+  border-style: solid;
+  border-color:rgba(53, 53, 53);
+  font-weight: bold;
+  font-size: 24px;
+  width: 60%;
+  alignment: top;
+  color: white;
+}
+
+.description {
+  background-color: rgba(35, 35, 35, 0.5);
+  border-style: solid;
+  border-color:rgba(53, 53, 53);
+  width: 60%;
+  color: white;
+}
+
+.price{
+  /*price.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });*/
+  background-color: rgba(35, 35, 35, 0.5);
+  border-style: solid;
+  border-color:rgba(53, 53, 53);
+  width: 60%;
+  color: white;
+}
+
+.product-information{
+  text-align: right;
+  font-style: italic;
+  color: black;
+  font-size: 16px;
+}
+
+
+/*shop-items{
+  display: flex;
+  margin: 0 auto;
+  width: 30%;
+  background-color: rgba(35, 35, 35, 0.5);
+  border-style: solid;
+  border-color:rgba(53, 53, 53);
+  color: white;
+}*/
