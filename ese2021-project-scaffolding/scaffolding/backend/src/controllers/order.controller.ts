@@ -4,11 +4,8 @@ import {Order} from '../models/order.model';
 import {ItemService} from '../services/item.service';
 import {MulterRequest} from '../models/multerRequest.model';
 
-
-
 const orderController: Router = express.Router();
 const itemService = new ItemService();
-
 
 orderController.post('/', (req: Request, res: Response) => {
     Order.create(req.body)
