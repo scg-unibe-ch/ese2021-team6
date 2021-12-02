@@ -2,6 +2,10 @@ body {
   margin: 30px;
 }
 
+mat-dialog-container {
+  background-color: rgba(25, 25, 25) !important;
+}
+
 .mat-card {
   margin: 20px 0;
   background-color: #EEE;

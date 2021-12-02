@@ -1,18 +1,16 @@
 
 .registration-form{
-  background-color: white;
-  width: 60%;
+  background-color: rgba(35, 35, 35);
+  width: 95%;
 }
 
 .registration-item{
 }
 
 .login-form{
-  background-color: white;
-  width: 60%;
+  background-color: rgba(35, 35, 35);
+  width: 95%;
 }
-
-
 
 .registration-button {
   appearance: none;
@@ -38,7 +36,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 10%;
+  width: 30%;
   will-change: transform;
 }
 
@@ -71,7 +69,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 10%;
+  width: 20%;
   will-change: transform;
 }
 

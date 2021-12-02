@@ -26,6 +26,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import { ShopComponent } from './shop/shop.component';
 import { OrderComponent } from './orders/order.component';
+import { AppRoutingModule } from './app-routing';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { OrderComponent } from './orders/order.component';
     MatDialogModule,
     MatMenuModule,
     FormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    AppRoutingModule
   ],
 
   providers: [

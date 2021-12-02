@@ -10,6 +10,10 @@ import { User } from './models/user.model';
 import { DialogComponent } from './dialog/dialog.component';
 import { Form, FormControl } from '@angular/forms';
 import { ConditionalExpr } from '@angular/compiler';
+import { UserComponent } from './user/user.component';
+import { MatIconRegistry } from "@angular/material/icon";
+import { DomSanitizer } from "@angular/platform-browser";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -41,7 +45,16 @@ export class AppComponent implements OnInit {
     public httpClient: HttpClient,
     public userService: UserService,
     public dialog: MatDialog,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    private router: Router
   ) {
+
+
+    this.matIconRegistry.addSvgIcon(
+      "menu_button",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/menu-button.svg")
+    );
 
     // Listen for changes
     userService.loggedIn$.subscribe(res => this.loggedIn = res);
@@ -60,6 +73,38 @@ export class AppComponent implements OnInit {
     console.log("Admin: ", this.userService.getIsAdmin())
     console.log("Logged in: ", this.userService.getLoggedIn())
     console.log("User: ", this.userService.getUser())
+  }
+
+  goToShop(pageName: string) {
+    console.log(pageName)
+    this.router.navigate([`${pageName}`])
+  }
+
+    //Logs out the user
+    logoutUser(): void {
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userToken');
+      localStorage.removeItem('user');
+  
+      this.userService.setLoggedIn(false);
+      this.userService.setUser(undefined);
+      this.userService.setIsAdmin(false)
+    }
+
+  openLoginWindow() {
+    const dialogRef = this.dialog.open(UserComponent, {
+      width: '550px',
+      height: '310px',
+      data: { value: "login" },
+    });
+  }
+
+  openRegisterWindow() {
+    const dialogRef = this.dialog.open(UserComponent, {
+      width: '550px',
+      height: '500px',
+      data: { value: "register" },
+    });
   }
 
   openPopUp(): void {

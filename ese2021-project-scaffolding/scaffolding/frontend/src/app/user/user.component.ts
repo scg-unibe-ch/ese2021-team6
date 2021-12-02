@@ -1,10 +1,11 @@
-import { Component, Output } from '@angular/core';
+import { Component, Inject, Output } from '@angular/core';
 import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { UserService } from '../services/user.service';
 import { Userinformation } from '../models/userinformation.model';
 import { EventEmitter } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user',
@@ -37,7 +38,10 @@ export class UserComponent {
 
   constructor(
     public httpClient: HttpClient,
-    public userService: UserService
+    public userService: UserService,
+
+    public dialogRef: MatDialogRef<UserComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {value: string}
   ) {
     // Listen for changes
     userService.loggedIn$.subscribe(res => this.loggedIn = res);
@@ -151,6 +155,7 @@ export class UserComponent {
         this.userinformationToRegister.birthday =
         this.userinformationToRegister.phonenumber = 0;
         this.registrationAcceptedMsg = "Your Account is now registered";
+        this.closeDialog()
       }, () => {
         this.registrationAcceptedMsg = '';
         this.registerErrorMsg = "Username or Email already exists.";
@@ -170,6 +175,7 @@ export class UserComponent {
         localStorage.setItem('userName', res.user.userName);
         localStorage.setItem('userToken', res.token);
 
+        this.closeDialog()
         this.userService.setLoggedIn(true);
         this.userService.setUser(new User(res.user.userId, res.user.userName, res.user.password));
         this.checkAdminEvent.emit()
@@ -179,16 +185,7 @@ export class UserComponent {
       });
     }
   }
-  //Logs out the user
-  logoutUser(): void {
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('user');
 
-    this.userService.setLoggedIn(false);
-    this.userService.setUser(undefined);
-    this.userService.setIsAdmin(false)
-  }
   //Endpoint testing
   accessUserEndpoint(): void {
     this.httpClient.get(environment.endpointURL + "secured").subscribe(() => {
@@ -196,6 +193,10 @@ export class UserComponent {
     }, () => {
       this.endpointMsgUser = "Unauthorized";
     });
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 
   accessAdminEndpoint(): void {
