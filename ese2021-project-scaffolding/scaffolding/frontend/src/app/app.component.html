@@ -4,6 +4,25 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
+<div>
+  <button *ngIf="loggedIn" mat-flat-button color="warn" (click)="logoutUser()">Logout</button>
+  <button *ngIf="!loggedIn" mat-raised-button (click)="openLoginWindow()" >Login</button>
+  <button mat-raised-button (click)="openRegisterWindow()" >Register</button>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon class="menu-icon" svgIcon="menu_button"></mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>Account</mat-icon>
+    </button>
+    <button mat-icon-button (click)="goToShop('Shop')">
+      <mat-icon>Shop</mat-icon>
+    </button>
+  </mat-menu>
+</div>
+
+
 
 <mat-tab-group >
   <mat-tab label="Forum">
@@ -45,15 +64,18 @@
     -->
   </mat-tab>
 
+  <!--
   <mat-tab label="Authentication">
     <app-user
     (checkAdminEvent)="accessAdminEndpoint()">
     </app-user>
   </mat-tab>
-
+   -->
+    <!--
    <mat-tab label="Shop">
     <app-shop></app-shop>
   </mat-tab>
+     -->
 
   <mat-tab *ngIf="loggedIn" label="Profile Page">
    <app-profile></app-profile>
@@ -64,4 +86,5 @@
  </mat-tab>
 </mat-tab-group>
 
+<router-outlet></router-outlet>
 

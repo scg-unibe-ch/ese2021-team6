@@ -11,8 +11,8 @@
     </mat-select>
   </mat-form-field>
 
- <mat-list-item class="shop-items" *ngFor="let product of products">
-      <mat-card class="product-list">
+<mat-list-item class="shop-items" *ngFor="let product of products">
+  <mat-card class="product-list">
                  <p class="product-information">
                     {{product.category}}
                     {{product.createdAt |  date:'dd/MM/yyyy'}}
@@ -42,9 +42,9 @@
                 Edit Product
               </button>
 
-              <button
+            <button
               mat-flat-button color="accent" (click)="buyProduct(product)">
               BUY NOW
-             </button>
-      </mat-card>
-    </mat-list-item>
+            </button>
+  </mat-card>
+</mat-list-item>
