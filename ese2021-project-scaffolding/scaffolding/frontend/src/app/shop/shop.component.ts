@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 import { Product } from '../models/product.model';
 import { FormControl } from '@angular/forms';
+import { UserComponent } from '../user/user.component';
 
 @Component({
   selector: 'app-shop',
@@ -54,7 +55,11 @@ export class ShopComponent {
 
   buyProduct(product: Product) {
     if (!this.loggedIn) {
-      console.log("Redirect")
+      const dialogRef = this.dialog.open(UserComponent, {
+          width: '550px',
+          height: '310px',
+          data: { value: "login" },
+        });
     }
     else {
       console.log("Proceed buying...")

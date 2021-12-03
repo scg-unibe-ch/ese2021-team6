@@ -1,14 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { Post } from './models/post.model';
-import { Comment } from './models/comment.model';
-import { PostComponent } from './post/post.component';
 import { environment } from '../environments/environment';
 import { UserService } from './services/user.service';
 import { User } from './models/user.model';
 import { DialogComponent } from './dialog/dialog.component';
-import { Form, FormControl } from '@angular/forms';
 import { ConditionalExpr } from '@angular/compiler';
 import { UserComponent } from './user/user.component';
 import { MatIconRegistry } from "@angular/material/icon";
@@ -23,22 +19,8 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  title: string = ''
-  text: string = ''
-  category: string = ''
-  imageId: number = 0
-  file: File | undefined; // Temporary file that is used after post is created to load into db
-
-  tags = new FormControl();
-  tagList: string[] = ['Rpg', 'Memes', 'Help', 'Shooter'];
-  selectedTags: string = ""
-
-  posts: Post[] = [];
-
-  loggedIn: boolean | undefined;
-
   user: User | undefined;
-
+  loggedIn: boolean | undefined;
   isAdmin: boolean | undefined;
 
   constructor(
@@ -49,13 +31,11 @@ export class AppComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private router: Router
   ) {
-
-
+    // Set up Icons
     this.matIconRegistry.addSvgIcon(
       "menu_button",
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/menu-button.svg")
     );
-
     // Listen for changes
     userService.loggedIn$.subscribe(res => this.loggedIn = res);
     userService.user$.subscribe(res => this.user = res);
@@ -68,28 +48,40 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.readLists();
     this.checkUserStatus();
-    console.log("Admin: ", this.userService.getIsAdmin())
-    console.log("Logged in: ", this.userService.getLoggedIn())
-    console.log("User: ", this.userService.getUser())
+    this.goToForum("Forum")
   }
 
-  goToShop(pageName: string) {
-    console.log(pageName)
+  goToForum(pageName: string) {
     this.router.navigate([`${pageName}`])
   }
 
-    //Logs out the user
-    logoutUser(): void {
-      localStorage.removeItem('userName');
-      localStorage.removeItem('userToken');
-      localStorage.removeItem('user');
-  
-      this.userService.setLoggedIn(false);
-      this.userService.setUser(undefined);
-      this.userService.setIsAdmin(false)
+  goToShop(pageName: string) {
+    this.router.navigate([`${pageName}`])
+  }
+
+  goToProfile(pageName: string) {
+    if (this.loggedIn) {
+      this.router.navigate([`${pageName}`])
     }
+    else {
+      const dialogRef = this.dialog.open(UserComponent, {
+        width: '550px',
+        height: '310px',
+        data: { value: "login" },
+      });
+    }
+  }
+
+  logoutUser(): void {
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('user');
+  
+    this.userService.setLoggedIn(false);
+    this.userService.setUser(undefined);
+    this.userService.setIsAdmin(false)
+  }
 
   openLoginWindow() {
     const dialogRef = this.dialog.open(UserComponent, {
@@ -107,234 +99,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  openPopUp(): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '750px',
-      height: '350px',
-      data: { value: "post" },
-    });
-
-    const sub = dialogRef.componentInstance.createPost.subscribe(result => {
-      this.createList(result);
-    })
-    const subTitle = dialogRef.componentInstance.addTitle.subscribe(result => {
-      this.title = result;
-    })
-    const subCategory = dialogRef.componentInstance.addCategory.subscribe(result => {
-      this.category = result;
-    })
-    const subImage = dialogRef.componentInstance.addImage.subscribe(result => {
-      console.log("File:")
-      console.log(result)
-
-      this.file = result;
-    })
-  }
-
-  // CREATE - Post
-  // Mach das man nur posten kann wenn man eingeloggt ist!
-  createList(text: string) {
-    this.httpClient.post(environment.endpointURL + "post", {
-      postId: 0,
-      title: this.title,
-      text: text,
-      imageId: 0,
-      upvoteCount: 0,
-      downvoteCount:0,
-      userId: this.userService.getUser()?.userId,
-      category: this.category
-    }).subscribe((list: any) => {
-
-      this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
-        list.upvoteCount, list.downvoteCount, list.userId, [], list.category, list.createdAt));
-
-        if (this.file != undefined) {
-          
-          const fd = new FormData();
-          fd.append('image', this.file);
-
-          this.httpClient.post(environment.endpointURL + "post/" + list.postId + "/image" ,
-            fd, // Check if file is passed correctly
-          ).subscribe((res: any) => {
-            console.log("Uploaded to database")
-            console.log(res)
-          })
-        }
-    })
-  }
-
- // DELETE - Post
- deleteList(post: Post): void {
-  this.httpClient.delete(environment.endpointURL + "post/" + post.postId).subscribe(() => {
-    this.posts.splice(this.posts.indexOf(post), 1);
-  })
-}
-
-upvotePost(post: Post): void {
-  var votedPost: any |undefined
-  this.httpClient.get(environment.endpointURL + "votedPosts").subscribe((res: any) => {
-    votedPost = res.filter((info: any) => info.userId === this.user?.userId &&
-    info.postId === post.postId)
-
-    if (votedPost[0] == undefined) {
-      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-        upvoteCount: post.upvoteCount + 1
-      }).subscribe(res => {
-        post.upvoteCount += 1
-        this.votePost(post, 1)
-      });
-    }
-    else
-      if (votedPost[0].voted == 0) {
-      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-        upvoteCount: post.upvoteCount + 1
-      }).subscribe(res => {
-        post.upvoteCount += 1
-        this.updateVotedPost(votedPost[0].voteId, 1)
-      });
-    }
-    else
-      if (votedPost[0].voted == 1) {
-        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-          upvoteCount: post.upvoteCount - 1
-        }).subscribe(res => {
-          post.upvoteCount -= 1
-          this.updateVotedPost(votedPost[0].voteId, 0)
-        });
-      }
-    else
-      if (votedPost[0].voted == -1) {
-        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-          upvoteCount: post.upvoteCount + 2
-        }).subscribe(res => {
-          post.upvoteCount += 2
-          this.updateVotedPost(votedPost[0].voteId, 1)
-        });
-      }
-  })
- }
-
-downvotePost(post: Post): void {
-  var votedPost: any |undefined
-  this.httpClient.get(environment.endpointURL + "votedPosts").subscribe((res: any) => {
-    votedPost = res.filter((info: any) => info.userId === this.user?.userId &&
-    info.postId === post.postId)
-
-    if (votedPost[0] == undefined) {
-      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-        downvoteCount: post.downvoteCount + 1
-      }).subscribe(res => {
-        post.downvoteCount += 1
-        this.votePost(post, -1)
-      });
-    }
-    else
-      if (votedPost[0].voted == 0) {
-      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-        downvoteCount: post.downvoteCount + 1
-      }).subscribe(res => {
-        post.downvoteCount += 1
-        this.updateVotedPost(votedPost[0].voteId, -1)
-      });
-    }
-    else
-      if (votedPost[0].voted == 1) {
-        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-          downvoteCount: post.downvoteCount + 2
-        }).subscribe(res => {
-          post.downvoteCount += 2
-          this.updateVotedPost(votedPost[0].voteId, -1)
-        });
-      }
-    else
-      if (votedPost[0].voted == -1) {
-        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
-          downvoteCount: post.downvoteCount - 1
-        }).subscribe(res => {
-          post.downvoteCount -= 1
-          this.updateVotedPost(votedPost[0].voteId, 0)
-        });
-      }
-  })
- }
-
-updateVotedPost(voteId: number, value: number) {
-  this.httpClient.put(environment.endpointURL + "votedPosts/" + voteId, {
-    voted: value
-  }).subscribe(res => {
-    console.log("Updated votes!")
-  })
-}
-
- votePost(post: Post, value: number) {
-  this.httpClient.post(environment.endpointURL + "votedPosts", {
-    voteId: 0,
-    userId: this.userService.getUser()?.userId,
-    postId: post.postId,
-    voted: value
-  }).subscribe((list: any) => {
-    console.log("Voted!")
-  })
- }
-
- sortPosts(sortCondition: string) {
-   /*
-  if (sortCondition == "Score") {
-    this.sortByScore()
-  }
-  else
-    this.sortByDate()
-    */
-}
-
-/*
-sortByDate() {
-
-}
-
-sortByScore() {
-  this.posts = this.posts.sort((n1,n2) => {
-    if ((n1.upvoteCount - n1.downvoteCount) > (n2.upvoteCount - n2.downvoteCount)) {
-        return 1;
-    }
-    else {
-        return -1;
-    }
-    return 0;
-    })
-  console.log(this.posts)
-}
-*/
-
- filterPosts() {
-   console.log(this.selectedTags)
-   this.posts = []
-
-   this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
-    lists.forEach((list: any) => {
-
-      const comments: Comment[] = [];
-
-      list.comments.forEach((item: any) => {
-        comments.push(new Comment(0, '', 0, 0, 0, 0));
-      });
-
-      if (this.selectedTags.length>0) {
-        for (let tag of this.selectedTags) {
-          if (tag == list.category) {
-           this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
-             list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
-          }
-         }
-      }
-      else
-        this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
-          list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
-    });
-  });
- }
-
-
   checkUserStatus(): void {
     // Get user data from local storage
     const userToken = localStorage.getItem('userToken');
@@ -350,29 +114,6 @@ sortByScore() {
       this.isAdmin = this.userService.getIsAdmin()
     });
   }
-
-  // READ - Post, Comment
-  readLists(): void {
-    this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
-      lists.forEach((list: any) => {
-
-          /*this.httpClient.get(environment.endpointURL + "post/" + list.postId + "/image", {
-          }).subscribe(res => {
-            console.log(res);
-          });*/
-
-        const comments: Comment[] = [];
-        
-        list.comments.forEach((comment: any) => {
-          comments.push(new Comment(comment.commentId, comment.text, comment.upvoteCount, comment.downvoteCount, comment.postId, comment.userId));
-        });
-
-        this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
-          list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
-      });
-    });
-  }
-
 
   accessAdminEndpoint(): void {
     this.httpClient.get(environment.endpointURL + "admin").subscribe(() => {

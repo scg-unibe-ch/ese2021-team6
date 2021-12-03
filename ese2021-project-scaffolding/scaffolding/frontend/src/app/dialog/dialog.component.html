@@ -9,7 +9,7 @@
 </div>
 
 </h1>
-<div *ngIf="data.value === 'post' || data.value === 'editPost'" mat-dialog-content>
+<div *ngIf="data.value === 'post' || data.value === 'editPost' || data.value === 'comment' || data.value === 'editComment'" mat-dialog-content>
   <mat-form-field [style.width.px]=500>
       <textarea matInput
             matInput placeholder= "Write something..."
