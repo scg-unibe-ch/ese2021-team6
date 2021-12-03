@@ -16,6 +16,8 @@ export class UserComponent {
 
   loggedIn: boolean | undefined;
 
+  isAdmin: boolean | undefined;
+
   user: User | undefined;
 
   userToRegister: User = new User(0, '', '');
@@ -178,7 +180,16 @@ export class UserComponent {
         this.closeDialog()
         this.userService.setLoggedIn(true);
         this.userService.setUser(new User(res.user.userId, res.user.userName, res.user.password));
-        this.checkAdminEvent.emit()
+
+        this.httpClient.get(environment.endpointURL + "admin").subscribe(() => {
+          console.log("Setting to true...")
+          this.userService.setIsAdmin(true)
+          this.isAdmin = this.userService.getIsAdmin()
+        }, () => {
+          this.userService.setIsAdmin(false)
+          this.isAdmin = this.userService.getIsAdmin()
+        });
+
       }, () => {
         this.loginErrorMsg = "Username or password not found!";
         this.userToLogin.username = this.userToLogin.password = '';

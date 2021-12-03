@@ -114,15 +114,4 @@ export class AppComponent implements OnInit {
       this.isAdmin = this.userService.getIsAdmin()
     });
   }
-
-  accessAdminEndpoint(): void {
-    this.httpClient.get(environment.endpointURL + "admin").subscribe(() => {
-      console.log("Setting to true...")
-      this.userService.setIsAdmin(true)
-      this.isAdmin = this.userService.getIsAdmin()
-    }, () => {
-      this.userService.setIsAdmin(false)
-      this.isAdmin = this.userService.getIsAdmin()
-    });
-  }
 }

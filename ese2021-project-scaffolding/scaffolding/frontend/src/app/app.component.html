@@ -31,26 +31,4 @@
 <router-outlet></router-outlet>
 
 
-  <!--
-  <mat-tab label="Authentication">
-    <app-user
-    (checkAdminEvent)="accessAdminEndpoint()">
-    </app-user>
-  </mat-tab>
-   -->
-    <!--
-   <mat-tab label="Shop">
-    <app-shop></app-shop>
-  </mat-tab>
-     -->
-
-  <mat-tab *ngIf="loggedIn" label="Profile Page">
-   <app-profile></app-profile>
-  </mat-tab>
-
-<mat-tab *ngIf="loggedIn" label="Orders">
-  <app-order></app-order>
- </mat-tab>
-
-
-
+  
