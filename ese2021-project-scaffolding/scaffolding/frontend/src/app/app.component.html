@@ -12,57 +12,24 @@
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
     <mat-icon class="menu-icon" svgIcon="menu_button"></mat-icon>
   </button>
+
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>
-      <mat-icon>Account</mat-icon>
-    </button>
-    <button mat-icon-button (click)="goToShop('Shop')">
-      <mat-icon>Shop</mat-icon>
-    </button>
+    <div>
+      <button mat-icon-button (click)="goToForum('Forum')">
+        <mat-icon>Forum</mat-icon>
+      </button>
+      <button mat-icon-button (click)="goToShop('Shop')">
+        <mat-icon>Shop</mat-icon>
+      </button>
+      <button mat-icon-button (click)="goToProfile('Profile')">
+        <mat-icon>Account</mat-icon>
+      </button>
+    </div>
   </mat-menu>
 </div>
 
+<router-outlet></router-outlet>
 
-
-<mat-tab-group >
-  <mat-tab label="Forum">
-    <mat-card class="forum-menu" *ngIf="loggedIn && !userService.getIsAdmin()">
-        <button class="post-button" mat-raised-button (click)="openPopUp()">New Post</button>
-
-        <mat-form-field>
-          <mat-label class="select-category">Filter</mat-label>
-          <mat-select [(ngModel)]="selectedTags" [formControl]="tags" multiple>
-            <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag}}</mat-option>
-            <button mat-raised-button (click)="filterPosts()" >Apply</button>
-          </mat-select>
-        </mat-form-field>
-
-        <p>{{selectedTags}}</p>
-
-        <button mat-button [matMenuTriggerFor]="menu">Sort by</button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="sortPosts('Date')" >Date</button>
-            <button mat-menu-item (click)="sortPosts('Score')" >Score</button>
-          </mat-menu>
-
-    </mat-card>
-<!--This makes the posts appear on the post page-->
-    <mat-list-item *ngFor="let post of posts">
-      <mat-card class="post-list">
-            <app-post
-              [post]="post"
-              (deleteEvent)="deleteList($event)"
-              (upvoteEvent)="upvotePost($event)"
-              (downvoteEvent)="downvotePost($event)"
-            ></app-post>
-      </mat-card>
-    </mat-list-item>
-
-
-    <!--
-      (update)="updateList($event)"
-    -->
-  </mat-tab>
 
   <!--
   <mat-tab label="Authentication">
@@ -84,7 +51,6 @@
 <mat-tab *ngIf="loggedIn" label="Orders">
   <app-order></app-order>
  </mat-tab>
-</mat-tab-group>
 
-<router-outlet></router-outlet>
+
 

@@ -5,74 +5,74 @@ import { HttpClient } from '@angular/common/http';
 import { Comment } from '../models/comment.model';
 import { DialogComponent } from '../dialog/dialog.component';
 import { environment } from '../../environments/environment';
-import { IEvent } from '..//IEvent'
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { PostCommentService } from '../services/post-comment.service';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements IEvent{
-  //Event Emitters to interact with Backend
-  @Input()
+export class PostComponent {
+
   post: Post = new Post(0, '', '', 0, 0, 0, 0, [], '', '');
+  posts: Post[] = [];
 
-  @Output()
-  updateEvent = new EventEmitter<Post>();
+  title: string = ''
+  text: string = ''
+  category: string = ''
+  imageId: number = 0
+  file: File | undefined;
 
-  @Output()
-  deleteEvent = new EventEmitter<Post>();
-
-  @Output()
-  upvoteEvent = new EventEmitter<Post>();
-
-  @Output()
-  downvoteEvent = new EventEmitter<Post>();
-
-  commentText: string = '';
+  tags = new FormControl();
+  selectedTags: string = ""
+  tagList: string[] = ['Rpg', 'Memes', 'Help', 'Shooter'];
 
   constructor(
+    public postCommentService: PostCommentService,
     public httpClient: HttpClient,
     public userService: UserService,
     public dialog: MatDialog, 
+    private router: Router
   ) {}
 
-  // EVENT - Update Post
-  update(): void {
-    // Emits event to parent component that Post got updated
-    this.updateEvent.emit(this.post);
+  ngOnInit() {
+    this.checkUserStatus()
+    this.readPosts();
   }
 
-  // EVENT - Delete Post
-  delete(): void {
-    console.log(this.post);
-    // Emits event to parent component that Post got delete
-    this.deleteEvent.emit(this.post);
+  checkUserStatus(): void {
+    const userToken = localStorage.getItem('userToken');
+    this.userService.setLoggedIn(!!userToken);
   }
 
-  upVote(): void {
-    this.upvoteEvent.emit(this.post);
-  }
-
-  downVote(): void {
-    this.downvoteEvent.emit(this.post);
-  }
-  // Opens the popup to write a comment to the post
-  openPopUp(): void {
+  // Opens the popup to create a post
+  openPostWindow(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '750px',
       height: '350px',
-      data: { value: "comment" },
+      data: { value: "post" },
     });
-     const commentEvent = dialogRef.componentInstance.createComment.subscribe(result => {
-      this.createComment(result);
+    const sub = dialogRef.componentInstance.createPost.subscribe(result => {
+      this.createPost(result);
+    })
+    const subTitle = dialogRef.componentInstance.addTitle.subscribe(result => {
+      this.title = result;
+    })
+    const subCategory = dialogRef.componentInstance.addCategory.subscribe(result => {
+      this.category = result;
+    })
+    const subImage = dialogRef.componentInstance.addImage.subscribe(result => {
+      this.file = result;
     })
   }
 
-   // Opens the popup to edit a post
-   openEditPopUp(): void {
+  // Opens the popup to edit a post
+  openEditWindow(post: Post): void {
+    this.post = post
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '750px',
       height: '350px',
@@ -83,8 +83,195 @@ export class PostComponent implements IEvent{
     })
   }
 
+  // CREATE - Post
+  createPost(text: string) {
+    this.httpClient.post(environment.endpointURL + "post", {
+      postId: 0,
+      title: this.title,
+      text: text,
+      imageId: 0,
+      upvoteCount: 0,
+      downvoteCount:0,
+      userId: this.userService.getUser()?.userId,
+      category: this.category
+    }).subscribe((list: any) => {
+      this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
+        list.upvoteCount, list.downvoteCount, list.userId, [], list.category, list.createdAt));
+
+        if (this.file != undefined) {
+          const fd = new FormData();
+          fd.append('image', this.file);
+
+          this.httpClient.post(environment.endpointURL + "post/" + list.postId + "/image",fd)
+          .subscribe((res: any) => {
+            console.log("Uploaded to database")
+            console.log(res)
+          })
+        }
+    })
+  }
+
+ // DELETE - Post
+ deletePost(post: Post): void {
+  this.httpClient.delete(environment.endpointURL + "post/" + post.postId).subscribe(() => {
+    this.posts.splice(this.posts.indexOf(post), 1);
+  })
+ }
+
+// UpVote - Post
+upvotePost(post: Post): void {
+  var votedPost: any |undefined
+  this.httpClient.get(environment.endpointURL + "votedPosts").subscribe((res: any) => {
+    votedPost = res.filter((info: any) => info.userId === this.userService.getUser()?.userId &&
+    info.postId === post.postId)
+
+    if (votedPost[0] == undefined) {
+      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+        upvoteCount: post.upvoteCount + 1
+      }).subscribe(res => {
+        post.upvoteCount += 1
+        this.votePost(post, 1)
+      });
+    }
+    else
+      if (votedPost[0].voted == 0) {
+      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+        upvoteCount: post.upvoteCount + 1
+      }).subscribe(res => {
+        post.upvoteCount += 1
+        this.updateVotedPost(votedPost[0].voteId, 1)
+      });
+    }
+    else
+      if (votedPost[0].voted == 1) {
+        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+          upvoteCount: post.upvoteCount - 1
+        }).subscribe(res => {
+          post.upvoteCount -= 1
+          this.updateVotedPost(votedPost[0].voteId, 0)
+        });
+      }
+    else
+      if (votedPost[0].voted == -1) {
+        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+          upvoteCount: post.upvoteCount + 2
+        }).subscribe(res => {
+          post.upvoteCount += 2
+          this.updateVotedPost(votedPost[0].voteId, 1)
+        });
+      }
+  })
+ }
+
+// DownVote - Post
+downvotePost(post: Post): void {
+  var votedPost: any |undefined
+  this.httpClient.get(environment.endpointURL + "votedPosts").subscribe((res: any) => {
+    votedPost = res.filter((info: any) => info.userId === this.userService.getUser()?.userId &&
+    info.postId === post.postId)
+
+    if (votedPost[0] == undefined) {
+      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+        downvoteCount: post.downvoteCount + 1
+      }).subscribe(res => {
+        post.downvoteCount += 1
+        this.votePost(post, -1)
+      });
+    }
+    else
+      if (votedPost[0].voted == 0) {
+      this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+        downvoteCount: post.downvoteCount + 1
+      }).subscribe(res => {
+        post.downvoteCount += 1
+        this.updateVotedPost(votedPost[0].voteId, -1)
+      });
+    }
+    else
+      if (votedPost[0].voted == 1) {
+        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+          downvoteCount: post.downvoteCount + 2
+        }).subscribe(res => {
+          post.downvoteCount += 2
+          this.updateVotedPost(votedPost[0].voteId, -1)
+        });
+      }
+    else
+      if (votedPost[0].voted == -1) {
+        this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
+          downvoteCount: post.downvoteCount - 1
+        }).subscribe(res => {
+          post.downvoteCount -= 1
+          this.updateVotedPost(votedPost[0].voteId, 0)
+        });
+      }
+   })
+  }
+
+  updateVotedPost(voteId: number, value: number) {
+    this.httpClient.put(environment.endpointURL + "votedPosts/" + voteId, {
+      voted: value
+    }).subscribe(res => {
+      console.log("Updated votes!")
+    })
+  }
+
+  votePost(post: Post, value: number) {
+    this.httpClient.post(environment.endpointURL + "votedPosts", {
+      voteId: 0,
+      userId: this.userService.getUser()?.userId,
+      postId: post.postId,
+      voted: value
+    }).subscribe((list: any) => {
+      console.log("Voted!")
+    })
+  }
+
+  filterPosts() {
+    console.log(this.selectedTags)
+    this.posts = []
+
+    this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
+      lists.forEach((list: any) => {
+
+        const comments: Comment[] = [];
+
+        list.comments.forEach((item: any) => {
+          comments.push(new Comment(0, '', 0, 0, 0, 0));
+        });
+
+        if (this.selectedTags.length>0) {
+          for (let tag of this.selectedTags) {
+            if (tag == list.category) {
+            this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
+              list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
+            }
+          }
+        }
+        else
+          this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
+            list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
+      });
+    });
+  }
+
+  // READ - Post, Comment
+  readPosts(): void {
+    this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
+      lists.forEach((list: any) => {
+        const comments: Comment[] = [];
+        
+        list.comments.forEach((comment: any) => {
+          comments.push(new Comment(comment.commentId, comment.text, comment.upvoteCount, comment.downvoteCount, comment.postId, comment.userId));
+        });
+
+        this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
+          list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
+      });
+    });
+  }
+
   editPost(result: string[]) {
-    
     if (result[0] == "Text") {
       this.httpClient.put(environment.endpointURL + "post/" + this.post.postId, {
         text: result[1]
@@ -110,48 +297,9 @@ export class PostComponent implements IEvent{
     }
   }
 
-// CREATE - Comment
-  createComment(text: string): void {
-    console.log(text)
-    this.httpClient.post(environment.endpointURL + "comment", {
-      commentId: 0, 
-      text: text,
-      upvoteCount: 0,
-      downvoteCount:0,
-      postId: this.post.postId,
-      userId: this.userService.getUser()?.userId
-    }).subscribe((item: any) => {
-      this.post.comments.push(new Comment(item.commentId, item.text, item.upvoteCount 
-        ,item.downvoteCount, item.postId, item.userId));
-    });
+  showComments(post: Post, pageName: String) {
+    this.post = post
+    this.postCommentService.setPost(post)
+    this.router.navigate([`${pageName}`])
   }
-
-// DELETE - Comment
-  deleteComment(comment: Comment): void {
-    console.log(comment.commentId)
-     this.httpClient.delete(environment.endpointURL + "comment/" + comment.commentId).subscribe(() => {
-      this.post.comments.splice(this.post.comments.indexOf(comment), 1);
-    });
-  }
-
-  /*
-  // READ - Comment
-  // Not required since all Comments of a Post are provided with the list itself
-
-  // UPDATE - Comment
-  updateItem(comment: Comment): void {
-    this.httpClient.put(environment.endpointURL + "comment/" + comment.commentId, {
-      name: comment.name,
-      done: comment.done,
-      postId: comment.postId
-    }).subscribe();
-  }
-
-  // DELETE - Comment
-  deleteItem(comment: Comment): void {
-    this.httpClient.delete(environment.endpointURL + "comment/" + comment.commentId).subscribe(() => {
-      this.post.comments.splice(this.post.comments.indexOf(comment), 1);
-    });
-  }
-  */
 }

@@ -1,11 +1,59 @@
-<button 
-*ngIf="userService.getLoggedIn() && userService.getUser()?.userId === comment.userId"
-mat-flat-button color="warn" (click)="delete()">
-  Delete Comment
-</button>
+<!-- // DISPLAY POST \\ -->
+<mat-card class="post-list">
 
-<button
-*ngIf="userService.getLoggedIn() && userService.getUser()?.userId === comment.userId"
-mat-flat-button color="accent" (click)="openEditPopUp()">
-  Edit Comment
-</button>
+  <!-- General Information -->
+  <p class="post-information">
+    {{post.category}}
+    {{post.createdAt |  date:'dd/MM/yyyy'}}
+  </p>
+  
+  <mat-card class="title">
+    {{post.title}}
+  </mat-card>
+  
+  <mat-card class="text">
+    {{post.text}}
+  </mat-card>
+
+  <mat-card class="text">
+   Score: {{post.upvoteCount - post.downvoteCount}}
+  </mat-card>
+
+  <!-- Post Interactions -->
+  <button
+    *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
+    mat-flat-button color="primary" (click)="openCommentWindow()">
+    Comment
+  </button>
+</mat-card>
+<!--/////////////////////////////////////////////////////////////////////////////////////-->
+
+<!-- // DISPLAY COMMENTS \\ -->
+<mat-list>
+  <mat-list-item *ngFor="let comment of post.comments">
+      <!-- General Information -->
+      <mat-card>
+        {{comment.text}}
+      </mat-card>
+
+      <!-- Comment Interactions -->
+      <button 
+        *ngIf="userService.getLoggedIn() && userService.getUser()?.userId === comment.userId"
+        mat-flat-button color="warn" (click)="deleteComment(comment)">
+        Delete Comment
+      </button>
+
+      <button
+        *ngIf="userService.getLoggedIn() && userService.getUser()?.userId === comment.userId"
+        mat-flat-button color="accent" (click)="openEditPopUp(comment)">
+        Edit Comment
+      </button>
+    </mat-list-item>
+</mat-list>
+<!--/////////////////////////////////////////////////////////////////////////////////////-->
+
+<div *ngIf="post.comments.length === 0">
+  <mat-card>
+       No comments available.
+   </mat-card>
+ </div>

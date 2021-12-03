@@ -7,9 +7,9 @@
     <mat-label class="select-category">Filter</mat-label>
     <mat-select [(ngModel)]="selectedTags" [formControl]="tags" multiple>
       <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag}}</mat-option>
-      <button mat-raised-button (click)="filterProducts()" >Apply</button>
+      <button mat-raised-button (click)="filterProducts()">Apply</button>
     </mat-select>
-  </mat-form-field>
+</mat-form-field>
 
 <mat-list-item class="shop-items" *ngFor="let product of products">
   <mat-card class="product-list">
