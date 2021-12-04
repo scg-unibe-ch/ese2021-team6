@@ -60,6 +60,19 @@ export class AppComponent implements OnInit {
     this.router.navigate([`${pageName}`])
   }
 
+  goToDashboard(pageName: string) {
+    if (this.loggedIn) {
+      this.router.navigate([`${pageName}`])
+    }
+    else {
+      const dialogRef = this.dialog.open(UserComponent, {
+        width: '550px',
+        height: '310px',
+        data: { value: "login" },
+      });
+    }
+  }
+
   goToProfile(pageName: string) {
     if (this.loggedIn) {
       this.router.navigate([`${pageName}`])

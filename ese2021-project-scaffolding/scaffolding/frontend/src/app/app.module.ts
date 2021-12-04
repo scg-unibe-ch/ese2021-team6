@@ -30,6 +30,7 @@ import { OrderComponent } from './order/order.component';
 import { AppRoutingModule } from './app-routing';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {MatRadioModule} from '@angular/material/radio';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {MatRadioModule} from '@angular/material/radio';
     ProfileComponent,
     DialogComponent,
     OrderComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
