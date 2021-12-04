@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import {MatStepperModule} from '@angular/material/stepper';
 import {MatMenuModule} from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostComponent } from './post/post.component';
@@ -25,8 +26,10 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import { ShopComponent } from './shop/shop.component';
-import { OrderComponent } from './orders/order.component';
+import { OrderComponent } from './order/order.component';
 import { AppRoutingModule } from './app-routing';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,9 @@ import { AppRoutingModule } from './app-routing';
     MatMenuModule,
     FormsModule,
     MatCheckboxModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatStepperModule,
+    MatRadioModule
   ],
 
   providers: [

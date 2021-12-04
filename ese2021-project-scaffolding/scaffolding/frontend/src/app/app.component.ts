@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     private router: Router
   ) {
     // Set up Icons
-    this.matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon( 
       "menu_button",
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/menu-button.svg")
     );
