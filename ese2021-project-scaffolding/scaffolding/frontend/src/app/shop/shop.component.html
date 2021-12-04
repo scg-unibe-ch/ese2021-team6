@@ -43,7 +43,7 @@
               </button>
 
             <button
-              mat-flat-button color="accent" (click)="buyProduct(product)">
+              *ngIf="!userService.getIsAdmin()" mat-flat-button color="accent" (click)="buyProduct(product)">
               BUY NOW
             </button>
   </mat-card>

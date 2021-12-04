@@ -8,6 +8,8 @@ import { User } from '../models/user.model';
 import { Product } from '../models/product.model';
 import { FormControl } from '@angular/forms';
 import { UserComponent } from '../user/user.component';
+import { Router } from '@angular/router';
+import { ProductOrderService } from '../services/product-order.service';
 
 @Component({
   selector: 'app-shop',
@@ -37,6 +39,8 @@ export class ShopComponent {
     public httpClient: HttpClient,
     public userService: UserService,
     public dialog: MatDialog, 
+    private router: Router,
+    public productOrderService: ProductOrderService
   ) {
     // Listen for changes
     userService.loggedIn$.subscribe(res => this.loggedIn = res);
@@ -62,8 +66,9 @@ export class ShopComponent {
         });
     }
     else {
-      console.log("Proceed buying...")
-
+      this.product = product
+      this.productOrderService.setProduct(product)
+      this.router.navigate(["Order"])
     }
   }
 

@@ -1,0 +1,63 @@
+<div *ngIf="userService.getLoggedIn()">
+
+    <mat-stepper [linear]="isLinear" #stepper>
+
+    <!-- // Address-Form \\ -->
+    <mat-step [stepControl]="addressFormGroup" state="edit" label="Fill out your address">
+        <form [formGroup]="addressFormGroup">
+
+            <mat-form-field appearance="standard">
+                <mat-label>Address</mat-label>
+                <input [value]="address" formControlName = "addressCtrl" matInput placeholder="Write your address">
+            </mat-form-field>
+
+            <mat-form-field appearance="legacy">
+                <mat-label>City</mat-label>
+                <input [value]="city" formControlName = "cityCtrl" matInput placeholder="Write your city">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Zipcode</mat-label>
+                <input [value]="zipCode" formControlName = "zipCodeCtrl" matInput placeholder="Write your zipcode">
+            </mat-form-field>
+            
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+
+        </form>
+    </mat-step>
+
+     <!-- // Payment-Form \\ -->
+    <mat-step [stepControl]="paymentFormGroup" label="Choose a payment method">
+        <form [formGroup]="paymentFormGroup">
+
+            <mat-radio-button value="invoice" formControlName = "invoiceCtrl" ngDefaultControl [checked]="true" >Payment via invoice</mat-radio-button>
+            <p>
+                <mat-radio-button value="cash" formControlName = "invoiceCtrl" ngDefaultControl [checked]="false" >Cash</mat-radio-button>
+            </p>
+
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+
+        </form>
+    </mat-step>
+
+
+    <mat-step label="Purchase">
+        <p>Click on the purchase button</p>
+        <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button (click)="purchase()">Purchase</button>
+        </div>
+    </mat-step>
+
+    <ng-template matStepperIcon="edit">
+        <mat-icon class="edit-icon" svgIcon="edit_button"></mat-icon>
+    </ng-template>    
+
+</mat-stepper>   
+</div>
