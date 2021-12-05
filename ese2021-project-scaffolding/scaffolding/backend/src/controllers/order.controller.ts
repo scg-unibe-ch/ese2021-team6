@@ -13,6 +13,12 @@ orderController.post('/', (req: Request, res: Response) => {
         .catch(err => res.status(500).send(err));
 });
 
+orderController.get('/', (req: Request, res: Response) => {
+    Order.findAll()
+        .then(list => res.status(200).send(list))
+        .catch(err => res.status(500).send(err));
+});
+
 orderController.put('/:id', (req: Request, res: Response) => {
     Order.findByPk(req.params.id)
         .then(found => {

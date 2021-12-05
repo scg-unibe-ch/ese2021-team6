@@ -9,6 +9,8 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { zip } from 'rxjs';
 import { Product } from '../models/product.model';
 import { ProductOrderService } from '../services/product-order.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-order',
@@ -29,7 +31,7 @@ export class OrderComponent implements OnInit {
   address: string = ''
   city: string = ''
   zipCode: number = 0
-  paymentMethod = ''
+  paymentMethod = "invoice"
 
   constructor(
     public httpClient: HttpClient,
@@ -37,7 +39,8 @@ export class OrderComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    public productOrderService: ProductOrderService
+    public productOrderService: ProductOrderService,
+    private router: Router
   ) {
      // Set up Icons
      this.matIconRegistry.addSvgIcon( 
@@ -76,9 +79,19 @@ export class OrderComponent implements OnInit {
   }
 
   purchase() {
-    this.address = this.addressFormGroup.controls.addressCtrl.value
-    this.paymentMethod = this.paymentFormGroup.controls.invoiceCtrl.value
-
+    if (this.addressFormGroup.controls.addressCtrl.value != null) {
+      this.address = this.addressFormGroup.controls.addressCtrl.value
+    }
+    if (this.addressFormGroup.controls.cityCtrl.value != null) {
+      this.city = this.addressFormGroup.controls.cityCtrl.value
+    }
+    if (this.addressFormGroup.controls.zipCodeCtrl.value != null) {
+      this.zipCode = this.addressFormGroup.controls.zipCodeCtrl.value
+    }
+    if (this.paymentFormGroup.controls.invoiceCtrl.value != null) {
+      this.paymentMethod = this.paymentFormGroup.controls.invoiceCtrl.value
+    }
+   
     console.log(this.address)
     console.log(this.paymentMethod)
 
@@ -86,11 +99,13 @@ export class OrderComponent implements OnInit {
       orderId: 0,
       username: this.userService.getUser()?.username,
       deliveryAdress: this.address,
+      city: this.city,
+      zipcode: this.zipCode,
       paymentMethod: this.paymentMethod,
       orderStatus: "pending",
       productId: this.product.productId
-    }).subscribe((list: any) => {
-       console.log("CREATED ORDER")
+    }).subscribe((res: any) => {
+       this.router.navigateByUrl("Dashboard")
     })
   }
 }

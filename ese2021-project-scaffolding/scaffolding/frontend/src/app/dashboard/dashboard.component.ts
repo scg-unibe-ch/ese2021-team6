@@ -11,7 +11,6 @@ import { UserComponent } from '../user/user.component';
 import { Router } from '@angular/router';
 import { ProductOrderService } from '../services/product-order.service';
 import { Order } from '../models/order.model';
-import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,23 +22,21 @@ export class DashboardComponent implements OnInit {
   user: User | undefined;
   isAdmin: boolean | undefined;
 
-  order: Order = new Order(0, '', '', '', '', 0);
-
-  product: Product = new Product(0, '', '', '', 0, 0, 0, '');
-  products: Product[] = [];
+  order: Order = new Order(0, '', '', '', 0, '', '', 0);
+  orders: Order[] = []
+  userSpecificOrders: Order[] = []
 
   constructor(
-    public orderService: OrderService,
     public httpClient: HttpClient,
     public userService: UserService,
     public dialog: MatDialog, 
     private router: Router,
-    public productOrderService: ProductOrderService
+    public productOrderService: ProductOrderService,
   ) {
     // Listen for changes
     userService.user$.subscribe(res => this.user = res);
     userService.isAdmin$.subscribe(res => this.isAdmin);
-
+  
     // Current value
     this.user = userService.getUser();
     this.isAdmin = userService.getIsAdmin();
@@ -51,21 +48,17 @@ export class DashboardComponent implements OnInit {
 
   readLists(): void {
     this.httpClient.get(environment.endpointURL + "order").subscribe((lists: any) => {
+      console.log(lists)
       lists.forEach((list: any) => {
-        const orders: Order[] = [];
-        list.orders.forEach((order: any) => {
-          orders.push(new Order(list.orderId, list.title, list.description, list.category,
-            list.price, list.imageId));
-        });
-        
-        this.products.push(new Product(list.productId, list.title, list.description, list.category,
-          list.price, list.imageId, list.userId, list.createdAt))   
+
+        this.orders.push(new Order(list.orderId, list.username, list.deliveryAdress, list.city, list.zipcode, list.paymentMethod,
+          list.orderStatus, list.productId));
+
+        if (list.username == this.userService.getUser()?.username) {
+          this.userSpecificOrders.push(new Order(list.orderId, list.username, list.deliveryAdress, list.city, list.zipcode, list.paymentMethod,
+            list.orderStatus, list.productId));
+        }
       });
     });
-  }
-
-  showOrders(product: Product) {
-    this.product = product
-    this.orderService.setOrder(this.order)
   }
 }
