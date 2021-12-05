@@ -1,16 +1,59 @@
 <div *ngIf="userService.getIsAdmin() && userService.getLoggedIn()">
-<mat-list-item class="shop-items" *ngFor="let order of orders">
-    <mat-card class="username">
-        Username: {{order.username}} 
-    </mat-card>
-</mat-list-item>
-</div>
+    <mat-list-item class="shop-items" *ngFor="let order of orders">
+        <mat-card>
 
-<div *ngIf="!userService.getIsAdmin() && userService.getLoggedIn()">
-    <mat-list-item class="shop-items" *ngFor="let order of userSpecificOrders">
-        <mat-card class="username">
-            Username: {{order.username}} 
+            <!-- General Information -->
+            <mat-card class="username">
+                Username: {{order.username}} 
+            </mat-card>
+            <mat-card class="username">
+                Status: {{order.orderStatus}} 
+            </mat-card>
+
+            <!-- Interactions -->
+            <div *ngIf="!changingStatus">
+                <button mat-flat-button color="accent" (click)="askForPermission(order)">
+                    Change status
+                </button>
+            </div>
+            <div *ngIf="changingStatus && order.orderId===currOrderId">
+                <button mat-flat-button color="accent" (click)="resolveOrder(order)">
+                    Yes
+                </button>
+                <button mat-flat-button color="accent" (click)="terminateProcess()">
+                    No
+                </button>
+            </div>
         </mat-card>
     </mat-list-item>
 </div>
 
+<div *ngIf="!userService.getIsAdmin() && userService.getLoggedIn()">
+    <mat-list-item class="shop-items" *ngFor="let order of userSpecificOrders">
+        <mat-card>
+
+            <!-- General Information -->
+            <mat-card class="username">
+                Username: {{order.username}} 
+            </mat-card>
+            <mat-card class="username">
+                Status: {{order.orderStatus}} 
+            </mat-card>
+
+            <!-- Interactions -->
+            <div *ngIf="!changingStatus">
+                <button mat-flat-button color="accent" (click)="askForPermission(order)">
+                    Cancel order
+                </button>
+            </div>
+            <div *ngIf="changingStatus && order.orderId===currOrderId">
+                <button mat-flat-button color="accent" (click)="cancelOrder(order)">
+                    Yes
+                </button>
+                <button mat-flat-button color="accent" (click)="terminateProcess()">
+                    No
+                </button>
+            </div>
+        </mat-card>
+    </mat-list-item>
+</div>
