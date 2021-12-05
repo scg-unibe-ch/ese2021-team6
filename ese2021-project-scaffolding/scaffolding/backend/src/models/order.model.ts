@@ -7,6 +7,8 @@ export interface OrderAttributes {
     orderId: number;
     username: string;
     deliveryAdress: string;
+    city: string;
+    zipcode: number;
     paymentMethod: string;
     orderStatus: string;
     productId: number;
@@ -21,6 +23,8 @@ export class Order extends Model<OrderAttributes, OrderCreationAttributes> imple
     orderId!: number;
     username!: string;
     deliveryAdress!: string;
+    city!: string;
+    zipcode!: number;
     paymentMethod!: string;
     orderStatus!: string;
     productId!: number;
@@ -39,6 +43,14 @@ export class Order extends Model<OrderAttributes, OrderCreationAttributes> imple
             },
                 deliveryAdress: {
                 type: DataTypes.STRING,
+                allowNull: true
+            },
+                city: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
+                zipcode: {
+                type: DataTypes.INTEGER,
                 allowNull: true
             },
                 paymentMethod: {
