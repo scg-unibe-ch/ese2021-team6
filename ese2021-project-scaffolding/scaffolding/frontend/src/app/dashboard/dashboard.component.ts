@@ -22,6 +22,9 @@ export class DashboardComponent implements OnInit {
   user: User | undefined;
   isAdmin: boolean | undefined;
 
+  changingStatus: Boolean = false
+  currOrderId: Number = 0
+
   order: Order = new Order(0, '', '', '', 0, '', '', 0);
   orders: Order[] = []
   userSpecificOrders: Order[] = []
@@ -60,5 +63,30 @@ export class DashboardComponent implements OnInit {
         }
       });
     });
+  }
+
+  cancelOrder(order: Order) {
+    this.terminateOrder(order)
+  }
+
+  resolveOrder(order: Order) {
+    this.terminateOrder(order)
+  }
+
+  askForPermission(order: Order) {
+    this.currOrderId = order.orderId
+    this.changingStatus = true
+  }
+
+  terminateProcess() {
+    this.changingStatus = false
+  }
+
+  terminateOrder(order: Order) {
+    this.changingStatus = false
+    this.httpClient.delete(environment.endpointURL + "order/" + order.orderId).subscribe(() => {
+      console.log("Terminated")
+      this.userSpecificOrders.splice(this.userSpecificOrders.indexOf(order), 1);
+    })
   }
 }
