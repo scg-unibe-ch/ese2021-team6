@@ -53,6 +53,7 @@
         <button mat-button (click)="stepper.reset()">Reset</button>
         <button mat-button (click)="purchase()">Purchase</button>
         </div>
+        <p style="color:red">{{ purchaseErrorMsg }}</p>
     </mat-step>
 
     <ng-template matStepperIcon="edit">
