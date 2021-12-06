@@ -33,6 +33,8 @@ export class OrderComponent implements OnInit {
   zipCode: number = 0
   paymentMethod = "invoice"
 
+  purchaseErrorMsg: string = '';
+
   constructor(
     public httpClient: HttpClient,
     public userService: UserService,
@@ -79,6 +81,7 @@ export class OrderComponent implements OnInit {
   }
 
   purchase() {
+    this.purchaseErrorMsg = '';
     if (this.addressFormGroup.controls.addressCtrl.value != null) {
       this.address = this.addressFormGroup.controls.addressCtrl.value
     }
@@ -94,7 +97,10 @@ export class OrderComponent implements OnInit {
    
     console.log(this.address)
     console.log(this.paymentMethod)
-
+    if(this.address == '' || this.city == '' || this.zipCode == 0){
+      this.purchaseErrorMsg = "Please fill out all the required fields";
+      return;
+    }
     this.httpClient.post(environment.endpointURL + "order", {
       orderId: 0,
       username: this.userService.getUser()?.username,

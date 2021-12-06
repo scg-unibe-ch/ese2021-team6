@@ -70,7 +70,13 @@ export class DashboardComponent implements OnInit {
   }
 
   resolveOrder(order: Order) {
-    this.terminateOrder(order)
+    if(order.orderStatus == "pending"){
+      this.httpClient.put(environment.endpointURL + "order/" + this.order.orderId, {
+        orderStatus: "shipped"
+      }).subscribe(res => {
+        order.orderStatus = "shipped"
+      });
+    }
   }
 
   askForPermission(order: Order) {
@@ -83,10 +89,12 @@ export class DashboardComponent implements OnInit {
   }
 
   terminateOrder(order: Order) {
-    this.changingStatus = false
-    this.httpClient.delete(environment.endpointURL + "order/" + order.orderId).subscribe(() => {
+    if(order.orderStatus != "shipped"){
+      this.changingStatus = false
+      this.httpClient.delete(environment.endpointURL + "order/" + order.orderId).subscribe(() => {
       console.log("Terminated")
       this.userSpecificOrders.splice(this.userSpecificOrders.indexOf(order), 1);
     })
+    }
   }
 }
