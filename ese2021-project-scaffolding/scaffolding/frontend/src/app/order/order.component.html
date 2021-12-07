@@ -11,16 +11,16 @@
                 <input [value]="address" formControlName = "addressCtrl" matInput placeholder="Write your address">
             </mat-form-field>
 
-            <mat-form-field appearance="legacy">
+            <mat-form-field appearance="standard">
                 <mat-label>City</mat-label>
                 <input [value]="city" formControlName = "cityCtrl" matInput placeholder="Write your city">
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="standard">
                 <mat-label>Zipcode</mat-label>
                 <input [value]="zipCode" formControlName = "zipCodeCtrl" matInput placeholder="Write your zipcode">
             </mat-form-field>
-            
+
             <div>
                 <button mat-button matStepperNext>Next</button>
             </div>
@@ -58,7 +58,7 @@
 
     <ng-template matStepperIcon="edit">
         <mat-icon class="edit-icon" svgIcon="edit_button"></mat-icon>
-    </ng-template>    
+    </ng-template>
 
-</mat-stepper>   
+</mat-stepper>
 </div>

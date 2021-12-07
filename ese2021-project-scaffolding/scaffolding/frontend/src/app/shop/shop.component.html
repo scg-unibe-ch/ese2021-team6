@@ -22,29 +22,34 @@
                     {{product.title}}
                 </mat-card>
 
+
+                <img  src="assets/keyboard2.jpg">
+
+    <!--<img *ngIf="{{product.description.includes(Keyboard)}}" src="assets/cap.jpg">*/ -->
+
                 <mat-card class="description">
                     About this product: {{product.description}}
                 </mat-card>
 
-                <mat-card class="price">
-                  Price: {{product.price}} €
-              </mat-card>
-
-              <button
-              *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
-              mat-flat-button color="warn" (click)="delete(product)">
-                Delete Product
-              </button>
-
-              <button
-              *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
-              mat-flat-button color="accent" (click)="openEditPopUp(product)">
-                Edit Product
-              </button>
-
-            <button
-              *ngIf="!userService.getIsAdmin()" mat-flat-button color="accent" (click)="buyProduct(product)">
-              BUY NOW
-            </button>
+    <mat-card class="price">
+      Price: {{product.price}} €
   </mat-card>
+
+  <button
+  *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
+  mat-flat-button color="warn" (click)="delete(product)">
+    Delete Product
+  </button>
+
+  <button
+  *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
+  mat-flat-button color="accent" (click)="openEditPopUp(product)">
+    Edit Product
+  </button>
+
+<button
+  *ngIf="!userService.getIsAdmin()" mat-flat-button color="accent" (click)="buyProduct(product)">
+  BUY NOW
+</button>
+</mat-card>
 </mat-list-item>
