@@ -9,5 +9,7 @@ export class Order {
     public paymentMethod: string,
     public orderStatus: string,
     public productId: number,
+    public productTitle: string,
+    public productPrice: number
   ) {}
 }
