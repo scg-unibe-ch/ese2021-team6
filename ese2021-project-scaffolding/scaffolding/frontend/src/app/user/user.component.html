@@ -1,14 +1,14 @@
 <!--This is the login card
     TODO: Put it into popup or new page-->
-  <div *ngIf="data.value === 'login'">
+  <div *ngIf="data.value === 'login'" class="card">
       <mat-card class="login-form">
         <h3>Login</h3>
         <!--If not logged in, make login possible-->
         <div *ngIf="!loggedIn">
-          <mat-form-field>
+          <mat-form-field class="name">
             <input matInput type="text" placeholder="User Name" name="name" [(ngModel)]="userToLogin.username">
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="password">
             <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="userToLogin.password">
           </mat-form-field>
           <button class="login-button" mat-flat-button color="primary" (click)="loginUser()">Login</button>
@@ -65,6 +65,7 @@
       </mat-form-field>
       <!--If the register conditions aren't met, it will be written here-->
       <p style="color:red">{{ registerErrorMsg }}</p>
+      <p style="color:red">{{ emailErrorMsg }}</p>
       <button class="registration-button" mat-flat-button color="primary" (click)="registerUser()">Register</button>
       <p style="color:green">{{ registrationAcceptedMsg }}</p>
     </mat-card>

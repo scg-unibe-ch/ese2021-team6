@@ -1,15 +1,15 @@
 
 .registration-form{
-  background-color: rgba(35, 35, 35);
   width: 95%;
+  color: black;
 }
 
 .registration-item{
 }
 
-.login-form{
-  background-color: rgba(35, 35, 35);
+.login-form {
   width: 95%;
+  color: black;
 }
 
 .registration-button {

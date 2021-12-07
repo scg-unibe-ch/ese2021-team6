@@ -36,6 +36,7 @@ export class UserComponent {
   loginErrorMsg: string = '';
   passwordConditionErrorMsg: string = '';
   registerErrorMsg: string = '';
+  emailErrorMsg: string = '';
   registrationAcceptedMsg: string = '';
 
   constructor(
@@ -111,15 +112,10 @@ export class UserComponent {
     // The commented checks are here to ease testing
     this.registerErrorMsg = '';
     let noEmptyFields = true;
+
     if (this.userToRegister.username.length == 0){noEmptyFields = false}
-    //if (this.userinformationToRegister.firstname.length == 0){noEmptyFields = false}
-    //if (this.userinformationToRegister.lastname.length == 0){noEmptyFields = false}
     if (this.userinformationToRegister.email.length == 0){noEmptyFields = false}
-    //if (this.userinformationToRegister.address.length == 0){noEmptyFields = false}
-    //if (this.userinformationToRegister.zipCode == 0){noEmptyFields = false}
-    //if (this.userinformationToRegister.city.length == 0){noEmptyFields = false}
-    //if (this.userinformationToRegister.birthday == 0){noEmptyFields = false}
-    //if (this.userinformationToRegister.phonenumber == 0){noEmptyFields = false}
+
     if(!noEmptyFields){
       this.registrationAcceptedMsg = '';
       this.registerErrorMsg = 'Please fill out the required fields.';
@@ -128,9 +124,25 @@ export class UserComponent {
 
   }
 
+  checkCorrectMail(): boolean{
+    // The commented checks are here to ease testing
+    this.emailErrorMsg = '';
+
+    let eMailcorrect = true;
+
+    if (!(this.userinformationToRegister.email.includes("@"))){eMailcorrect = false}
+
+    if(!eMailcorrect){
+      this.registrationAcceptedMsg = '';
+      this.emailErrorMsg = 'Please fill in a valid E-Mail address';
+    }
+    return eMailcorrect;
+
+  }
+
   registerUser(): void {
     // If all registration conditions are met, the user information will be saved in the DB
-    if (this.checkNoEmptyFields() /*&& this.checkPasswordConditions()*/) {
+    if (this.checkNoEmptyFields() && this.checkCorrectMail() /*&& this.checkPasswordConditions()*/) {
       this.httpClient.post(environment.endpointURL + "user/register", {
         userName: this.userToRegister.username,
         password: this.userToRegister.password,
@@ -141,7 +153,7 @@ export class UserComponent {
         zipCode: this.userinformationToRegister.zipCode,
         city: this.userinformationToRegister.city,
         birthday: this.userinformationToRegister.birthday,
-        phoneNumber: this.userinformationToRegister.phonenumber       
+        phoneNumber: this.userinformationToRegister.phonenumber
       }).subscribe(() => {
         this.passwordConditionErrorMsg = '';
 
