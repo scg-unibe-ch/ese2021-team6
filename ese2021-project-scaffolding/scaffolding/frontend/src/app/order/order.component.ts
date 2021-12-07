@@ -45,7 +45,7 @@ export class OrderComponent implements OnInit {
     private router: Router
   ) {
      // Set up Icons
-     this.matIconRegistry.addSvgIcon( 
+     this.matIconRegistry.addSvgIcon(
       "edit_button",
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/edit.svg")
     );
@@ -68,7 +68,7 @@ export class OrderComponent implements OnInit {
     // Current value
     this.product = productOrderService.getProduct();
   }
- 
+
   ngOnInit() {
     this.addressFormGroup = this._formBuilder.group({
       addressCtrl: [],
@@ -94,10 +94,10 @@ export class OrderComponent implements OnInit {
     if (this.paymentFormGroup.controls.invoiceCtrl.value != null) {
       this.paymentMethod = this.paymentFormGroup.controls.invoiceCtrl.value
     }
-   
+
     console.log(this.address)
     console.log(this.paymentMethod)
-    if(this.address == '' || this.city == '' || this.zipCode == 0){
+    if(this.address == '' || this.city == '' || this.zipCode == 0 || this.address == null || this.city == null || this.zipCode == null){
       this.purchaseErrorMsg = "Please fill out all the required fields";
       return;
     }

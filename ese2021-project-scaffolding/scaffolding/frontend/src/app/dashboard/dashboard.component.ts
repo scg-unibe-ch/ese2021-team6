@@ -25,21 +25,22 @@ export class DashboardComponent implements OnInit {
   changingStatus: Boolean = false
   currOrderId: Number = 0
 
-  order: Order = new Order(0, '', '', '', 0, '', '', 0);
+  products: Product[] = []
+  order: Order = new Order(0, '', '', '', 0, '', '', 0, '', 0);
   orders: Order[] = []
   userSpecificOrders: Order[] = []
 
   constructor(
     public httpClient: HttpClient,
     public userService: UserService,
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
     private router: Router,
     public productOrderService: ProductOrderService,
   ) {
     // Listen for changes
     userService.user$.subscribe(res => this.user = res);
     userService.isAdmin$.subscribe(res => this.isAdmin);
-  
+
     // Current value
     this.user = userService.getUser();
     this.isAdmin = userService.getIsAdmin();
@@ -54,13 +55,20 @@ export class DashboardComponent implements OnInit {
       console.log(lists)
       lists.forEach((list: any) => {
 
-        this.orders.push(new Order(list.orderId, list.username, list.deliveryAdress, list.city, list.zipcode, list.paymentMethod,
-          list.orderStatus, list.productId));
+        this.httpClient.get(environment.endpointURL + "product").subscribe((products: any) => {
 
-        if (list.username == this.userService.getUser()?.username) {
-          this.userSpecificOrders.push(new Order(list.orderId, list.username, list.deliveryAdress, list.city, list.zipcode, list.paymentMethod,
-            list.orderStatus, list.productId));
-        }
+          products.forEach((product: any) => {
+            if (product.productId == list.productId) {
+              this.orders.push(new Order(list.orderId, list.username, list.deliveryAdress, list.city, list.zipcode, list.paymentMethod,
+                list.orderStatus, list.productId, product.title, product.price));
+
+              if (list.username == this.userService.getUser()?.username) {
+                this.userSpecificOrders.push(new Order(list.orderId, list.username, list.deliveryAdress, list.city, list.zipcode, list.paymentMethod,
+                  list.orderStatus, list.productId, product.title, product.price));
+              }
+            }
+          })
+        })
       });
     });
   }
@@ -71,7 +79,7 @@ export class DashboardComponent implements OnInit {
 
   resolveOrder(order: Order) {
     if(order.orderStatus == "pending"){
-      this.httpClient.put(environment.endpointURL + "order/" + this.order.orderId, {
+      this.httpClient.put(environment.endpointURL + "order/" + order.orderId, {
         orderStatus: "shipped"
       }).subscribe(res => {
         order.orderStatus = "shipped"
