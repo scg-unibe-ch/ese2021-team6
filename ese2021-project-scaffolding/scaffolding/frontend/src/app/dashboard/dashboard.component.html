@@ -1,5 +1,5 @@
 <div *ngIf="userService.getIsAdmin() && userService.getLoggedIn()">
-    <mat-list-item class="shop-items" *ngFor="let order of orders">
+    <mat-list-item class="shop-items-admin" *ngFor="let order of orders">
         <mat-card>
 
             <!-- General Information -->
@@ -47,7 +47,7 @@
 </div>
 
 <div *ngIf="!userService.getIsAdmin() && userService.getLoggedIn()">
-    <mat-list-item class="shop-items" *ngFor="let order of userSpecificOrders">
+    <mat-list-item class="shop-items-fan" *ngFor="let order of userSpecificOrders">
         <mat-card>
 
             <!-- General Information -->
