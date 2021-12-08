@@ -33,6 +33,7 @@ export class ItemImage extends Model<ItemImageAttributes, ItemCreationAttributes
         );
     }
 
+    /*
     public static createAssociations() {
         ItemImage.belongsTo(Post, {
             targetKey: 'postId',
@@ -41,4 +42,5 @@ export class ItemImage extends Model<ItemImageAttributes, ItemCreationAttributes
             foreignKey: 'postId'
         });
     }
+    */
 }

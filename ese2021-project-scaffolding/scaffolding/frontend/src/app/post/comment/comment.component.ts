@@ -16,7 +16,7 @@ import { PostCommentService } from 'src/app/services/post-comment.service';
 export class CommentComponent {
 
   comment: Comment = new Comment(0, '', 0, 0, 0, 0);
-  post: Post = new Post(0, '', '', 0, 0, 0, 0, [], '', '');
+  post: Post = new Post(0, '', '', 0, '', 0, 0, 0, [], '', '');
 
   @Output()
   updateEvent = new EventEmitter<Comment>();

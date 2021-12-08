@@ -38,7 +38,7 @@ export class Server {
         Order.initialize(this.sequelize);
         Comment.createAssociations();
         Post.createAssociations();
-        ItemImage.createAssociations();
+        // ItemImage.createAssociations();
 
         this.sequelize.sync().then(() => {                           // create connection to the database
             this.server.listen(this.port, () => {                                   // start server on specified port
@@ -77,6 +77,7 @@ export class Server {
             .use('/order', OrderController)
             .options('*', cors(options))
             .use(express.static('./src/public'))
+            .use('/uploads', express.static('./src/public/uploads')) // IS REALLY NEEDED FORWARD TO FRONTEND
             // this is the message you get if you open http://localhost:3000/ when the server is running
             .get('/', (req, res) => res.send('<h1>Welcome to the ESE-2021 Backend Scaffolding <span style="font-size:50px">&#127881;</span></h1>'));
     }
