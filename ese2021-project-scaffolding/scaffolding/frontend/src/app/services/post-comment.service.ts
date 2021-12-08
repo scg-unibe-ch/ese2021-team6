@@ -11,7 +11,7 @@ export class PostCommentService {
    * VARIABLES
    ******************************************************************************************************************/
 
-  private post: Post = new Post(0, '', '', 0, 0, 0, 0, [], '', '');
+  private post: Post = new Post(0, '', '', 0, '', 0, 0, 0, [], '', '');
 
   /*******************************************************************************************************************
    * OBSERVABLE SOURCES & STREAMS
@@ -46,6 +46,6 @@ export class PostCommentService {
   constructor() {
     // Observer
     this.post$.subscribe(res => this.post = res);
-    this.setPost(new Post(0, '', '', 0, 0, 0, 0, [], '', ''));
+    this.setPost(new Post(0, '', '', 0, '', 0, 0, 0, [], '', ''));
   }
 }

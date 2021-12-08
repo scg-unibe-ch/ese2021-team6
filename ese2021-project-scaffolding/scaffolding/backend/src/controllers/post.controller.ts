@@ -60,6 +60,7 @@ postController.post('/:id/image', (req: MulterRequest, res: Response) => {
 
 // get the filename of an image
 postController.get('/:id/image', (req: Request, res: Response) => {
+    console.log('Reached here');
     itemService.getImageItem(Number(req.params.id)).then(products => res.send(products))
         .catch(err => res.status(500).send(err));
 });

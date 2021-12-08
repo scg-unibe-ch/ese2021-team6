@@ -7,6 +7,7 @@ export class Post {
     public title: string,
     public text: string,
     public imageId: number,
+    public imagePath: string,
     public upvoteCount: number,
     public downvoteCount: number,
     public userId: number,

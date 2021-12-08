@@ -25,6 +25,10 @@
     <mat-card class="title">
       {{post.title}}
     </mat-card>
+
+    <div *ngIf="post.imagePath != ''">
+      <img src={{post.imagePath}}>
+    </div>
     
     <mat-card class="text">
       {{post.text}}

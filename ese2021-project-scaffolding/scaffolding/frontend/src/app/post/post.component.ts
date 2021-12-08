@@ -18,7 +18,7 @@ import { PostCommentService } from '../services/post-comment.service';
 })
 export class PostComponent {
 
-  post: Post = new Post(0, '', '', 0, 0, 0, 0, [], '', '');
+  post: Post = new Post(0, '', '', 0, '', 0, 0, 0, [], '', '');
   posts: Post[] = [];
 
   title: string = ''
@@ -95,9 +95,6 @@ export class PostComponent {
       userId: this.userService.getUser()?.userId,
       category: this.category
     }).subscribe((list: any) => {
-      this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
-        list.upvoteCount, list.downvoteCount, list.userId, [], list.category, list.createdAt));
-
         if (this.file != undefined) {
           const fd = new FormData();
           fd.append('image', this.file);
@@ -106,7 +103,16 @@ export class PostComponent {
           .subscribe((res: any) => {
             console.log("Uploaded to database")
             console.log(res)
+
+            var path = "http://localhost:3000/uploads/" + res.fileName
+
+            this.posts.push(new Post(list.postId, list.title, list.text, list.postId,
+              path, list.upvoteCount, list.downvoteCount, list.userId, [], list.category, list.createdAt));
           })
+        }
+        else {
+          this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
+            '', list.upvoteCount, list.downvoteCount, list.userId, [], list.category, list.createdAt));
         }
     })
   }
@@ -246,13 +252,13 @@ downvotePost(post: Post): void {
           for (let tag of this.selectedTags) {
             if (tag == list.category) {
             this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
-              list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
+              '', list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
             }
           }
         }
         else
           this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
-            list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
+            '', list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
       });
     });
   }
@@ -267,8 +273,16 @@ downvotePost(post: Post): void {
           comments.push(new Comment(comment.commentId, comment.text, comment.upvoteCount, comment.downvoteCount, comment.postId, comment.userId));
         });
 
-        this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
-          list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
+        this.httpClient.get(environment.endpointURL + "post/" + list.postId + "/image").subscribe((img: any) => {
+          var path = "http://localhost:3000/uploads/" + img.fileName
+
+          this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
+            path, list.upvoteCount, list.downvoteCount, list.userId, [], list.category, list.createdAt));
+        }, () => {
+          console.log("NOT FOUND")
+          this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
+            '', list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
+        });
       });
     });
   }

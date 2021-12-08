@@ -44,8 +44,11 @@ export class ItemService {
 
     public getImageItem(imageId: number): Promise<ItemImage> {
         console.log(imageId);
+        console.log(ItemImage.findByPk(imageId));
         return ItemImage.findByPk(imageId)
             .then(image => {
+                console.log('Found');
+                console.log(image);
                 if (image) {
                     return Promise.resolve(image);
                 } else {
