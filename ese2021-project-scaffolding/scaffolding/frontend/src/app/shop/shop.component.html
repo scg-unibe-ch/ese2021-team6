@@ -23,6 +23,10 @@
                 </mat-card>
     <!--<img *ngIf="{{product.description.includes(Keyboard)}}" src="assets/cap.jpg">*/ -->
 
+                <div *ngIf="product.imagePath != ''">
+                  <img src={{product.imagePath}}>
+                </div>
+
                 <mat-card class="description">
                     About this product: {{product.description}}
                 </mat-card>
