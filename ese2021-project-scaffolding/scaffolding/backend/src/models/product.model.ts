@@ -18,10 +18,6 @@ export interface ProductCreationAttributes extends Optional<Product, 'productId'
 
 export class Product extends Model<ProductAttributes, ProductAttributes> implements ProductAttributes {
 
-    /*public static associations: {
-        images: Association<Comment, ItemImage>
-    };*/
-
     productId!: number;
     title!: string;
     description!: string;
@@ -29,7 +25,6 @@ export class Product extends Model<ProductAttributes, ProductAttributes> impleme
     price!: number;
     imageId!: number;
     userId!: number;
-
 
     public static initialize(sequelize: Sequelize) { // definition for database
         Product.init({

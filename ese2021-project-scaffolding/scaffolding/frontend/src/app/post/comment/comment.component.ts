@@ -26,7 +26,7 @@ export class CommentComponent {
 
   constructor(
     public userService: UserService,
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
     public httpClient: HttpClient,
     public postCommentService: PostCommentService
   ) {
@@ -49,16 +49,17 @@ export class CommentComponent {
     })
   }
 
+  // CREATE - Comment
   createComment(text: string): void {
     this.httpClient.post(environment.endpointURL + "comment", {
-      commentId: 0, 
+      commentId: 0,
       text: text,
       upvoteCount: 0,
       downvoteCount:0,
       postId: this.post.postId,
       userId: this.userService.getUser()?.userId
     }).subscribe((item: any) => {
-      this.post.comments.push(new Comment(item.commentId, item.text, item.upvoteCount 
+      this.post.comments.push(new Comment(item.commentId, item.text, item.upvoteCount
         ,item.downvoteCount, item.postId, item.userId));
     });
   }
@@ -76,6 +77,7 @@ export class CommentComponent {
     })
   }
 
+  // Only the user that created a certain comment is able to edit.
   editComment(text: string) {
     this.httpClient.put(environment.endpointURL + "comment/" + this.comment.commentId, {
       text: text

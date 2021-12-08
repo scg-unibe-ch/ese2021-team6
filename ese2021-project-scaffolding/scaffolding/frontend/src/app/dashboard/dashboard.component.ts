@@ -17,6 +17,7 @@ import { Order } from '../models/order.model';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
 
   user: User | undefined;
@@ -73,10 +74,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  // A user can cancel its order in his dashboard
   cancelOrder(order: Order) {
     this.terminateOrder(order)
   }
 
+  // A admin can set the status of an order to shipped to tell the user, that its order is on the way
   resolveOrder(order: Order) {
     if(order.orderStatus == "pending"){
       this.httpClient.put(environment.endpointURL + "order/" + order.orderId, {
@@ -87,11 +90,13 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  // Changing the status of a order can be unwanted, thus it need to be confirmed.
   askForPermission(order: Order) {
     this.currOrderId = order.orderId
     this.changingStatus = true
   }
 
+  //
   terminateProcess() {
     this.changingStatus = false
   }

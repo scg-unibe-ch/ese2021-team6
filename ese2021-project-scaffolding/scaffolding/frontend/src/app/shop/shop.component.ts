@@ -38,7 +38,7 @@ export class ShopComponent {
   constructor(
     public httpClient: HttpClient,
     public userService: UserService,
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
     private router: Router,
     public productOrderService: ProductOrderService
   ) {
@@ -57,6 +57,7 @@ export class ShopComponent {
     this.readLists();
   }
 
+  // Allows a loged in fan to buy a product from the shop.
   buyProduct(product: Product) {
     if (!this.loggedIn) {
       const dialogRef = this.dialog.open(UserComponent, {
@@ -72,6 +73,7 @@ export class ShopComponent {
     }
   }
 
+  // In order to buy a product the fan can fill in a form.
   openPopUp() {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '750px',
@@ -81,7 +83,6 @@ export class ShopComponent {
 
     const sub = dialogRef.componentInstance.createProduct.subscribe(result => {
       this.productInformation = result
-      console.log(this.productInformation)
       this.createList(this.productInformation);
     })
     const subImage = dialogRef.componentInstance.addImage.subscribe(result => {
@@ -89,6 +90,7 @@ export class ShopComponent {
     })
   }
 
+  // A logged in Admin can edit the shop products via edit button.
   openEditPopUp(product: Product) {
     this.product = product
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -116,7 +118,7 @@ export class ShopComponent {
         list.price, list.imageId, list.userId, list.createdAt))
 
         if (this.file != undefined) {
-          
+
           const fd = new FormData();
           fd.append('image', this.file);
 
@@ -140,54 +142,56 @@ export class ShopComponent {
     });
   }
 
+  // A logged in Admin can delete the shop products via edit button.
   delete(product: Product): void {
   this.product = product
   this.httpClient.delete(environment.endpointURL + "product/" + this.product.productId).subscribe(() => {
     this.products.splice(this.products.indexOf(product), 1);
   })
 }
+  // How the shop product editing works
+  edit(result: (string|number)[]) {
+    if (result[0] == "Title") {
+      this.httpClient.put(environment.endpointURL + "product/" + this.product.productId, {
+        title: result[1]
+      }).subscribe(res => {
+        this.product.title = result[1].toString()
+      });
+    }
+    if (result[0] == "Description") {
+      this.httpClient.put(environment.endpointURL + "product/" + this.product.productId, {
+        description: result[1]
+      }).subscribe(res => {
+        this.product.description = result[1].toString()
+      });
+    }
+    if (result[0] == "Price") {
+      this.httpClient.put(environment.endpointURL + "product/" + this.product.productId, {
+        title: result[1]
+      }).subscribe(res => {
+        this.product.price = Number(result[1])
+      });
+    }
+    if (result[0] == "All") {
+      this.httpClient.put(environment.endpointURL + "product/" + this.product.productId, {
+        title: result[1],
+        description: result[2],
+        price: result[3]
+      }).subscribe(res => {
+         this.product.title = result[1].toString()
+         this.product.description = result[2].toString()
+         this.product.price = Number(result[3])
+      });
+    }
+  }
 
-edit(result: (string|number)[]) {
-  if (result[0] == "Title") {
-    this.httpClient.put(environment.endpointURL + "product/" + this.product.productId, {
-      title: result[1]
-    }).subscribe(res => {
-      this.product.title = result[1].toString()
-    });
-  }
-  if (result[0] == "Description") {
-    this.httpClient.put(environment.endpointURL + "product/" + this.product.productId, {
-      description: result[1]
-    }).subscribe(res => {
-      this.product.description = result[1].toString()
-    });
-  }
-  if (result[0] == "Price") {
-    this.httpClient.put(environment.endpointURL + "product/" + this.product.productId, {
-      title: result[1]
-    }).subscribe(res => {
-      this.product.price = Number(result[1])
-    });
-  }
-  if (result[0] == "All") {
-    this.httpClient.put(environment.endpointURL + "product/" + this.product.productId, {
-      title: result[1],
-      description: result[2],
-      price: result[3]
-    }).subscribe(res => {
-       this.product.title = result[1].toString()
-       this.product.description = result[2].toString()
-       this.product.price = Number(result[3])
-    });
-  }
-}
-
+  // A logged in user can browse the shop and filter its products by categories
   filterProducts() {
     this.products = []
- 
+
     this.httpClient.get(environment.endpointURL + "product").subscribe((lists: any) => {
      lists.forEach((list: any) => {
- 
+
        if (this.selectedTags.length>0) {
          for (let tag of this.selectedTags) {
            if (tag == list.category) {

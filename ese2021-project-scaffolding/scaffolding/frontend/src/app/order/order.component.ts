@@ -11,12 +11,12 @@ import { Product } from '../models/product.model';
 import { ProductOrderService } from '../services/product-order.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css']
 })
+
 export class OrderComponent implements OnInit {
 
   product: Product = new Product(0, '', '', '', 0, 0, 0, '');
@@ -80,6 +80,7 @@ export class OrderComponent implements OnInit {
     });
   }
 
+  // if a user filled in the buy form the purchase is done and will show on his dashboard
   purchase() {
     this.purchaseErrorMsg = '';
     if (this.addressFormGroup.controls.addressCtrl.value != null) {
@@ -95,12 +96,11 @@ export class OrderComponent implements OnInit {
       this.paymentMethod = this.paymentFormGroup.controls.invoiceCtrl.value
     }
 
-    console.log(this.address)
-    console.log(this.paymentMethod)
     if(this.address == '' || this.city == '' || this.zipCode == 0 || this.address == null || this.city == null || this.zipCode == null){
       this.purchaseErrorMsg = "Please fill out all the required fields";
       return;
     }
+
     this.httpClient.post(environment.endpointURL + "order", {
       orderId: 0,
       username: this.userService.getUser()?.username,

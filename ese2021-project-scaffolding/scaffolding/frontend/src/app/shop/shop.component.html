@@ -3,7 +3,7 @@
 </mat-card>
 
 
-<mat-form-field>
+<mat-form-field class="filter">
     <mat-label class="select-category">Filter</mat-label>
     <mat-select [(ngModel)]="selectedTags" [formControl]="tags" multiple>
       <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag}}</mat-option>

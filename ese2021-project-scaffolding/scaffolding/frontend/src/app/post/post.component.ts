@@ -35,7 +35,7 @@ export class PostComponent {
     public postCommentService: PostCommentService,
     public httpClient: HttpClient,
     public userService: UserService,
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
     private router: Router
   ) {}
 
@@ -207,7 +207,7 @@ downvotePost(post: Post): void {
       }
    })
   }
-
+  // A voted post gets updated so the score shows correctly
   updateVotedPost(voteId: number, value: number) {
     this.httpClient.put(environment.endpointURL + "votedPosts/" + voteId, {
       voted: value
@@ -216,6 +216,7 @@ downvotePost(post: Post): void {
     })
   }
 
+  // A logged in User can either upvote or downvote a post
   votePost(post: Post, value: number) {
     this.httpClient.post(environment.endpointURL + "votedPosts", {
       voteId: 0,
@@ -227,6 +228,7 @@ downvotePost(post: Post): void {
     })
   }
 
+  // A logged in User can browse the forum by categories
   filterPosts() {
     console.log(this.selectedTags)
     this.posts = []
@@ -260,7 +262,7 @@ downvotePost(post: Post): void {
     this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
       lists.forEach((list: any) => {
         const comments: Comment[] = [];
-        
+
         list.comments.forEach((comment: any) => {
           comments.push(new Comment(comment.commentId, comment.text, comment.upvoteCount, comment.downvoteCount, comment.postId, comment.userId));
         });
@@ -271,6 +273,7 @@ downvotePost(post: Post): void {
     });
   }
 
+  // Only the user that created a certain post is able to edit.
   editPost(result: string[]) {
     if (result[0] == "Text") {
       this.httpClient.put(environment.endpointURL + "post/" + this.post.postId, {
@@ -296,7 +299,7 @@ downvotePost(post: Post): void {
       });
     }
   }
-
+  // visualize the comments, that belong to a certain post
   showComments(post: Post, pageName: String) {
     this.post = post
     this.postCommentService.setPost(post)

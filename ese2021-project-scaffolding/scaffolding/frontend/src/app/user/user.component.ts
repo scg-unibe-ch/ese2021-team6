@@ -12,32 +12,28 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
+
 export class UserComponent {
 
   loggedIn: boolean | undefined;
-
   isAdmin: boolean | undefined;
 
   user: User | undefined;
-
   userToRegister: User = new User(0, '', '');
-
   userinformationToRegister: Userinformation = new Userinformation('', '', '', '', 0, '', 0, 0);
-
   userToLogin: User = new User(0, '', '');
-
-  endpointMsgUser: string = '';
-  endpointMsgAdmin: string = '';
 
   @Output()
   checkAdminEvent = new EventEmitter<string>();
 
-  // Tons of messages to tell the user that he did something
+  // Tons of messages to tell the user that he did something not valid
   loginErrorMsg: string = '';
   passwordConditionErrorMsg: string = '';
   registerErrorMsg: string = '';
   emailErrorMsg: string = '';
   registrationAcceptedMsg: string = '';
+  endpointMsgUser: string = '';
+  endpointMsgAdmin: string = '';
 
   constructor(
     public httpClient: HttpClient,
@@ -55,6 +51,7 @@ export class UserComponent {
     this.user = userService.getUser();
   }
 
+  // Checks whether the registration requests has a valid password
   checkPasswordConditions(): boolean {
     this.passwordConditionErrorMsg = '';
     this.registrationAcceptedMsg = '';
@@ -108,8 +105,9 @@ export class UserComponent {
     }
   }
 
+  // Checks whether the registration requests has the two required field username and email filled
   checkNoEmptyFields(): boolean{
-    // The commented checks are here to ease testing
+
     this.registerErrorMsg = '';
     let noEmptyFields = true;
 
@@ -124,8 +122,8 @@ export class UserComponent {
 
   }
 
+  // Checks whether the registration requests mail is valid
   checkCorrectMail(): boolean{
-    // The commented checks are here to ease testing
     this.emailErrorMsg = '';
 
     let eMailcorrect = true;
@@ -139,9 +137,8 @@ export class UserComponent {
     return eMailcorrect;
 
   }
-
+  // If all registration conditions are met, the user information will be saved in the DB
   registerUser(): void {
-    // If all registration conditions are met, the user information will be saved in the DB
     if (this.checkNoEmptyFields() && this.checkCorrectMail() /*&& this.checkPasswordConditions()*/) {
       this.httpClient.post(environment.endpointURL + "user/register", {
         userName: this.userToRegister.username,
