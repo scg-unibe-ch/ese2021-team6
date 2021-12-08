@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 
 export class OrderComponent implements OnInit {
 
-  product: Product = new Product(0, '', '', '', 0, 0, 0, '');
+  product: Product = new Product(0, '', '', '', 0, 0, '', 0, '');
 
   user: User | undefined;
   userInfo: any | undefined;

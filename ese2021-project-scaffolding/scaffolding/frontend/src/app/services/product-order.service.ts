@@ -11,7 +11,7 @@ export class ProductOrderService {
    * VARIABLES
    ******************************************************************************************************************/
 
-  private product: Product = new Product(0, '', '', '', 0, 0, 0, '');
+  private product: Product = new Product(0, '', '', '', 0, 0, '', 0, '');
 
   /*******************************************************************************************************************
    * OBSERVABLE SOURCES & STREAMS
@@ -46,6 +46,6 @@ export class ProductOrderService {
   constructor() {
     // Observer
     this.product$.subscribe(res => this.product = res);
-    this.setProduct(new Product(0, '', '', '', 0, 0, 0, ''));
+    this.setProduct(new Product(0, '', '', '', 0, 0, '', 0, ''));
   }
 }

@@ -27,7 +27,7 @@ export class ShopComponent {
   imageId: number = 0
   file: File | undefined; // Temporary file that is used after post is created to load into db
 
-  product: Product = new Product(0, '', '', '', 0, 0, 0, '');
+  product: Product = new Product(0, '', '', '', 0, 0, '', 0, '');
 
   products: Product[] = [];
 
@@ -113,22 +113,25 @@ export class ShopComponent {
       imageId: 0,
       userId: this.userService.getUser()?.userId,
     }).subscribe((list: any) => {
+      if (this.file != undefined) {
+        const fd = new FormData();
+        fd.append('image', this.file);
 
-      this.products.push(new Product(list.productId, list.title, list.description, list.category,
-        list.price, list.imageId, list.userId, list.createdAt))
+        this.httpClient.post(environment.endpointURL + "product/" + list.productId + "/image",fd)
+        .subscribe((res: any) => {
+          console.log("Uploaded to database")
+          console.log(res)
 
-        if (this.file != undefined) {
+          var path = "http://localhost:3000/uploads/" + res.fileName
 
-          const fd = new FormData();
-          fd.append('image', this.file);
-
-          this.httpClient.post(environment.endpointURL + "product/" + list.productId + "/image" ,
-            fd, // Check if file is passed correctly
-          ).subscribe((res: any) => {
-            console.log("Uploaded to database")
-            console.log(res)
-          })
-        }
+          this.products.push(new Product(list.productId, list.title, list.description, list.category,
+            list.price, list.imageId, path, list.userId, list.createdAt))
+        })
+      }
+      else {
+        this.products.push(new Product(list.productId, list.title, list.description, list.category,
+          list.price, list.imageId, '', list.userId, list.createdAt))
+      }
     })
   }
 
@@ -136,8 +139,19 @@ export class ShopComponent {
     this.httpClient.get(environment.endpointURL + "product").subscribe((lists: any) => {
       lists.forEach((list: any) => {
 
+        this.httpClient.get(environment.endpointURL + "product/" + list.productId + "/image").subscribe((img: any) => {
+          var path = "http://localhost:3000/uploads/" + img.fileName
+
+          this.products.push(new Product(list.productId, list.title, list.description, list.category,
+            list.price, list.imageId, path, list.userId, list.createdAt))
+        }, () => {
+          console.log("NOT FOUND")
+          this.products.push(new Product(list.productId, list.title, list.description, list.category,
+            list.price, list.imageId, '', list.userId, list.createdAt))
+        });
+
         this.products.push(new Product(list.productId, list.title, list.description, list.category,
-          list.price, list.imageId, list.userId, list.createdAt))
+          list.price, list.imageId, '', list.userId, list.createdAt))
       });
     });
   }
@@ -196,13 +210,13 @@ export class ShopComponent {
          for (let tag of this.selectedTags) {
            if (tag == list.category) {
             this.products.push(new Product(list.productId, list.title, list.description, list.category,
-              list.price, list.imageId, list.userId, list.createdAt))
+              list.price, list.imageId, '', list.userId, list.createdAt))
            }
           }
        }
        else
           this.products.push(new Product(list.productId, list.title, list.description, list.category,
-            list.price, list.imageId, list.userId, list.createdAt))
+            list.price, list.imageId, '', list.userId, list.createdAt))
      });
    });
   }
