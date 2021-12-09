@@ -23,6 +23,8 @@ export class OrderComponent implements OnInit {
 
   user: User | undefined;
   userInfo: any | undefined;
+  userId: number | undefined;
+  userName: string | undefined;
 
   isLinear = true
   addressFormGroup!: FormGroup
@@ -52,21 +54,25 @@ export class OrderComponent implements OnInit {
      userService.user$.subscribe(res => this.user = res);
      this.user = userService.getUser();
 
+    // Listen for changes
+    productOrderService.product$.subscribe(res => this.product = res);
+    userService.userId$.subscribe(res => this.userId);
+    userService.userName$.subscribe(res => this.userName);
+
+    // Current value
+    this.product = productOrderService.getProduct();
+    this.userId = userService.getUserId();
+    this.userName = userService.getUserName();
+
     // Gets all users from database
     this.httpClient.get(environment.endpointURL + "user").subscribe((res: any) => {
       // Filters to current user
-      this.userInfo = res.filter((info: any) => info.userId === this.user?.userId)
+      this.userInfo = res.filter((info: any) => info.userId === this.userId)
 
       this.address = this.userInfo[0]?.address
       this.city = this.userInfo[0]?.city
       this.zipCode = this.userInfo[0]?.zipCode
     },)
-
-    // Listen for changes
-    productOrderService.product$.subscribe(res => this.product = res);
-
-    // Current value
-    this.product = productOrderService.getProduct();
   }
 
   ngOnInit() {
@@ -103,7 +109,7 @@ export class OrderComponent implements OnInit {
 
     this.httpClient.post(environment.endpointURL + "order", {
       orderId: 0,
-      username: this.userService.getUser()?.username,
+      username: this.userName,
       deliveryAdress: this.address,
       city: this.city,
       zipcode: this.zipCode,

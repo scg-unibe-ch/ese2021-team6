@@ -38,13 +38,13 @@
 
       <!-- Comment Interactions -->
       <button 
-        *ngIf="userService.getLoggedIn() && userService.getUser()?.userId === comment.userId"
+        *ngIf="userService.getLoggedIn() && userService.getUserId() === comment.userId"
         mat-flat-button color="warn" (click)="deleteComment(comment)">
         Delete Comment
       </button>
 
       <button
-        *ngIf="userService.getLoggedIn() && userService.getUser()?.userId === comment.userId"
+        *ngIf="userService.getLoggedIn() && userService.getUserId() === comment.userId"
         mat-flat-button color="accent" (click)="openEditPopUp(comment)">
         Edit Comment
       </button>
