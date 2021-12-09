@@ -115,8 +115,15 @@ export class AppComponent implements OnInit {
   checkUserStatus(): void {
     // Get user data from local storage
     const userToken = localStorage.getItem('userToken');
+    const userId = localStorage.getItem('userId');
+    const userName = localStorage.getItem('userName');
 
-    // Set boolean whether a user is logged in or not
+    if (userId != null) {
+      this.userService.setUserId(parseInt(userId))
+    }
+    if (userName != null) {
+      this.userService.setUserName(userName)
+    }
     this.userService.setLoggedIn(!!userToken);
 
     this.httpClient.get(environment.endpointURL + "admin").subscribe(() => {

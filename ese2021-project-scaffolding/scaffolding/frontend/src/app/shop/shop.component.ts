@@ -21,6 +21,7 @@ export class ShopComponent {
   loggedIn: boolean | undefined;
   user: User | undefined;
   isAdmin: boolean | undefined;
+  userId: number | undefined;
 
   productInformation: (string|number)[] = []
 
@@ -46,11 +47,13 @@ export class ShopComponent {
     userService.loggedIn$.subscribe(res => this.loggedIn = res);
     userService.user$.subscribe(res => this.user = res);
     userService.isAdmin$.subscribe(res => this.isAdmin);
+    userService.userId$.subscribe(res => this.userId);
 
     // Current value
     this.loggedIn = userService.getLoggedIn();
     this.user = userService.getUser();
     this.isAdmin = userService.getIsAdmin();
+    this.userId = userService.getUserId();
   }
 
   ngOnInit() {
@@ -111,7 +114,7 @@ export class ShopComponent {
       category: info[2],
       price: info[3],
       imageId: 0,
-      userId: this.userService.getUser()?.userId,
+      userId: this.userId
     }).subscribe((list: any) => {
       if (this.file != undefined) {
         const fd = new FormData();

@@ -31,17 +31,23 @@ export class PostComponent {
   selectedTags: string = ""
   tagList: string[] = ['Rpg', 'Memes', 'Help', 'Shooter'];
 
+  userId: number | undefined;
+
   constructor(
     public postCommentService: PostCommentService,
     public httpClient: HttpClient,
     public userService: UserService,
     public dialog: MatDialog,
     private router: Router
-  ) {}
+  ) {
+    userService.userId$.subscribe(res => this.userId);
+    this.userId = userService.getUserId();
+  }
 
   ngOnInit() {
     this.checkUserStatus()
     this.readPosts();
+    console.log(this.userService.getIsAdmin())
   }
 
   checkUserStatus(): void {
@@ -92,7 +98,7 @@ export class PostComponent {
       imageId: 0,
       upvoteCount: 0,
       downvoteCount:0,
-      userId: this.userService.getUser()?.userId,
+      userId: this.userId,
       category: this.category
     }).subscribe((list: any) => {
         if (this.file != undefined) {
@@ -128,7 +134,7 @@ export class PostComponent {
 upvotePost(post: Post): void {
   var votedPost: any |undefined
   this.httpClient.get(environment.endpointURL + "votedPosts").subscribe((res: any) => {
-    votedPost = res.filter((info: any) => info.userId === this.userService.getUser()?.userId &&
+    votedPost = res.filter((info: any) => info.userId === this.userId &&
     info.postId === post.postId)
 
     if (votedPost[0] == undefined) {
@@ -173,7 +179,7 @@ upvotePost(post: Post): void {
 downvotePost(post: Post): void {
   var votedPost: any |undefined
   this.httpClient.get(environment.endpointURL + "votedPosts").subscribe((res: any) => {
-    votedPost = res.filter((info: any) => info.userId === this.userService.getUser()?.userId &&
+    votedPost = res.filter((info: any) => info.userId === this.userId &&
     info.postId === post.postId)
 
     if (votedPost[0] == undefined) {
@@ -226,7 +232,7 @@ downvotePost(post: Post): void {
   votePost(post: Post, value: number) {
     this.httpClient.post(environment.endpointURL + "votedPosts", {
       voteId: 0,
-      userId: this.userService.getUser()?.userId,
+      userId: this.userId,
       postId: post.postId,
       voted: value
     }).subscribe((list: any) => {

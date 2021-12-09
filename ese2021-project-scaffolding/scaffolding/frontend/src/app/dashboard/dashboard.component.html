@@ -48,9 +48,9 @@
 
 <div *ngIf="!userService.getIsAdmin() && userService.getLoggedIn()">
     <mat-list-item class="shop-items-fan" *ngFor="let order of userSpecificOrders">
+      <div *ngIf="order.username === userService.getUserName()">
         <mat-card>
-
-            <!-- General Information -->
+          <!-- General Information -->
           <mat-card class="username">
             <p><b>Product:</b></p>{{order.productTitle}}
           </mat-card>
@@ -91,5 +91,6 @@
                 </button>
             </div>
         </mat-card>
+      </div>
     </mat-list-item>
 </div>

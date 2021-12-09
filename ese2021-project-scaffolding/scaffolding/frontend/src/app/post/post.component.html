@@ -51,13 +51,13 @@
 
     <!-- Post Interactions --> 
     <button
-      *ngIf="userService.getLoggedIn() && userService.getUser()?.userId === post.userId || userService.getIsAdmin()"
+      *ngIf="userService.getLoggedIn() && userService.getUserId() === post.userId || userService.getIsAdmin()"
       mat-flat-button color="warn" (click)="deletePost(post)">
       Delete Post
     </button>
     
     <button
-      *ngIf="userService.getLoggedIn() && userService.getUser()?.userId === post.userId"
+      *ngIf="userService.getLoggedIn() && userService.getUserId() === post.userId"
       mat-flat-button color="accent" (click)="openEditWindow(post)">
       Edit Post
     </button>

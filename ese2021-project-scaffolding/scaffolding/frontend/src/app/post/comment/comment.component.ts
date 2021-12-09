@@ -18,6 +18,8 @@ export class CommentComponent {
   comment: Comment = new Comment(0, '', 0, 0, 0, 0);
   post: Post = new Post(0, '', '', 0, '', 0, 0, 0, [], '', '');
 
+  userId: number | undefined
+
   @Output()
   updateEvent = new EventEmitter<Comment>();
 
@@ -32,9 +34,11 @@ export class CommentComponent {
   ) {
      // Listen for changes
      postCommentService.post$.subscribe(res => this.post = res);
+     userService.userId$.subscribe(res => this.userId);
 
      // Current value
      this.post = postCommentService.getPost();
+     this.userId = userService.getUserId();
   }
 
   // Opens the popup to write a comment to the post
@@ -57,7 +61,7 @@ export class CommentComponent {
       upvoteCount: 0,
       downvoteCount:0,
       postId: this.post.postId,
-      userId: this.userService.getUser()?.userId
+      userId: this.userId
     }).subscribe((item: any) => {
       this.post.comments.push(new Comment(item.commentId, item.text, item.upvoteCount
         ,item.downvoteCount, item.postId, item.userId));

@@ -17,6 +17,8 @@ export class UserComponent {
 
   loggedIn: boolean | undefined;
   isAdmin: boolean | undefined;
+  userName: string | undefined;
+  userId: number | undefined;
 
   user: User | undefined;
   userToRegister: User = new User(0, '', '');
@@ -45,10 +47,14 @@ export class UserComponent {
     // Listen for changes
     userService.loggedIn$.subscribe(res => this.loggedIn = res);
     userService.user$.subscribe(res => this.user = res);
+    userService.userName$.subscribe(res => this.userName = res);
+    userService.userId$.subscribe(res => this.userId = res);
 
     // Current value
     this.loggedIn = userService.getLoggedIn();
     this.user = userService.getUser();
+    this.userName = userService.getUserName();
+    this.userId = userService.getUserId();
   }
 
   // Checks whether the registration requests has a valid password
@@ -183,11 +189,14 @@ export class UserComponent {
         this.loginErrorMsg = "";
         this.userToLogin.username = this.userToLogin.password = '';
 
+        localStorage.setItem('userId', res.user.userId);
         localStorage.setItem('userName', res.user.userName);
         localStorage.setItem('userToken', res.token);
 
         this.closeDialog()
         this.userService.setLoggedIn(true);
+        this.userService.setUserName(res.user.userName);
+        this.userService.setUserId(res.user.userId);
         this.userService.setUser(new User(res.user.userId, res.user.userName, res.user.password));
 
         this.httpClient.get(environment.endpointURL + "admin").subscribe(() => {
@@ -198,6 +207,9 @@ export class UserComponent {
           this.userService.setIsAdmin(false)
           this.isAdmin = this.userService.getIsAdmin()
         });
+
+        window.location.reload();
+      
 
       }, () => {
         this.loginErrorMsg = "Username or password not found!";

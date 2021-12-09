@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
 
   user: User | undefined;
   isAdmin: boolean | undefined;
+  userName: string | undefined
+  userSpecificName: string | undefined
 
   changingStatus: Boolean = false
   currOrderId: Number = 0
@@ -41,10 +43,14 @@ export class DashboardComponent implements OnInit {
     // Listen for changes
     userService.user$.subscribe(res => this.user = res);
     userService.isAdmin$.subscribe(res => this.isAdmin);
+    userService.userName$.subscribe(res => this.userName);
+    userService.userName$.subscribe(res => this.userSpecificName);
+    userService.userName$.subscribe((res) => console.log("CHANGED", res));
 
     // Current value
     this.user = userService.getUser();
     this.isAdmin = userService.getIsAdmin();
+    this.userName = userService.getUserName();
   }
 
   ngOnInit(): void {
@@ -63,7 +69,7 @@ export class DashboardComponent implements OnInit {
               this.orders.push(new Order(list.orderId, list.username, list.deliveryAdress, list.city, list.zipcode, list.paymentMethod,
                 list.orderStatus, list.productId, product.title, product.price));
 
-              if (list.username == this.userService.getUser()?.username) {
+              if (list.username == this.userName) {
                 this.userSpecificOrders.push(new Order(list.orderId, list.username, list.deliveryAdress, list.city, list.zipcode, list.paymentMethod,
                   list.orderStatus, list.productId, product.title, product.price));
               }
