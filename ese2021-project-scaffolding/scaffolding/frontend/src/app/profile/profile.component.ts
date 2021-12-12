@@ -7,6 +7,8 @@ import { Comment } from '../models/comment.model';
 import { findLast } from '@angular/compiler/src/directive_resolver';
 import { Post } from '../models/post.model';
 import { Order } from '../models/order.model';
+import { UserComponent } from '../user/user.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile',
@@ -40,9 +42,12 @@ export class ProfileComponent {
   birthday: string = ''
   phonenumber: string = ''
 
+  emailErrorMsg: string = ''
+
   constructor(
     public httpClient: HttpClient,
-    public userService: UserService
+    public userService: UserService,
+    public dialog: MatDialog,
   ) {
     userService.userId$.subscribe(res => this.userId = res);
     this.userId = userService.getUserId();
@@ -163,5 +168,39 @@ export class ProfileComponent {
   showSettings() {
     this.resetDisplay()
     this.showSetting = true
+  }
+
+  checkCorrectMail(): boolean{
+    this.emailErrorMsg = '';
+
+    let eMailcorrect = true;
+
+    if (!(this.email.includes("@"))){eMailcorrect = false}
+
+    if(!eMailcorrect){
+      this.emailErrorMsg = 'Please fill in a valid E-Mail address';
+    }
+    return eMailcorrect;
+
+  }
+
+  editInformation() {
+    if (this.email != '') {
+      if (this.checkCorrectMail()) {
+        this.emailErrorMsg = ''
+        this.httpClient.put(environment.endpointURL + "user/" + this.userId, {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          address: this.address,
+          zipCode: this.zipCode,
+          city: this.city,
+          birthday: this.birthday,
+          phoneNumber: this.phonenumber
+        }).subscribe(res => {
+          console.log("Updated")
+        });
+      }
+    }
   }
 }

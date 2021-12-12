@@ -25,4 +25,19 @@ userController.get('/', verifyToken, // you can add middleware on specific reque
     }
 );
 
+userController.put('/:id', (req: Request, res: Response) => {
+    User.findByPk(req.params.id)
+        .then(found => {
+            if (found != null) {
+                found.update(req.body).then(updated => {
+                    res.status(200).send(updated);
+                });
+            } else {
+                res.sendStatus(404);
+            }
+
+        })
+        .catch(err => res.status(500).send(err));
+});
+
 export const UserController: Router = userController;
