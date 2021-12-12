@@ -1,30 +1,109 @@
+<mat-drawer-container class="example-container">
 
-  <h3>Profile Page</h3>
-  <!--Returns what was written in the register-->
-  <!--TODO: Make it possible to change the information-->
+  <mat-drawer mode="side" opened>
+    <div class="navigation">
+      <p>
+        <button class="profile-button" mat-raised-button (click)="showAccInfo()">Account information</button>
+      </p>
+      <p>
+        <button class="profile-button" mat-raised-button (click)="showPosts()">Posts</button>
+      </p>
+      <p>
+        <button class="profile-button" mat-raised-button (click)="showOrders()">Orders</button>
+      </p>
+      <p>
+        <button class="profile-button" mat-raised-button (click)="showSettings()">Settings</button>
+      </p>
+    </div>
+  </mat-drawer>
 
+  <mat-drawer-content>
+      <mat-card>
+        <div *ngIf="showInfo">
+          <p>Username: {{userName}} </p>
+          <p>First Name: {{firstName}} </p>
+          <p>Last Name: {{lastName}} </p>
+          <p>Email: {{email}} </p>
+          <p>Address: {{address}} </p>
+          <p>City: {{city}} </p>
+          <p>Zipcode: {{zipCode}} </p>
+          <p>Birthday: {{birthday}} </p>
+          <p>Phonenumber: {{phonenumber}} </p>
 
-  <!--
-    <p>Username: {{user?.username}}</p>
+          <p>
+            <button class="profile-button" mat-raised-button (click)="showSettings()">Edit information</button>
+          </p>
+        </div>
 
-      <p>First name: {{userInfo?.firstName}}</p>
+        <div *ngIf="showPost">
+          <!-- // DISPLAY POSTS \\ -->
+          <mat-list-item *ngFor="let post of posts">
+            <mat-card class="post-list">
 
-      <p>Last name: {{userInfo[0]?.lastName}}</p>
+              <!-- General Information -->
+              <p class="post-information">
+                {{post.category}}
+                {{post.createdAt |  date:'dd/MM/yyyy'}}
+              </p>
+              
+              <mat-card class="title">
+                {{post.title}}
+              </mat-card>
 
-      <p>Email: {{userInfo[0]?.email}}</p>
+              <div *ngIf="post.imagePath != ''">
+                <img src={{post.imagePath}}>
+              </div>
+              
+              <mat-card class="text">
+                {{post.text}}
+              </mat-card>
 
-      <hr>
+                           <!--
+          
+              <mat-card class="votes">
+                <button
+                  *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
+                  mat-flat-button color="primary" (click)="upvotePost(post)">
+                  UpVote
+                </button>
+                {{post.upvoteCount - post.downvoteCount}}
+                <button
+                  *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
+                  mat-flat-button color="warn" (click)="downvotePost(post)">
+                  DownVote
+                </button>
+              </mat-card>
 
-      <p>Address: {{userInfo[0]?.address}}</p>
+              <button
+                *ngIf="userService.getLoggedIn() && userService.getUserId() === post.userId || userService.getIsAdmin()"
+                mat-flat-button color="warn" (click)="deletePost(post)">
+                Delete Post
+              </button>
+              
+              <button
+                *ngIf="userService.getLoggedIn() && userService.getUserId() === post.userId"
+                mat-flat-button color="accent" (click)="openEditWindow(post)">
+                Edit Post
+              </button>
 
-      <p>City: {{userInfo[0]?.city}}</p>
+              <button
+                mat-flat-button color="primary" (click)="showComments(post, 'Comments')">
+                Show comments
+              </button>
+              --> 
 
-      <p>ZipCode: {{userInfo[0]?.zipCode}}</p>
+            </mat-card>
+          </mat-list-item>
+        </div>
+    
+        <div *ngIf="showOrder">
+    
+        </div>
+    
+        <div *ngIf="showSetting">
+    
+        </div>
+      </mat-card>
+  </mat-drawer-content>
 
-      <hr>
-
-      <p>Birthday: {{userInfo[0]?.birthday}}</p>
-
-      <p>Phonenumber: {{userInfo[0]?.phoneNumber}}</p>
-
-        -->
+</mat-drawer-container>
