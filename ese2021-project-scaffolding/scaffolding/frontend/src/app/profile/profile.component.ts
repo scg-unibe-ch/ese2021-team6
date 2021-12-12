@@ -170,6 +170,24 @@ export class ProfileComponent {
     this.showSetting = true
   }
 
+  editInformation() {
+    this.httpClient.put(environment.endpointURL + "user/" + this.userId, {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      address: this.address,
+      zipCode: this.zipCode,
+      city: this.city,
+      birthday: this.birthday,
+      phoneNumber: this.phonenumber
+      }).subscribe(res => {
+          console.log("Updated")
+    });
+  }
+}
+
+/*
+
   checkCorrectMail(): boolean{
     this.emailErrorMsg = '';
 
@@ -183,24 +201,4 @@ export class ProfileComponent {
     return eMailcorrect;
 
   }
-
-  editInformation() {
-    if (this.email != '') {
-      if (this.checkCorrectMail()) {
-        this.emailErrorMsg = ''
-        this.httpClient.put(environment.endpointURL + "user/" + this.userId, {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          address: this.address,
-          zipCode: this.zipCode,
-          city: this.city,
-          birthday: this.birthday,
-          phoneNumber: this.phonenumber
-        }).subscribe(res => {
-          console.log("Updated")
-        });
-      }
-    }
-  }
-}
+*/
