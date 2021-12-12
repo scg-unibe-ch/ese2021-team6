@@ -6,6 +6,7 @@ import { UserService } from '../services/user.service';
 import { Comment } from '../models/comment.model';
 import { findLast } from '@angular/compiler/src/directive_resolver';
 import { Post } from '../models/post.model';
+import { Order } from '../models/order.model';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,9 @@ export class ProfileComponent {
 
   post: Post = new Post(0, '', '', 0, '', 0, 0, 0, [], '', '');
   posts: Post[] = [];
+  
+  order: Order = new Order(0, '', '', '', 0, '', '', 0, '', 0);
+  orders: Order[] = []
 
   showInfo: boolean = true;
   showPost: boolean = false;
@@ -120,6 +124,22 @@ export class ProfileComponent {
   showOrders() {
     this.resetDisplay()
     this.showOrder = true
+    
+    this.httpClient.get(environment.endpointURL + "order").subscribe((lists: any) => {
+      lists.forEach((list: any) => {
+        if (list.username == this.userName) {
+          this.httpClient.get(environment.endpointURL + "product").subscribe((products: any) => {
+
+            products.forEach((product: any) => {
+              if (product.productId == list.productId) {
+                this.orders.push(new Order(list.orderId, list.username, list.deliveryAdress, list.city, list.zipcode, list.paymentMethod,
+                list.orderStatus, list.productId, product.title, product.price));
+              }
+            })
+          })
+        }
+      })
+    })
   }
 
   showSettings() {

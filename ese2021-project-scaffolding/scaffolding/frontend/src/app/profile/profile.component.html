@@ -97,7 +97,52 @@
         </div>
     
         <div *ngIf="showOrder">
+          <mat-list-item *ngFor="let order of orders">
+            <mat-card>
     
+                <!-- General Information -->
+              <mat-card class="username">
+                <p><b>Product:</b></p> {{order.productTitle}}
+              </mat-card>
+              <mat-card class="username">
+                <p><b>Price:</b></p> {{order.productPrice}} €
+              </mat-card>
+              <mat-card class="username">
+                <p><b>Username:</b></p> {{order.username}}
+                </mat-card>
+                <mat-card class="username">
+                  <p><b>deliveryAdress:</b></p> {{order.deliveryAdress}}
+                </mat-card>
+                <mat-card class="username">
+                  <p><b>city:</b></p> {{order.city}}
+                </mat-card>
+                <mat-card class="username">
+                  <p><b>zipcode:</b></p> {{order.zipcode}}
+                </mat-card>
+                <mat-card class="username">
+                  <p><b>paymentMethod:</b></p> {{order.paymentMethod}}
+                </mat-card>
+                <mat-card class="username">
+                  <p><b>Status:</b></p> {{order.orderStatus}}
+                </mat-card>
+    
+                <!-- 
+                <div *ngIf="!changingStatus">
+                    <button mat-flat-button color="accent" (click)="askForPermission(order)">
+                        Change status
+                    </button>
+                </div>
+                <div *ngIf="changingStatus && order.orderId===currOrderId">
+                    <button mat-flat-button color="accent" (click)="resolveOrder(order)">
+                        Yes
+                    </button>
+                    <button mat-flat-button color="accent" (click)="terminateProcess()">
+                        No
+                    </button>
+                </div>
+                -->
+            </mat-card>
+          </mat-list-item>
         </div>
     
         <div *ngIf="showSetting">
