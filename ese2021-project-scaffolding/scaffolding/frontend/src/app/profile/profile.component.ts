@@ -42,8 +42,6 @@ export class ProfileComponent {
   birthday: string = ''
   phonenumber: string = ''
 
-  emailErrorMsg: string = ''
-
   constructor(
     public httpClient: HttpClient,
     public userService: UserService,
@@ -185,7 +183,6 @@ export class ProfileComponent {
     });
   }
 }
-
 /*
 
   checkCorrectMail(): boolean{

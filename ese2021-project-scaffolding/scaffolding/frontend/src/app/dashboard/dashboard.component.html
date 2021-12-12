@@ -30,17 +30,27 @@
 
             <!-- Interactions -->
             <div *ngIf="!changingStatus">
-                <button mat-flat-button color="accent" (click)="askForPermission(order)">
-                    Change status
-                </button>
+                <div *ngIf="order.orderStatus === 'pending'">
+                  <button mat-flat-button color="accent" (click)="askForPermission(order)">
+                      Change status
+                  </button>
+                </div>
+                <div *ngIf="order.orderStatus === 'shipped'">
+                  Order got shipped
+                </div>
             </div>
             <div *ngIf="changingStatus && order.orderId===currOrderId">
-                <button mat-flat-button color="accent" (click)="resolveOrder(order)">
-                    Yes
-                </button>
-                <button mat-flat-button color="accent" (click)="terminateProcess()">
-                    No
-                </button>
+                <div *ngIf="order.orderStatus === 'pending'">
+                  <button mat-flat-button color="accent" (click)="resolveOrder(order)">
+                      Yes
+                  </button>
+                  <button mat-flat-button color="accent" (click)="terminateProcess()">
+                      No
+                  </button>
+                </div>
+                <div *ngIf="order.orderStatus === 'shipped'">
+                  Order got shipped
+                </div>
             </div>
         </mat-card>
     </mat-list-item>

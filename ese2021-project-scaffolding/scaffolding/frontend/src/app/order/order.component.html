@@ -22,9 +22,9 @@
             </mat-form-field>
 
             <div>
+                <button mat-button matStepperNext (click)="closePurchase()">Close</button>
                 <button mat-button matStepperNext>Next</button>
             </div>
-
         </form>
     </mat-step>
 
@@ -38,6 +38,7 @@
             </p>
 
             <div>
+                <button mat-button matStepperNext (click)="closePurchase()">Close</button>
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button matStepperNext>Next</button>
             </div>
@@ -51,6 +52,7 @@
         <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button matStepperNext (click)="closePurchase()">Close</button>
         <button mat-button (click)="purchase()">Purchase</button>
         </div>
         <p style="color:red">{{ purchaseErrorMsg }}</p>

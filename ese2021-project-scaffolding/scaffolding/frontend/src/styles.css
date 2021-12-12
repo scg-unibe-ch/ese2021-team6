@@ -1,14 +1,28 @@
-body {
-  margin: 30px;
+* {
+  margin: 0;
+  padding: 0;
 }
 
 mat-dialog-container {
   background-color: rgba(25, 25, 25) !important;
 }
 
+/*
+.background-image {
+  background-image: url("./Images/muster2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: auto !important;
+}
+*/
+
 .mat-card {
   margin: 20px 0;
   background-color: #EEE;
+}
+
+body {
+  background-color: gray;
 }
 
 button, input {
@@ -20,6 +34,3 @@ button, input {
   margin-right: 25px !important;
 }
 
-html{
- background-color: rgba(25, 25, 25);
-}
