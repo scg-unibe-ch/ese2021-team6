@@ -31,6 +31,7 @@ import { AppRoutingModule } from './app-routing';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    MatSidenavModule,
     MatListModule,
     ReactiveFormsModule,
     MatButtonToggleModule,
