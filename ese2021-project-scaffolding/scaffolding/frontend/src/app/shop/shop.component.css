@@ -41,6 +41,21 @@
 .filter{
   background-color: white;
   top:8px;
+  left:14px;
+}
+
+.filterapply-button{
+  bottom:8px;
+  float: right;
+}
+
+/*.buy-button{
+  float: right;
+}*/
+
+.horizontal-mat-list-item {
+  float: right;
+  display: list-item;
 }
 
 .select-category{
@@ -48,3 +63,12 @@
   background-color: white;
   color: black;
 }
+
+.new-product-button{
+  right: 9px;
+}
+
+.new-product{
+  left:14px;
+  width: 12.2%;
+ }

@@ -1,8 +1,9 @@
 <!--This is the login card-->
   <div *ngIf="data.value === 'login'" class="card">
-      <mat-card class="login-form">
+    <mat-card class="login-form">
         <h3>Login</h3>
-        <!--If not logged in, make login possible-->
+      <br><br>
+      <!--If not logged in, make login possible-->
         <div *ngIf="!loggedIn">
           <mat-form-field class="name">
             <input matInput type="text" placeholder="User Name" name="name" [(ngModel)]="userToLogin.username">
@@ -21,6 +22,7 @@
   <div *ngIf="data.value === 'register'">
     <mat-card class="registration-form">
       <h3>Register</h3>
+      <br><br>
       <mat-form-field>
         <input matInput type="text" placeholder="User Name" name="Username" [(ngModel)]="userToRegister.username">
       </mat-form-field>

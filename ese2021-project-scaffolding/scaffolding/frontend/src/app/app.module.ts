@@ -32,6 +32,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatCheckboxModule,
     AppRoutingModule,
     MatStepperModule,
-    MatRadioModule
+    MatRadioModule,
+    MatGridListModule
   ],
 
   providers: [

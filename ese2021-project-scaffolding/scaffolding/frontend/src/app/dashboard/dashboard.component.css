@@ -1,7 +1,21 @@
 .shop-items-admin{
-
+  width: 30%;
+  left: 4px;
 }
 
 .shop-items-fan{
+  width: 30%;
+  left: 4px;
+}
 
+.orders{
+  font-size: 32px;
+  width: 15%;
+  left: 15px;
+}
+
+.own-orders{
+  font-size: 32px;
+  width: 15%;
+  left: 15px;
 }

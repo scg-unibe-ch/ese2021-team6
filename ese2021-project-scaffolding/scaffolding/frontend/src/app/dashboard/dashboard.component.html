@@ -1,6 +1,8 @@
 <div *ngIf="userService.getIsAdmin() && userService.getLoggedIn()">
-    <mat-list-item class="shop-items-admin" *ngFor="let order of orders">
-        <mat-card>
+  <br><br>
+  <mat-card class="orders"> <p><b>List of all orders:</b></p>  </mat-card>
+    <mat-list-item  *ngFor="let order of orders">
+        <mat-card class="shop-items-admin">
 
             <!-- General Information -->
           <mat-card class="username">
@@ -57,9 +59,11 @@
 </div>
 
 <div *ngIf="!userService.getIsAdmin() && userService.getLoggedIn()">
-    <mat-list-item class="shop-items-fan" *ngFor="let order of userSpecificOrders">
+  <br><br>
+  <mat-card class="own-orders"> <p><b>List of your own orders:</b></p>  </mat-card>
+    <mat-list-item  *ngFor="let order of userSpecificOrders">
       <div *ngIf="order.username === userService.getUserName()">
-        <mat-card>
+        <mat-card class="shop-items-fan">
           <!-- General Information -->
           <mat-card class="username">
             <p><b>Product:</b></p>{{order.productTitle}}
