@@ -1,25 +1,28 @@
 <mat-drawer-container class="container">
 
   <!-- Filters what account information the User wants to see -->
+
   <mat-drawer class="navigation" mode="side" opened>
+    <br><br>
     <div>
       <p>
-        <button class="profile-button" mat-raised-button (click)="showAccInfo()">Account information</button>
+        <button class="profile-button1" mat-raised-button (click)="showAccInfo()">Account information</button>
       </p>
       <p>
-        <button class="profile-button" mat-raised-button (click)="showPosts()">Posts</button>
+        <button class="profile-button2" mat-raised-button (click)="showPosts()">Posts</button>
       </p>
       <p>
-        <button class="profile-button" mat-raised-button (click)="showOrders()">Orders</button>
+        <button class="profile-button3" mat-raised-button (click)="showOrders()">Orders</button>
       </p>
       <p>
-        <button class="profile-button" mat-raised-button (click)="showSettings()">Settings</button>
+        <button class="profile-button4" mat-raised-button (click)="showSettings()">Settings</button>
       </p>
     </div>
   </mat-drawer>
 
+
   <mat-drawer-content class="content">
-      <mat-card>
+      <mat-card class="content-card">
         <div *ngIf="showInfo">
           <!-- Display Userinformation -->
           <p>
@@ -45,7 +48,7 @@
           </p>
 
           <p>
-            <button class="profile-button" mat-raised-button (click)="editInformation()">Save</button>
+            <button class="save-button" mat-raised-button (click)="editInformation()">Save</button>
           </p>
         </div>
 
@@ -59,7 +62,7 @@
                 {{post.category}}
                 {{post.createdAt |  date:'dd/MM/yyyy'}}
               </p>
-              
+
               <mat-card class="title">
                 {{post.title}}
               </mat-card>
@@ -67,18 +70,18 @@
               <div *ngIf="post.imagePath != ''">
                 <img src={{post.imagePath}}>
               </div>
-              
+
               <mat-card class="text">
                 {{post.text}}
               </mat-card>
             </mat-card>
           </mat-list-item>
         </div>
-    
+
         <div *ngIf="showOrder">
           <mat-list-item *ngFor="let order of orders">
             <mat-card>
-    
+
                 <!-- Display Products -->
               <mat-card class="username">
                 <p><b>Product:</b></p> {{order.productTitle}}
@@ -107,9 +110,9 @@
             </mat-card>
           </mat-list-item>
         </div>
-    
+
         <div *ngIf="showSetting">
-    
+
         </div>
       </mat-card>
   </mat-drawer-content>
