@@ -41,7 +41,9 @@ export class CommentComponent {
      this.userId = userService.getUserId();
   }
 
-  // Opens the popup to write a comment to the post
+  /**
+   * Opens the popup to write a comment to the post
+   */
   openCommentWindow(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '750px',
@@ -53,7 +55,10 @@ export class CommentComponent {
     })
   }
 
-  // CREATE - Comment
+  /**
+   * Creates the comment and saves him in the backend
+   * @param text The content of the comment
+   */
   createComment(text: string): void {
     this.httpClient.post(environment.endpointURL + "comment", {
       commentId: 0,
@@ -68,7 +73,10 @@ export class CommentComponent {
     });
   }
 
-   // Opens the popup to edit a post
+   /**
+    * Opens the popup to edit a comment
+    * @param comment the comment to be edited
+    */
    openEditPopUp(comment: Comment): void {
     this.comment = comment
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -82,6 +90,10 @@ export class CommentComponent {
   }
 
   // Only the user that created a certain comment is able to edit.
+  /**
+   * Edits the comment in the backend
+   * @param text the text written by the user, that should overwrite the old text
+   */
   editComment(text: string) {
     this.httpClient.put(environment.endpointURL + "comment/" + this.comment.commentId, {
       text: text
@@ -90,7 +102,10 @@ export class CommentComponent {
     });
   }
 
-  // DELETE - Comment
+  /**
+   * Deletes the comment in the database
+   * @param comment The comment that is deleted
+   */
   deleteComment(comment: Comment): void {
      this.httpClient.delete(environment.endpointURL + "comment/" + comment.commentId).subscribe(() => {
       this.post.comments.splice(this.post.comments.indexOf(comment), 1);

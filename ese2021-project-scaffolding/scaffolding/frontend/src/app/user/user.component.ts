@@ -28,7 +28,7 @@ export class UserComponent {
   @Output()
   checkAdminEvent = new EventEmitter<string>();
 
-  // Tons of messages to tell the user that he did something not valid
+  // Error Statemensts for the user, if he did something wrong
   loginErrorMsg: string = '';
   passwordConditionErrorMsg: string = '';
   registerErrorMsg: string = '';
@@ -40,7 +40,6 @@ export class UserComponent {
   constructor(
     public httpClient: HttpClient,
     public userService: UserService,
-
     public dialogRef: MatDialogRef<UserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {value: string}
   ) {
@@ -57,7 +56,11 @@ export class UserComponent {
     this.userId = userService.getUserId();
   }
 
-  // Checks whether the registration requests has a valid password
+  /**   
+   * Checks whether the registration requests has a valid password
+   * 
+   * @returns True, if the password fullfills the requirements 
+  */
   checkPasswordConditions(): boolean {
     this.passwordConditionErrorMsg = '';
     this.registrationAcceptedMsg = '';
@@ -68,7 +71,7 @@ export class UserComponent {
     let hasASmallLetter = false;
     let hasASpecialCharacter = false;
 
-    console.log(this.passwordConditionErrorMsg);
+    //console.log(this.passwordConditionErrorMsg);
     // Password condition check
     if (userPassword.length > 7) {
       for (let i = 0; i < userPassword.length; i++) {
@@ -111,7 +114,11 @@ export class UserComponent {
     }
   }
 
-  // Checks whether the registration requests has the two required field username and email filled
+  /**
+   * Checks whether the registration requests has the two required fields username and email filled
+   * 
+   * @returns True, if the required fields are filled
+   *  */ 
   checkNoEmptyFields(): boolean{
 
     this.registerErrorMsg = '';
@@ -128,7 +135,11 @@ export class UserComponent {
 
   }
 
-  // Checks whether the registration requests mail is valid
+  /**
+   * Checks whether the registration requests mail is valid
+   * 
+   * @returns True, if the mail has an @ and the name is not already in use
+   */
   checkCorrectMail(): boolean{
     this.emailErrorMsg = '';
 
@@ -143,9 +154,12 @@ export class UserComponent {
     return eMailcorrect;
 
   }
-  // If all registration conditions are met, the user information will be saved in the DB
+
+  /**
+   * If all registration conditions are met, the user information will be saved in the DB
+   */
   registerUser(): void {
-    if (this.checkNoEmptyFields() && this.checkCorrectMail() /*&& this.checkPasswordConditions()*/) {
+    if (this.checkNoEmptyFields() && this.checkCorrectMail() && this.checkPasswordConditions()) {
       this.httpClient.post(environment.endpointURL + "user/register", {
         userName: this.userToRegister.username,
         password: this.userToRegister.password,
@@ -179,7 +193,10 @@ export class UserComponent {
       });
     }
   }
-  // Logs in the user or tells the user, that username or password weren't found
+
+  /**
+   * Logs in the user or tells the user, that username or password weren't found
+   */
   loginUser(): void {
     if(this.userToLogin.username.length > 0){
       this.httpClient.post(environment.endpointURL + "user/login", {
@@ -218,7 +235,8 @@ export class UserComponent {
     }
   }
 
-  //Endpoint testing
+  /*--------------------------------------Endpoint testing--------------------------------------*/
+
   accessUserEndpoint(): void {
     this.httpClient.get(environment.endpointURL + "secured").subscribe(() => {
       this.endpointMsgUser = "Access granted";

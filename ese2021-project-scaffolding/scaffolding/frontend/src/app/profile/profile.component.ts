@@ -53,6 +53,9 @@ export class ProfileComponent {
     },)
   }
 
+  /**
+   * Checks that the user is registered and logged in and sets the userinformation to display it in the html
+   */
   checkRegistration() {
     this.userName = this.userInfo[0]?.userName
     if (this.userInfo[0]?.firstName != null) {
@@ -81,6 +84,9 @@ export class ProfileComponent {
     }
   }
 
+  /**
+   * Sets all the show booleans to false
+   */
   resetDisplay() {
     this.showInfo = false
     this.showOrder = false
@@ -88,11 +94,17 @@ export class ProfileComponent {
     this.showSetting = false
   }
 
+  /**
+   * Shows the account information
+   */
   showAccInfo() {
     this.resetDisplay()
     this.showInfo = true
   }
 
+  /**
+   * Shows the posts sent
+   */
   showPosts() {
     this.resetDisplay()
     this.showPost = true
@@ -121,6 +133,9 @@ export class ProfileComponent {
     });
   }
 
+  /**
+   * Shows the orders given to the shop
+   */
   showOrders() {
     this.resetDisplay()
     this.showOrder = true
@@ -142,6 +157,9 @@ export class ProfileComponent {
     })
   }
 
+  /**
+   * Shows the settings
+   */
   showSettings() {
     this.resetDisplay()
     this.showSetting = true

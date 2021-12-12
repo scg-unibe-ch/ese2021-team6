@@ -112,12 +112,17 @@ export class AppComponent implements OnInit {
     });
   }
 
+  /**   
+   * Checks the data from the local storage on the user device
+   * and saves them into the Backend and Frontend.
+   * */
   checkUserStatus(): void {
     // Get user data from local storage
     const userToken = localStorage.getItem('userToken');
     const userId = localStorage.getItem('userId');
     const userName = localStorage.getItem('userName');
 
+    // Save the data from the local storage into the Frontend and Backend
     if (userId != null) {
       this.userService.setUserId(parseInt(userId))
     }

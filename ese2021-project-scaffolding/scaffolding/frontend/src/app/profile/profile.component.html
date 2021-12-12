@@ -1,5 +1,6 @@
 <mat-drawer-container class="example-container">
 
+  <!-- Filters what account information the User wants to see -->
   <mat-drawer mode="side" opened>
     <div class="navigation">
       <p>
@@ -20,6 +21,7 @@
   <mat-drawer-content>
       <mat-card>
         <div *ngIf="showInfo">
+          <!-- Display Userinformation -->
           <p>Username: {{userName}} </p>
           <p>First Name: {{firstName}} </p>
           <p>Last Name: {{lastName}} </p>
@@ -100,7 +102,7 @@
           <mat-list-item *ngFor="let order of orders">
             <mat-card>
     
-                <!-- General Information -->
+                <!-- Display Products -->
               <mat-card class="username">
                 <p><b>Product:</b></p> {{order.productTitle}}
               </mat-card>

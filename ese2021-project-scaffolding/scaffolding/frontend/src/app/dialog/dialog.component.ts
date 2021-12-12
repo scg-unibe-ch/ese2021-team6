@@ -51,6 +51,10 @@ export class DialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: {value: string}
     ){}
 
+  /**
+   * Publishes a product or calls the methods to create posts
+   * @param value The Value of what is published.
+   */
   publish(value: string): void {
     this.titleErrorMsg = '';
     this.categoryErrorMsg = '';
@@ -76,7 +80,10 @@ export class DialogComponent {
     }
   }
 
-
+  /**
+   * Checks that the title is not empty
+   * @returns true if the title is not empty
+   */
   checkNoEmptyTitle(): boolean{
     if(this.postTitle != ''){
       return true;
@@ -85,6 +92,10 @@ export class DialogComponent {
     return false;
   }
 
+  /**
+   * Checks that the price is not zero
+   * @returns True if that is the case
+   */
   checkNoEmptyPrice(): boolean{
     if(this.price.length > 0){
       if (!Number.isNaN(Number.parseFloat(this.price))) {
@@ -99,6 +110,10 @@ export class DialogComponent {
     return false;
   }
 
+  /**
+   * Checks that the Category is not empty
+   * @returns true if the category is not empty
+   */
   checkNoEmptyCategory(): boolean{
     if(this.category != ''){
       return true;
@@ -107,6 +122,10 @@ export class DialogComponent {
     return false;
   }
 
+  /**
+   * Adds the file as an image
+   * @param event the file selected from the user to be uploaded
+   */
   onFileSelected(event: any): void {
     const file:File = event.target.files[0];
 
@@ -119,6 +138,9 @@ export class DialogComponent {
     this.dialogRef.close();
   }
 
+  /**
+   * Opens a window to edit a product
+   */
   publishProductEdit(): void {
     if (this.data.value == "editProduct") {
       if (this.postTitle == '' && this.price == '') {
@@ -144,6 +166,9 @@ export class DialogComponent {
     this.dialogRef.close();
   }
 
+  /**
+   * Publishes the edited product
+   */
   publishEdit(): void {
     if (this.data.value == "editPost") {
       if (this.postTitle == '') {
@@ -168,6 +193,9 @@ export class DialogComponent {
     this.dialogRef.close();
   }
 
+  /**
+   * Closes the dialog popUp
+   */
   closeDialog(): void {
     this.dialogRef.close();
   }
