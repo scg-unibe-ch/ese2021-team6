@@ -60,7 +60,12 @@ export class ShopComponent {
     this.readLists();
   }
 
-  // Allows a loged in fan to buy a product from the shop.
+  /**
+   * Allows a logged in user to buy a product from the shop.
+   * The user is redirected to the order popUp.
+   * 
+   * @param product The product is saved
+   */
   buyProduct(product: Product) {
     if (!this.loggedIn) {
       const dialogRef = this.dialog.open(UserComponent, {
@@ -76,7 +81,9 @@ export class ShopComponent {
     }
   }
 
-  // In order to buy a product the fan can fill in a form.
+  /**
+   * In order to buy a product the fan can fill in a form.
+   */
   openPopUp() {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '750px',
@@ -93,7 +100,11 @@ export class ShopComponent {
     })
   }
 
-  // A logged in Admin can edit the shop products via edit button.
+  /**
+   * A logged in Admin can edit the shop products via edit button.
+   * 
+   * @param product Product that needs to be eddited
+   */
   openEditPopUp(product: Product) {
     this.product = product
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -106,6 +117,11 @@ export class ShopComponent {
     })
   }
 
+  /**
+   * Saves the user Information into the database
+   * 
+   * @param info The User information for the database
+   */
   createList(info: (string|number)[]) {
     this.httpClient.post(environment.endpointURL + "product", {
       productId: 0,
@@ -138,6 +154,9 @@ export class ShopComponent {
     })
   }
 
+  /**
+   * Goes through all the products in the database and saves them in the lists array
+   */
   readLists(): void {
     this.httpClient.get(environment.endpointURL + "product").subscribe((lists: any) => {
       lists.forEach((list: any) => {
@@ -159,14 +178,21 @@ export class ShopComponent {
     });
   }
 
-  // A logged in Admin can delete the shop products via edit button.
+  /**
+   * A logged in Admin can delete the shop products via edit button.
+   * @param product Product that needs to be deleted
+   */
   delete(product: Product): void {
   this.product = product
   this.httpClient.delete(environment.endpointURL + "product/" + this.product.productId).subscribe(() => {
     this.products.splice(this.products.indexOf(product), 1);
   })
 }
-  // How the shop product editing works
+  // 
+  /**
+   * The method resposible for editing
+   * @param result The data of the product, that needs to be edited
+   */
   edit(result: (string|number)[]) {
     if (result[0] == "Title") {
       this.httpClient.put(environment.endpointURL + "product/" + this.product.productId, {
@@ -202,7 +228,9 @@ export class ShopComponent {
     }
   }
 
-  // A logged in user can browse the shop and filter its products by categories
+  /**
+   * A logged in user can browse the shop and filter its products by categories
+   */
   filterProducts() {
     this.products = []
 

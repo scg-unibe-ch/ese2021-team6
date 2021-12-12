@@ -50,12 +50,17 @@ export class PostComponent {
     console.log(this.userService.getIsAdmin())
   }
 
+  /**
+   * Checks whether the User is logged in
+   */
   checkUserStatus(): void {
     const userToken = localStorage.getItem('userToken');
     this.userService.setLoggedIn(!!userToken);
   }
 
-  // Opens the popup to create a post
+  /**
+   * Opens the popup to create a post
+   */
   openPostWindow(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '750px',
@@ -76,7 +81,10 @@ export class PostComponent {
     })
   }
 
-  // Opens the popup to edit a post
+  /**
+   * Opens the popup to edit a post
+   * @param post The Post that needs to be edited
+   */
   openEditWindow(post: Post): void {
     this.post = post
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -90,6 +98,10 @@ export class PostComponent {
   }
 
   // CREATE - Post
+  /**
+   * Saves the text written in the database
+   * @param text the text written by the User
+   */
   createPost(text: string) {
     this.httpClient.post(environment.endpointURL + "post", {
       postId: 0,
@@ -123,20 +135,28 @@ export class PostComponent {
     })
   }
 
- // DELETE - Post
+ /**
+  * Deletes a post from the database
+  * @param post The post that needs to be deleted
+  */
  deletePost(post: Post): void {
   this.httpClient.delete(environment.endpointURL + "post/" + post.postId).subscribe(() => {
     this.posts.splice(this.posts.indexOf(post), 1);
   })
  }
 
-// UpVote - Post
+/**
+ * Upvotes a Post which means adding 1 to the upvotecount of the post.
+ * If clicked twice the upvote is revoked
+ * @param post The post that needs an update
+ */
 upvotePost(post: Post): void {
   var votedPost: any |undefined
   this.httpClient.get(environment.endpointURL + "votedPosts").subscribe((res: any) => {
     votedPost = res.filter((info: any) => info.userId === this.userId &&
     info.postId === post.postId)
 
+    // Case that the user hasn't voted yet
     if (votedPost[0] == undefined) {
       this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
         upvoteCount: post.upvoteCount + 1
@@ -154,6 +174,7 @@ upvotePost(post: Post): void {
         this.updateVotedPost(votedPost[0].voteId, 1)
       });
     }
+    // Revoke the upvote, if already pressed
     else
       if (votedPost[0].voted == 1) {
         this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
@@ -163,6 +184,7 @@ upvotePost(post: Post): void {
           this.updateVotedPost(votedPost[0].voteId, 0)
         });
       }
+    // If downvoted add 2 to the upvotecount
     else
       if (votedPost[0].voted == -1) {
         this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
@@ -175,13 +197,18 @@ upvotePost(post: Post): void {
   })
  }
 
-// DownVote - Post
+/**
+ * Downvotes a Post which means subtracting 1 from the downvotecount of the post.
+ * If clicked twice the downvote is revoked
+ * @param post The post that needs an update
+ */
 downvotePost(post: Post): void {
   var votedPost: any |undefined
   this.httpClient.get(environment.endpointURL + "votedPosts").subscribe((res: any) => {
     votedPost = res.filter((info: any) => info.userId === this.userId &&
     info.postId === post.postId)
 
+    // Case that the user hasn't voted yet
     if (votedPost[0] == undefined) {
       this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
         downvoteCount: post.downvoteCount + 1
@@ -199,6 +226,7 @@ downvotePost(post: Post): void {
         this.updateVotedPost(votedPost[0].voteId, -1)
       });
     }
+    // If upvoted add 2 to the downvotecount
     else
       if (votedPost[0].voted == 1) {
         this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
@@ -208,6 +236,7 @@ downvotePost(post: Post): void {
           this.updateVotedPost(votedPost[0].voteId, -1)
         });
       }
+    // Revoke the downvote, if already pressed
     else
       if (votedPost[0].voted == -1) {
         this.httpClient.put(environment.endpointURL + "post/" + post.postId, {
@@ -219,7 +248,11 @@ downvotePost(post: Post): void {
       }
    })
   }
-  // A voted post gets updated so the score shows correctly
+  /**
+   * A voted post gets updated in the database so the score shows correctly
+   * @param voteId Id of the vote
+   * @param value The value that is added or subtracted from the votecount
+   */
   updateVotedPost(voteId: number, value: number) {
     this.httpClient.put(environment.endpointURL + "votedPosts/" + voteId, {
       voted: value
@@ -228,7 +261,11 @@ downvotePost(post: Post): void {
     })
   }
 
-  // A logged in User can either upvote or downvote a post
+  /**
+   * A logged in User can either upvote or downvote a post
+   * @param post The relevant post
+   * @param value The value by which the post is voted
+   */
   votePost(post: Post, value: number) {
     this.httpClient.post(environment.endpointURL + "votedPosts", {
       voteId: 0,
@@ -240,7 +277,9 @@ downvotePost(post: Post): void {
     })
   }
 
-  // A logged in User can browse the forum by categories
+  /**
+   * A logged in User can browse the forum by categories
+   */
   filterPosts() {
     console.log(this.selectedTags)
     this.posts = []
@@ -253,7 +292,7 @@ downvotePost(post: Post): void {
         list.comments.forEach((item: any) => {
           comments.push(new Comment(0, '', 0, 0, 0, 0));
         });
-
+        //whtat is shown if there are more than 0 tags selected
         if (this.selectedTags.length>0) {
           for (let tag of this.selectedTags) {
             if (tag == list.category) {
@@ -269,7 +308,9 @@ downvotePost(post: Post): void {
     });
   }
 
-  // READ - Post, Comment
+  /**
+   * Save the posts and comments from the backend(database) to the frontend
+   */
   readPosts(): void {
     this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
       lists.forEach((list: any) => {
@@ -293,7 +334,11 @@ downvotePost(post: Post): void {
     });
   }
 
-  // Only the user that created a certain post is able to edit.
+  /**
+   * Edits the post.
+   * Precondition: Only the user that created a certain post is able to edit. is secured in html
+   * @param result the text/title written by the user, that should overwrite the old text/title
+   */
   editPost(result: string[]) {
     if (result[0] == "Text") {
       this.httpClient.put(environment.endpointURL + "post/" + this.post.postId, {
@@ -319,7 +364,12 @@ downvotePost(post: Post): void {
       });
     }
   }
-  // visualize the comments, that belong to a certain post
+
+  /**
+   * visualize the comments, that belong to a certain post
+   * @param post The post that is commented
+   * @param pageName The "page" that is shown with all the comments on it
+   */
   showComments(post: Post, pageName: String) {
     this.post = post
     this.postCommentService.setPost(post)

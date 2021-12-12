@@ -56,7 +56,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.readLists();
   }
-
+  /**
+   * Saves the orders from the backend/database to the frontend array orders
+   */
   readLists(): void {
     this.httpClient.get(environment.endpointURL + "order").subscribe((lists: any) => {
       console.log(lists)
@@ -85,7 +87,10 @@ export class DashboardComponent implements OnInit {
     this.terminateOrder(order)
   }
 
-  // A admin can set the status of an order to shipped to tell the user, that its order is on the way
+  /**
+   * A admin can set the status of an order to shipped to tell the user, that its order is on the way
+   * @param order The order that is being shipped
+   */
   resolveOrder(order: Order) {
     if(order.orderStatus == "pending"){
       this.httpClient.put(environment.endpointURL + "order/" + order.orderId, {
@@ -96,17 +101,23 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Changing the status of a order can be unwanted, thus it need to be confirmed.
+  /**
+   * Changing the status of a order can be unwanted, thus it need to be confirmed.
+   * @param order The relevant order
+   */
   askForPermission(order: Order) {
     this.currOrderId = order.orderId
     this.changingStatus = true
   }
 
-  //
   terminateProcess() {
     this.changingStatus = false
   }
 
+  /**
+   * The user that set up the order can terminate it
+   * @param order that is terminated
+   */
   terminateOrder(order: Order) {
     if(order.orderStatus != "shipped"){
       this.changingStatus = false

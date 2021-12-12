@@ -86,8 +86,12 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  // if a user filled in the buy form the purchase is done and will show on his dashboard
+  /**
+   * if a user filled in the buy form the purchase is done and will show on his dashboard
+   * @returns nothing is returned but the buy process is avoided becasue not all requiered fields are filled out
+   */
   purchase() {
+    // Parses the content of the fill order
     this.purchaseErrorMsg = '';
     if (this.addressFormGroup.controls.addressCtrl.value != null) {
       this.address = this.addressFormGroup.controls.addressCtrl.value
@@ -101,12 +105,12 @@ export class OrderComponent implements OnInit {
     if (this.paymentFormGroup.controls.invoiceCtrl.value != null) {
       this.paymentMethod = this.paymentFormGroup.controls.invoiceCtrl.value
     }
-
+    // Checks whether everything is filled out or not
     if(this.address == '' || this.city == '' || this.zipCode == 0 || this.address == null || this.city == null || this.zipCode == null){
       this.purchaseErrorMsg = "Please fill out all the required fields";
       return;
     }
-
+    // Saves the order in the database
     this.httpClient.post(environment.endpointURL + "order", {
       orderId: 0,
       username: this.userName,
@@ -117,6 +121,7 @@ export class OrderComponent implements OnInit {
       orderStatus: "pending",
       productId: this.product.productId
     }).subscribe((res: any) => {
+      //Redirects the User to the Dashboard
        this.router.navigateByUrl("Dashboard")
     })
   }

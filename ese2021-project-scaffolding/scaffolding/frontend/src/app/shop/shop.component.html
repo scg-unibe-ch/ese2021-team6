@@ -2,7 +2,7 @@
   <button class="post-button" mat-raised-button (click)="openPopUp()">New Product</button>
 </mat-card>
 
-
+<!-- Filter for the User and Admin -->
 <mat-form-field class="filter">
     <mat-label class="select-category">Filter</mat-label>
     <mat-select [(ngModel)]="selectedTags" [formControl]="tags" multiple>
@@ -11,6 +11,7 @@
     </mat-select>
 </mat-form-field>
 
+<!-- Shows all the available products -->
 <mat-list-item class="shop-items" *ngFor="let product of products">
   <mat-card class="product-list">
                  <p class="product-information">
@@ -21,7 +22,6 @@
                 <mat-card class="title">
                     {{product.title}}
                 </mat-card>
-    <!--<img *ngIf="{{product.description.includes(Keyboard)}}" src="assets/cap.jpg">*/ -->
 
                 <div *ngIf="product.imagePath != ''">
                   <img src={{product.imagePath}}>
@@ -33,23 +33,25 @@
 
     <mat-card class="price">
       Price: {{product.price}} €
+    </mat-card>
+
+<!-- Buttons for Admins and Users -->
+
+    <button
+      *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
+      mat-flat-button color="warn" (click)="delete(product)">
+        Delete Product
+    </button>
+
+    <button
+      *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
+      mat-flat-button color="accent" (click)="openEditPopUp(product)">
+        Edit Product
+    </button>
+
+    <button
+      *ngIf="!userService.getIsAdmin()" mat-flat-button color="accent" (click)="buyProduct(product)">
+        BUY NOW
+    </button>
   </mat-card>
-
-  <button
-  *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
-  mat-flat-button color="warn" (click)="delete(product)">
-    Delete Product
-  </button>
-
-  <button
-  *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
-  mat-flat-button color="accent" (click)="openEditPopUp(product)">
-    Edit Product
-  </button>
-
-<button
-  *ngIf="!userService.getIsAdmin()" mat-flat-button color="accent" (click)="buyProduct(product)">
-  BUY NOW
-</button>
-</mat-card>
 </mat-list-item>
