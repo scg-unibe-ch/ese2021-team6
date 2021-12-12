@@ -47,7 +47,6 @@ export class PostComponent {
   ngOnInit() {
     this.checkUserStatus()
     this.readPosts();
-    console.log(this.userService.getIsAdmin())
   }
 
   /**

@@ -217,7 +217,6 @@ export class UserComponent {
         this.userService.setUser(new User(res.user.userId, res.user.userName, res.user.password));
 
         this.httpClient.get(environment.endpointURL + "admin").subscribe(() => {
-          console.log("Setting to true...")
           this.userService.setIsAdmin(true)
           this.isAdmin = this.userService.getIsAdmin()
         }, () => {
@@ -234,7 +233,6 @@ export class UserComponent {
       });
     }
   }
-
   /*--------------------------------------Endpoint testing--------------------------------------*/
 
   accessUserEndpoint(): void {

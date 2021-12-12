@@ -1,8 +1,8 @@
-<mat-drawer-container class="example-container">
+<mat-drawer-container class="container">
 
   <!-- Filters what account information the User wants to see -->
-  <mat-drawer mode="side" opened>
-    <div class="navigation">
+  <mat-drawer class="navigation" mode="side" opened>
+    <div>
       <p>
         <button class="profile-button" mat-raised-button (click)="showAccInfo()">Account information</button>
       </p>
@@ -18,22 +18,38 @@
     </div>
   </mat-drawer>
 
-  <mat-drawer-content>
+  <mat-drawer-content class="content">
       <mat-card>
         <div *ngIf="showInfo">
           <!-- Display Userinformation -->
-          <p>Username: {{userName}} </p>
-          <p>First Name: {{firstName}} </p>
-          <p>Last Name: {{lastName}} </p>
-          <p>Email: {{email}} </p>
-          <p>Address: {{address}} </p>
-          <p>City: {{city}} </p>
-          <p>Zipcode: {{zipCode}} </p>
-          <p>Birthday: {{birthday}} </p>
-          <p>Phonenumber: {{phonenumber}} </p>
+          <p>
+            First name: <input [value]="firstName" matInput placeholder="Write your firstname" [(ngModel)]="firstName">
+          </p>
+          <p>
+            Last name: <input [value]="lastName" matInput placeholder="Write your lastname" [(ngModel)]="lastName">
+          </p>
+          <p>
+            Email: <input [value]="email" matInput placeholder="Write your email" [(ngModel)]="email">
+            <font color="red">{{emailErrorMsg}}</font>
+          </p>
+          <p>
+            Address: <input [value]="address" matInput placeholder="Write your address" [(ngModel)]="address">
+          </p>
+          <p>
+            City: <input [value]="city" matInput placeholder="Write your city" [(ngModel)]="city">
+          </p>
+          <p>
+            Zipcode: <input [value]="zipCode" matInput placeholder="Write your zipcode" [(ngModel)]="zipCode">
+          </p>
+          <p>
+            Birthday: <input [value]="birthday" matInput placeholder="Write your phonenumber" [(ngModel)]="phonenumber">
+          </p>
+          <p>
+            Phonenumber: <input [value]="phonenumber" matInput placeholder="Write your phonenumber" [(ngModel)]="phonenumber">
+          </p>
 
           <p>
-            <button class="profile-button" mat-raised-button (click)="showSettings()">Edit information</button>
+            <button class="profile-button" mat-raised-button (click)="editInformation()">Save</button>
           </p>
         </div>
 
@@ -59,41 +75,6 @@
               <mat-card class="text">
                 {{post.text}}
               </mat-card>
-
-                           <!--
-          
-              <mat-card class="votes">
-                <button
-                  *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
-                  mat-flat-button color="primary" (click)="upvotePost(post)">
-                  UpVote
-                </button>
-                {{post.upvoteCount - post.downvoteCount}}
-                <button
-                  *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
-                  mat-flat-button color="warn" (click)="downvotePost(post)">
-                  DownVote
-                </button>
-              </mat-card>
-
-              <button
-                *ngIf="userService.getLoggedIn() && userService.getUserId() === post.userId || userService.getIsAdmin()"
-                mat-flat-button color="warn" (click)="deletePost(post)">
-                Delete Post
-              </button>
-              
-              <button
-                *ngIf="userService.getLoggedIn() && userService.getUserId() === post.userId"
-                mat-flat-button color="accent" (click)="openEditWindow(post)">
-                Edit Post
-              </button>
-
-              <button
-                mat-flat-button color="primary" (click)="showComments(post, 'Comments')">
-                Show comments
-              </button>
-              --> 
-
             </mat-card>
           </mat-list-item>
         </div>
@@ -127,22 +108,6 @@
                 <mat-card class="username">
                   <p><b>Status:</b></p> {{order.orderStatus}}
                 </mat-card>
-    
-                <!-- 
-                <div *ngIf="!changingStatus">
-                    <button mat-flat-button color="accent" (click)="askForPermission(order)">
-                        Change status
-                    </button>
-                </div>
-                <div *ngIf="changingStatus && order.orderId===currOrderId">
-                    <button mat-flat-button color="accent" (click)="resolveOrder(order)">
-                        Yes
-                    </button>
-                    <button mat-flat-button color="accent" (click)="terminateProcess()">
-                        No
-                    </button>
-                </div>
-                -->
             </mat-card>
           </mat-list-item>
         </div>

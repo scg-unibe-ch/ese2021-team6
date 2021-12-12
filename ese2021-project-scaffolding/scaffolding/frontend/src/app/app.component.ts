@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
   loggedIn: boolean | undefined;
   isAdmin: boolean | undefined;
 
+  navigateTo: string | null = "Forum"
+
   constructor(
     public httpClient: HttpClient,
     public userService: UserService,
@@ -49,19 +51,43 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.checkUserStatus();
-    this.goToForum("Forum")
+
+    if (localStorage.getItem('navigation') != null) {
+      this.navigateTo = localStorage.getItem('navigation');
+    }
+
+    switch ( this.navigateTo ) {
+      case "Forum":
+        this.goToForum("Forum")
+        break;
+      case "Shop":
+        this.goToShop("Shop")
+        break;
+      case "Dashboard":
+        this.goToDashboard("Dashboard")
+        break;
+      case "Profile":
+        this.goToProfile("Profile")
+        break;
+      default: 
+        this.goToForum("Forum")
+        break;
+   }
   }
 
   goToForum(pageName: string) {
+    localStorage.setItem('navigation', 'Forum');
     this.router.navigate([`${pageName}`])
   }
 
   goToShop(pageName: string) {
+    localStorage.setItem('navigation', 'Shop');
     this.router.navigate([`${pageName}`])
   }
 
   goToDashboard(pageName: string) {
     if (this.loggedIn) {
+      localStorage.setItem('navigation', "Dashboard");
       this.router.navigate([`${pageName}`])
     }
     else {
@@ -75,6 +101,7 @@ export class AppComponent implements OnInit {
 
   goToProfile(pageName: string) {
     if (this.loggedIn) {
+      localStorage.setItem('navigation', "Profile");
       this.router.navigate([`${pageName}`])
     }
     else {

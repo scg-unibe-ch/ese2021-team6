@@ -84,7 +84,6 @@ export class UserService {
   }
 
   setUserName(userName: string | undefined): void {
-    console.log("setting username...", userName)
     this.userNameSource.next(userName);
   }
 
