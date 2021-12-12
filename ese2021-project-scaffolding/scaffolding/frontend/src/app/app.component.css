@@ -1,8 +1,9 @@
+/*---------------------------TOOL-BAR---------------------------*/
 .title-toolbar{
   background-image: url("../Images/gamers1.1.jpg");
   background-blend-mode: multiply;
   background-size: 100% 100%;
-  height: 200px;
+  height: 150px;
   position: relative;
 }
 
@@ -32,11 +33,19 @@
     0 0 160px #03bcf4;
   }
 }
+/*----------------------------------------------------------------------*/
+.sign-in-button {
+  background-color: rgb(0, 255, 42);
+}
+
+.sign-in-button-text {
+  color: #fff;
+}
 
 .forum-menu{
   display: flex;
   margin: 0 auto;
-  width: 30%;
+  width: 50%;
   background-color: rgba(35, 35, 35, 0.5);
   border-style: solid;
   border-color:rgba(53, 53, 53);
@@ -46,24 +55,21 @@
 .post-list{
   display: flex;
   margin: 0 auto;
-  width: 30%;
+  width: 50%;
   background-color: rgba(35, 35, 35, 0.5);
   border-style: solid;
   border-color:rgba(53, 53, 53);
-  
 }
 
 .mat-tab-label{
   background-color: rgba(35, 35, 35);
   color: white;
   font-size: 120%;
-
 }
 
 .menu-icon{
 color: #fff;
 }
-
 
 .post-button{
   background-color: rgba(53, 53, 53, 0.5);
@@ -75,7 +81,3 @@ color: #fff;
   background-color: rgba(35, 35, 35, 0.5);
   color: white;
 }
-/*.tab-menu{
-  font-weight: bold;
-  font-weight: 900;
-}*/

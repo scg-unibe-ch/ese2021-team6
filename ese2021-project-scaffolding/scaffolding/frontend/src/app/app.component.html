@@ -5,14 +5,21 @@
 </mat-toolbar>
 
 <div>
-  <!-- Buttons that need to be seen on every page -->
-  <button *ngIf="loggedIn" mat-flat-button color="warn" (click)="logoutUser()">Logout</button>
-  <button *ngIf="!loggedIn" mat-raised-button (click)="openLoginWindow()" >Login</button>
-  <button mat-raised-button (click)="openRegisterWindow()" >Register</button>
+  <div class="action-toolbar">
+    <!-- Buttons that need to be seen on every page -->
+    <button class="sign-out-button" *ngIf="loggedIn" mat-flat-button color="warn" (click)="logoutUser()">Sign out</button>
 
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-    <mat-icon class="menu-icon" svgIcon="menu_button"></mat-icon>
-  </button>
+    <button class="sign-in-button" *ngIf="!loggedIn" mat-raised-button (click)="openLoginWindow()">
+      <div class="sign-in-button-text">Sign in</div>
+    </button>
+
+    <button mat-raised-button (click)="openRegisterWindow()" >Register</button>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon class="menu-icon" svgIcon="menu_button"></mat-icon>
+    </button>
+  </div>
+
   <!-- Options from the menu Button -->
   <mat-menu #menu="matMenu">
     <div>
