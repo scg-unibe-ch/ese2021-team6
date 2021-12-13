@@ -1,16 +1,25 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ShopComponent } from './shop.component';
 
-describe('ProductComponent', () => {
+describe('ShopComponent', () => {
   let component: ShopComponent;
   let fixture: ComponentFixture<ShopComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ShopComponent]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule,
+        MatDialogModule,
+        RouterTestingModule,
+      ],
+      declarations: [
+        ShopComponent,
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

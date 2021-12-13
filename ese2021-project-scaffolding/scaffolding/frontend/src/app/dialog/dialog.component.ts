@@ -1,4 +1,5 @@
 import { flatten } from '@angular/compiler';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, Input, Output, EventEmitter, Inject, Optional} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 

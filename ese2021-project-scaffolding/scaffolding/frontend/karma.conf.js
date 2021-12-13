@@ -32,7 +32,22 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-    reporters: ['progress', 'kjhtml'],
+    
+    coverageIstanbulReporter: {
+      reports: [ 'html', 'lcovonly', 'text-summary' ],
+      fixWebpackSourcePaths: true
+    },
+
+    angularCli: {
+      environment: 'dev',
+      codeCoverage: true
+    },
+   
+    reporters: config.angularCli && config.angularCli.codeCoverage
+    
+    ? ['progress', 'coverage-istanbul']
+    : ['progress', 'kjhtml'],
+
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

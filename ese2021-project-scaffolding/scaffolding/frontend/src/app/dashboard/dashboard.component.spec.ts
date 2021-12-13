@@ -1,4 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { DashboardComponent } from './dashboard.component';
 
@@ -7,10 +11,16 @@ describe('DashboardComponent', () => {
   let fixture: ComponentFixture<DashboardComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule,
+        MatDialogModule,
+        RouterTestingModule
+      ],
+      declarations: [
+        DashboardComponent,
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

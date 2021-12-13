@@ -43,7 +43,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     ProfileComponent,
     DialogComponent,
     OrderComponent,
-    DashboardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
