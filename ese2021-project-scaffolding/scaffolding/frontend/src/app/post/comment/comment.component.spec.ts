@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule} from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { CommentComponent } from './comment.component';
 
@@ -6,11 +9,17 @@ describe('CommentComponent', () => {
   let component: CommentComponent;
   let fixture: ComponentFixture<CommentComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ CommentComponent ]
-    })
-    .compileComponents();
+  beforeEach(async () => { 
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule,
+        MatDialogModule,
+        RouterTestingModule
+      ],
+      declarations: [
+        CommentComponent,
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

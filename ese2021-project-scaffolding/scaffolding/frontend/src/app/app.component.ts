@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Inject} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
+import {MatDialog} from '@angular/material/dialog';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { UserService } from './services/user.service';
 import { User } from './models/user.model';
@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     public httpClient: HttpClient,
+    public httpClientmodule: HttpClientModule,
     public userService: UserService,
     public dialog: MatDialog,
     private matIconRegistry: MatIconRegistry,

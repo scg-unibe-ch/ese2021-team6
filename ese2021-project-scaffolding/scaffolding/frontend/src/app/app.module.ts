@@ -44,7 +44,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     ProfileComponent,
     DialogComponent,
     OrderComponent,
-    DashboardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
