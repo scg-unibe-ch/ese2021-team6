@@ -56,10 +56,10 @@ export class UserComponent {
     this.userId = userService.getUserId();
   }
 
-  /**   
+  /**
    * Checks whether the registration requests has a valid password
-   * 
-   * @returns True, if the password fullfills the requirements 
+   *
+   * @returns True, if the password fullfills the requirements
   */
   checkPasswordConditions(): boolean {
     this.passwordConditionErrorMsg = '';
@@ -116,9 +116,9 @@ export class UserComponent {
 
   /**
    * Checks whether the registration requests has the two required fields username and email filled
-   * 
+   *
    * @returns True, if the required fields are filled
-   *  */ 
+   *  */
   checkNoEmptyFields(): boolean{
 
     this.registerErrorMsg = '';
@@ -137,7 +137,7 @@ export class UserComponent {
 
   /**
    * Checks whether the registration requests mail is valid
-   * 
+   *
    * @returns True, if the mail has an @ and the name is not already in use
    */
   checkCorrectMail(): boolean{
@@ -225,7 +225,7 @@ export class UserComponent {
         });
 
         window.location.reload();
-      
+
 
       }, () => {
         this.loginErrorMsg = "Username or password not found!";
