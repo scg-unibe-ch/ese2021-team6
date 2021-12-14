@@ -132,7 +132,7 @@ export class ShopComponent {
       imageId: 0,
       userId: this.userId
     }).subscribe((list: any) => {
-      if (this.file != undefined) {
+      if (this.file != null) {
         const fd = new FormData();
         fd.append('image', this.file);
 
@@ -145,6 +145,8 @@ export class ShopComponent {
 
           this.products.push(new Product(list.productId, list.title, list.description, list.category,
             list.price, list.imageId, path, list.userId, list.createdAt))
+
+          console.log("Success")
         })
       }
       else {
@@ -166,14 +168,7 @@ export class ShopComponent {
 
           this.products.push(new Product(list.productId, list.title, list.description, list.category,
             list.price, list.imageId, path, list.userId, list.createdAt))
-        }, () => {
-          console.log("NOT FOUND")
-          this.products.push(new Product(list.productId, list.title, list.description, list.category,
-            list.price, list.imageId, '', list.userId, list.createdAt))
         });
-
-        this.products.push(new Product(list.productId, list.title, list.description, list.category,
-          list.price, list.imageId, '', list.userId, list.createdAt))
       });
     });
   }
