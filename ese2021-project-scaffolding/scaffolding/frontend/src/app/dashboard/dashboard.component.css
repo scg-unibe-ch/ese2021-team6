@@ -1,21 +1,57 @@
 .shop-items-admin{
-  width: 30%;
-  left: 4px;
+  display: block;
+  margin-left:auto;
+  margin-right:auto;  
+  vertical-align:middle;
+  width: 75%;
+  background-color: rgba(36, 36, 36, 0.5);
+  border-style: solid;
+  border-color:rgb(219, 16, 16);
+  color: white;
 }
 
 .shop-items-fan{
-  width: 30%;
-  left: 4px;
+  display: block;
+  margin-left:auto;
+  margin-right:auto;  
+  vertical-align:middle;
+  width: 75%;
+  background-color: rgba(36, 36, 36, 0.5);
+  border-style: solid;
+  border-color:rgb(219, 16, 16);
+  color: white;
 }
 
 .orders{
-  font-size: 32px;
-  width: 15%;
-  left: 15px;
+  display: block;
+  margin-left:auto;
+  margin-right:auto;  
+  vertical-align:middle;
+  width: 75%;
+  background-color: rgba(36, 36, 36, 0.5);
+  border-style: solid;
+  border-color:rgb(219, 16, 16);
+  color: white;
 }
 
 .own-orders{
-  font-size: 32px;
-  width: 15%;
-  left: 15px;
+  display: block;
+  margin-left:auto;
+  margin-right:auto;  
+  vertical-align:middle;
+  width: 75%;
+  background-color: rgba(36, 36, 36, 0.5);
+  border-style: solid;
+  border-color:rgb(219, 16, 16);
+  color: white;
+}
+
+.info {
+  background-color: rgba(36, 36, 36, 0.5);
+  color: white;
+}
+
+.dashboard-button {
+  background-color: rgba(212, 0, 255, 0.842);
+  color: white;
 }

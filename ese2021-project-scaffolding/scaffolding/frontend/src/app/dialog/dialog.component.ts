@@ -2,6 +2,8 @@ import { flatten } from '@angular/compiler';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, Input, Output, EventEmitter, Inject, Optional} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dialog',
@@ -49,8 +51,15 @@ export class DialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
+    public matIconRegistry: MatIconRegistry,
+    public domSanitizer: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: {value: string}
-    ){}
+    ){
+      this.matIconRegistry.addSvgIcon( 
+        "upload_button",
+        this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/upload.svg")
+      );
+    }
 
   /**
    * Publishes a product or calls the methods to create posts

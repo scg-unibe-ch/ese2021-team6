@@ -3,19 +3,15 @@
   <!-- Filters what account information the User wants to see -->
 
   <mat-drawer class="navigation" mode="side" opened>
-    <br><br>
     <div>
       <p>
-        <button class="profile-button1" mat-raised-button (click)="showAccInfo()">Account information</button>
+        <button class="profile-button" mat-raised-button (click)="showAccInfo()">Account information</button>
       </p>
       <p>
-        <button class="profile-button2" mat-raised-button (click)="showPosts()">Posts</button>
+        <button class="profile-button" mat-raised-button (click)="showPosts()">Posts</button>
       </p>
       <p>
-        <button class="profile-button3" mat-raised-button (click)="showOrders()">Orders</button>
-      </p>
-      <p>
-        <button class="profile-button4" mat-raised-button (click)="showSettings()">Settings</button>
+        <button class="profile-button" mat-raised-button (click)="showOrders()">Orders</button>
       </p>
     </div>
   </mat-drawer>
@@ -26,25 +22,25 @@
         <div *ngIf="showInfo">
           <!-- Display Userinformation -->
           <p>
-            First name: <input [value]="firstName" matInput placeholder="Write your firstname" [(ngModel)]="firstName">
+            First name: <input class="info" [value]="firstName" placeholder="Write your firstname" [(ngModel)]="firstName">
           </p>
           <p>
-            Last name: <input [value]="lastName" matInput placeholder="Write your lastname" [(ngModel)]="lastName">
+            Last name: <input class="info" [value]="lastName" placeholder="Write your lastname" [(ngModel)]="lastName">
           </p>
           <p>
-            Address: <input [value]="address" matInput placeholder="Write your address" [(ngModel)]="address">
+            Address: <input class="info" [value]="address" placeholder="Write your address" [(ngModel)]="address">
           </p>
           <p>
-            City: <input [value]="city" matInput placeholder="Write your city" [(ngModel)]="city">
+            City: <input class="info" [value]="city" placeholder="Write your city" [(ngModel)]="city">
           </p>
           <p>
-            Zipcode: <input [value]="zipCode" matInput placeholder="Write your zipcode" [(ngModel)]="zipCode">
+            Zipcode: <input class="info" [value]="zipCode" placeholder="Write your zipcode" [(ngModel)]="zipCode">
           </p>
           <p>
-            Birthday: <input [value]="birthday" matInput placeholder="Write your phonenumber" [(ngModel)]="phonenumber">
+            Birthday: <input class="info" [value]="birthday" placeholder="Write your phonenumber" [(ngModel)]="phonenumber">
           </p>
           <p>
-            Phonenumber: <input [value]="phonenumber" matInput placeholder="Write your phonenumber" [(ngModel)]="phonenumber">
+            Phonenumber: <input class="info" [value]="phonenumber" placeholder="Write your phonenumber" [(ngModel)]="phonenumber">
           </p>
 
           <p>
@@ -55,7 +51,7 @@
         <div *ngIf="showPost">
           <!-- // DISPLAY POSTS \\ -->
           <mat-list-item *ngFor="let post of posts">
-            <mat-card class="post-list">
+            <mat-card class="profile-post-list">
 
               <!-- General Information -->
               <p class="post-information">
@@ -63,56 +59,52 @@
                 {{post.createdAt |  date:'dd/MM/yyyy'}}
               </p>
 
-              <mat-card class="title">
+              <div class="title">
                 {{post.title}}
-              </mat-card>
+              </div>
 
               <div *ngIf="post.imagePath != ''">
                 <img src={{post.imagePath}}>
               </div>
 
-              <mat-card class="text">
+              <div class="text">
                 {{post.text}}
-              </mat-card>
+              </div>
             </mat-card>
           </mat-list-item>
         </div>
 
         <div *ngIf="showOrder">
           <mat-list-item *ngFor="let order of orders">
-            <mat-card>
+            <mat-card class="order-list">
 
                 <!-- Display Products -->
-              <mat-card class="username">
+              <mat-card class="info">
                 <p><b>Product:</b></p> {{order.productTitle}}
               </mat-card>
-              <mat-card class="username">
+              <mat-card class="info">
                 <p><b>Price:</b></p> {{order.productPrice}} €
               </mat-card>
-              <mat-card class="username">
+              <mat-card class="info">
                 <p><b>Username:</b></p> {{order.username}}
                 </mat-card>
-                <mat-card class="username">
+                <mat-card class="info">
                   <p><b>deliveryAdress:</b></p> {{order.deliveryAdress}}
                 </mat-card>
-                <mat-card class="username">
+                <mat-card class="info">
                   <p><b>city:</b></p> {{order.city}}
                 </mat-card>
-                <mat-card class="username">
+                <mat-card class="info">
                   <p><b>zipcode:</b></p> {{order.zipcode}}
                 </mat-card>
-                <mat-card class="username">
+                <mat-card class="info">
                   <p><b>paymentMethod:</b></p> {{order.paymentMethod}}
                 </mat-card>
-                <mat-card class="username">
+                <mat-card class="info">
                   <p><b>Status:</b></p> {{order.orderStatus}}
                 </mat-card>
             </mat-card>
           </mat-list-item>
-        </div>
-
-        <div *ngIf="showSetting">
-
         </div>
       </mat-card>
   </mat-drawer-content>

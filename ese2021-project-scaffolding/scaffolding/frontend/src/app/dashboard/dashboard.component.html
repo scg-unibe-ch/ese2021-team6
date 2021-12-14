@@ -1,39 +1,39 @@
 <div *ngIf="userService.getIsAdmin() && userService.getLoggedIn()">
   <br><br>
   <mat-card class="orders"> <p><b>List of all orders:</b></p>  </mat-card>
-    <mat-list-item  *ngFor="let order of orders">
+    <mat-list-item class="order-list"  *ngFor="let order of orders">
         <mat-card class="shop-items-admin">
 
             <!-- General Information -->
-          <mat-card class="username">
+          <mat-card class="info">
             <p><b>Product:</b></p> {{order.productTitle}}
           </mat-card>
-          <mat-card class="username">
+          <mat-card class="info">
             <p><b>Price:</b></p> {{order.productPrice}} €
           </mat-card>
-          <mat-card class="username">
+          <mat-card class="info">
             <p><b>Username:</b></p> {{order.username}}
             </mat-card>
-            <mat-card class="username">
+            <mat-card class="info">
               <p><b>deliveryAdress:</b></p> {{order.deliveryAdress}}
             </mat-card>
-            <mat-card class="username">
+            <mat-card class="info">
               <p><b>city:</b></p> {{order.city}}
             </mat-card>
-            <mat-card class="username">
+            <mat-card class="info">
               <p><b>zipcode:</b></p> {{order.zipcode}}
             </mat-card>
-            <mat-card class="username">
+            <mat-card class="info">
               <p><b>paymentMethod:</b></p> {{order.paymentMethod}}
             </mat-card>
-            <mat-card class="username">
+            <mat-card class="info">
               <p><b>Status:</b></p> {{order.orderStatus}}
             </mat-card>
 
             <!-- Interactions -->
             <div *ngIf="!changingStatus">
                 <div *ngIf="order.orderStatus === 'pending'">
-                  <button mat-flat-button color="accent" (click)="askForPermission(order)">
+                  <button class="dashboard-button" mat-flat-button (click)="askForPermission(order)">
                       Change status
                   </button>
                 </div>
@@ -43,10 +43,10 @@
             </div>
             <div *ngIf="changingStatus && order.orderId===currOrderId">
                 <div *ngIf="order.orderStatus === 'pending'">
-                  <button mat-flat-button color="accent" (click)="resolveOrder(order)">
+                  <button class="dashboard-button" mat-flat-button (click)="resolveOrder(order)">
                       Yes
                   </button>
-                  <button mat-flat-button color="accent" (click)="terminateProcess()">
+                  <button class="dashboard-button" mat-flat-button (click)="terminateProcess()">
                       No
                   </button>
                 </div>
@@ -64,45 +64,53 @@
     <mat-list-item  *ngFor="let order of userSpecificOrders">
       <div *ngIf="order.username === userService.getUserName()">
         <mat-card class="shop-items-fan">
+
           <!-- General Information -->
-          <mat-card class="username">
+          <mat-card class="info">
             <p><b>Product:</b></p>{{order.productTitle}}
           </mat-card>
-          <mat-card class="username">
+          <mat-card class="info">
             <p><b>Price:</b></p> {{order.productPrice}} €
           </mat-card>
-          <mat-card class="username">
+          <mat-card class="info">
             <p><b>Username:</b></p> {{order.username}}
             </mat-card>
-            <mat-card class="username">
+            <mat-card class="info">
               <p><b>deliveryAdress:</b></p> {{order.deliveryAdress}}
             </mat-card>
-            <mat-card class="username">
+            <mat-card class="info">
               <p><b>city:</b></p> {{order.city}}
             </mat-card>
-            <mat-card class="username">
+            <mat-card class="info">
               <p><b>zipcode:</b></p> {{order.zipcode}}
             </mat-card>
-            <mat-card class="username">
+            <mat-card class="info">
               <p><b>paymentMethod:</b></p> {{order.paymentMethod}}
             </mat-card>
-            <mat-card class="username">
+            <mat-card class="info">
               <p><b>Status:</b></p> {{order.orderStatus}}
             </mat-card>
 
             <!-- Interactions -->
             <div *ngIf="!changingStatus">
-                <button mat-flat-button color="accent" (click)="askForPermission(order)">
+              <div *ngIf="order.orderStatus === 'pending'">
+                <button class="dashboard-button" mat-flat-button (click)="askForPermission(order)">
                     Cancel order
                 </button>
+              </div>
+              <div *ngIf="order.orderStatus === 'shipped'">
+                Order got shipped
+              </div>
             </div>
             <div *ngIf="changingStatus && order.orderId===currOrderId">
-                <button mat-flat-button color="accent" (click)="cancelOrder(order)">
+              <div *ngIf="order.orderStatus === 'pending'">
+                <button class="dashboard-button" mat-flat-button (click)="cancelOrder(order)">
                     Yes
                 </button>
-                <button mat-flat-button color="accent" (click)="terminateProcess()">
+                <button class="dashboard-button" mat-flat-button (click)="terminateProcess()">
                     No
                 </button>
+              </div>
             </div>
         </mat-card>
       </div>

@@ -1,43 +1,99 @@
 .container {
-      width: 100vw;
-      height: 100vh;
-      background: transparent;
+      background: transparent !important;
+}
 
+.profile-button {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  margin-bottom: 20px;
+}
+
+.info {
+  margin-top: 20px;
 }
 
 .navigation{
   left: 14px;
-  height: 200px;
+  padding-top: 20px;
+  background-color: rgba(35, 35, 35, 0.5);
+  color: white;
+  margin-top: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(255, 0, 0);
 }
 
+.post-information{
+  text-align: right;
+  font-style: italic;
+  color: white;
+  font-size: 16px;
+}
+
+.title{
+  font-weight: bold;
+  font-size: 24px;
+  width: 60%;
+  alignment: top;
+  color: white;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.text {
+  padding-top: 10px;
+  color: white;
+}
+
+
+.info {
+  background-color: rgba(36, 36, 36, 0.5);
+  color: white;
+}
+
+.order-list{
+  display: block;
+  margin-left:auto;
+  margin-right:auto;  
+  vertical-align:middle;
+  width: 75%;
+  background-color: rgba(36, 36, 36, 0.5);
+  border-style: solid;
+  border-color:rgb(219, 16, 16);
+  color: white;
+}
+
+
+.profile-post-list{
+  display: block;
+  margin-left:auto;
+  margin-right:auto;  
+  vertical-align:middle;
+  width: 75%;
+  background-color: rgba(36, 36, 36, 0.5);
+  border-style: solid;
+  border-color:rgb(219, 16, 16);
+}
 
 .content-card{
   left: 20px;
-  bottom: 20px;
-  width: 23%;
+  width: 93%;
+  height: auto;
+  background-color: rgba(35, 35, 35, 0.5);
+  color: white;
+  padding-top: 20px;
+  margin-top: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(255, 0, 0);
 }
 
 .content {
-    padding-top: 0px;
   }
 
-.profile-button1{
-  bottom: 4px;
-}
-
-.profile-button2{
-
-}
-
-.profile-button3{
-  top: 4px;
-}
-
-.profile-button4{
- top: 8px;
-}
-
-
 .save-button{
-  left: 300px
+  margin-top: 20px;
+  left: 320;
+  background-color: rgba(212, 0, 255, 0.842);
+  color: white;
 }
