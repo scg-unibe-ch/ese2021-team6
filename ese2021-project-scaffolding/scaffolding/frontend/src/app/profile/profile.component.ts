@@ -183,19 +183,3 @@ export class ProfileComponent {
     });
   }
 }
-/*
-
-  checkCorrectMail(): boolean{
-    this.emailErrorMsg = '';
-
-    let eMailcorrect = true;
-
-    if (!(this.email.includes("@"))){eMailcorrect = false}
-
-    if(!eMailcorrect){
-      this.emailErrorMsg = 'Please fill in a valid E-Mail address';
-    }
-    return eMailcorrect;
-
-  }
-*/

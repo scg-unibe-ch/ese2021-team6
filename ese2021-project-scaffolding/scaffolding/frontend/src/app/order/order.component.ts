@@ -90,7 +90,6 @@ export class OrderComponent implements OnInit {
     this.router.navigateByUrl("Shop")
   }
 
-
   /**
    * if a user filled in the buy form the purchase is done and will show on his dashboard
    * @returns nothing is returned but the buy process is avoided becasue not all requiered fields are filled out
