@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Post } from 'src/app/models/post.model';
 import { PostCommentService } from 'src/app/services/post-comment.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-comment',
@@ -30,8 +32,19 @@ export class CommentComponent {
     public userService: UserService,
     public dialog: MatDialog,
     public httpClient: HttpClient,
-    public postCommentService: PostCommentService
+    public postCommentService: PostCommentService,
+    public domSanitizer:DomSanitizer,
+    public matIconRegistry:MatIconRegistry
   ) {
+    this.matIconRegistry.addSvgIcon( 
+      "editComment_button",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/editPost.svg")
+    );
+    this.matIconRegistry.addSvgIcon( 
+      "deleteComment_button",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/delete.svg")
+    );
+
      // Listen for changes
      postCommentService.post$.subscribe(res => this.post = res);
      userService.userId$.subscribe(res => this.userId);

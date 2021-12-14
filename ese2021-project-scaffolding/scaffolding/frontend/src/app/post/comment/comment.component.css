@@ -1,0 +1,41 @@
+.comment-list{
+    display: block;
+    margin-left:auto;
+    margin-right:auto;
+    vertical-align:middle;
+    margin-top: 1px;
+    width: 75%;
+    background-color: rgba(36, 36, 36, 0.5);
+    border-style: solid;
+    border-color:rgba(196, 19, 19, 0.842);
+  }
+
+  .comment-button {
+      background-color: rgba(212, 0, 255, 0.842);
+      color: white;
+  }
+  .title{
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    color: white;
+  }
+
+  .text{
+    padding-bottom: 10px;
+    color: white;
+  }
+
+  .post-information{
+    text-align: right;
+    font-style: italic;
+    color: white;
+    font-size: 16px;
+  }
+
+  .buttons{
+    text-align: left;
+    font-style: italic;
+    color: white;
+    font-size: 16px;
+   }

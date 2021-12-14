@@ -14,8 +14,7 @@
 
 <!-- Shows all the available products -->
 
-<mat-grid-list cols="2" rowHeight="1.5:1">
-  <mat-grid-tile class="shop-items" *ngFor="let product of products">
+<mat-list-item *ngFor="let product of products">
   <mat-card class="product-list">
                  <p class="product-information">
                     {{product.category}}
@@ -57,7 +56,7 @@
         BUY NOW
     </button>
   </mat-card>
-</mat-grid-tile>
+</mat-list-item>
 
 
 

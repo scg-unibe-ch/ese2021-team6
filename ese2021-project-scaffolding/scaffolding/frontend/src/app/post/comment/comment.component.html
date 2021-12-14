@@ -7,53 +7,47 @@
     {{post.createdAt |  date:'dd/MM/yyyy'}}
   </p>
   
-  <mat-card class="title">
+  <div class="title">
     {{post.title}}
-  </mat-card>
-  
-  <mat-card class="text">
-    {{post.text}}
-  </mat-card>
+  </div>
 
-  <mat-card class="text">
-   Score: {{post.upvoteCount - post.downvoteCount}}
-  </mat-card>
+  <div *ngIf="post.imagePath != ''">
+    <img src={{post.imagePath}}>
+  </div>
+  
+  <div class="text">
+    {{post.text}}
+  </div>
 
   <!-- Post Interactions -->
-  <button
+  <button class="comment-button"
     *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
-    mat-flat-button color="primary" (click)="openCommentWindow()">
+    mat-flat-button (click)="openCommentWindow()">
     Comment
   </button>
 </mat-card>
 <!--/////////////////////////////////////////////////////////////////////////////////////-->
 
 <!-- // DISPLAY COMMENTS \\ -->
-<mat-list>
-  <mat-list-item *ngFor="let comment of post.comments">
-      <!-- General Information -->
-      <mat-card>
+<mat-list-item *ngFor="let comment of post.comments">
+    <!-- General Information -->
+    <mat-card class="comment-list">
+      <div class="text"> 
         {{comment.text}}
-      </mat-card>
+      </div>
 
       <!-- Comment Interactions -->
-      <button 
+      <button class="buttons"
         *ngIf="userService.getLoggedIn() && userService.getUserId() === comment.userId"
-        mat-flat-button color="warn" (click)="deleteComment(comment)">
-        Delete Comment
+        mat-icon-button (click)="openEditPopUp(comment)">
+        <mat-icon class="editComment-icon" svgIcon="editPost_button"></mat-icon>
       </button>
 
-      <button
+      <button class="buttons"
         *ngIf="userService.getLoggedIn() && userService.getUserId() === comment.userId"
-        mat-flat-button color="accent" (click)="openEditPopUp(comment)">
-        Edit Comment
+        mat-icon-button (click)="deleteComment(comment)">
+        <mat-icon class="editPost-icon" svgIcon="deleteComment_button"></mat-icon>
       </button>
-    </mat-list-item>
-</mat-list>
+    </mat-card>
+</mat-list-item>
 <!--/////////////////////////////////////////////////////////////////////////////////////-->
-
-<div *ngIf="post.comments.length === 0">
-  <mat-card>
-       No comments available.
-   </mat-card>
- </div>
