@@ -28,11 +28,6 @@ describe('UserComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  /*it('html check', () => {
-    const data=fixture.nativeElement;
-    expect(data.querySelector(".logintext").textContent).toContain("Login");
-  });*/
-
   it('correct @ in email check', () => {
     component.userinformationToRegister.email = "blabla";
     expect(component.checkCorrectMail()).toBeFalsy();
@@ -77,6 +72,11 @@ describe('UserComponent', () => {
     component.userToRegister.password =  "NewPerson1!";
     expect(component.checkPasswordConditions()).toBeTruthy();
   });
+
+    /*it('html check', () => {
+    const data=fixture.nativeElement;
+    expect(data.querySelector(".logintext").textContent).toContain("Login");
+  });*/
 
 });
 
