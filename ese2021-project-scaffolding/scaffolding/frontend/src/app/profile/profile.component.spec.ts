@@ -34,7 +34,6 @@ describe('ProfileComponent', () => {
 
     component.showInfo = true
     component.showOrder = true
-    component.showSetting = true
     component.showPost = true
   });
 
@@ -47,6 +46,5 @@ describe('ProfileComponent', () => {
     expect(component.showInfo).toBeFalsy();
     expect(component.showOrder).toBeFalsy();
     expect(component.showPost).toBeFalsy();
-    expect(component.showSetting).toBeFalsy();
   });
 });

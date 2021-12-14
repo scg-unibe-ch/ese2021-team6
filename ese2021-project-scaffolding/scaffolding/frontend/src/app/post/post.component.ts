@@ -10,6 +10,8 @@ import { User } from '../models/user.model';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostCommentService } from '../services/post-comment.service';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post',
@@ -38,8 +40,32 @@ export class PostComponent {
     public httpClient: HttpClient,
     public userService: UserService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
   ) {
+    // Set up Icons
+    this.matIconRegistry.addSvgIcon( 
+      "upVote_button",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/upvote.svg")
+    );
+    this.matIconRegistry.addSvgIcon( 
+      "downVote_button",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/downvote.svg")
+    );
+    this.matIconRegistry.addSvgIcon( 
+      "editPost_button",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/editPost.svg")
+    );
+    this.matIconRegistry.addSvgIcon( 
+      "deletePost_button",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/delete.svg")
+    );
+    this.matIconRegistry.addSvgIcon( 
+      "showComments_button",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/comments.svg")
+    );
+
     userService.userId$.subscribe(res => this.userId);
     this.userId = userService.getUserId();
   }

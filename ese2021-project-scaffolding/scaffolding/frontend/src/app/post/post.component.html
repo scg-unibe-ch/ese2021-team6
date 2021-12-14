@@ -22,51 +22,52 @@
       {{post.createdAt |  date:'dd/MM/yyyy'}}
     </p>
 
-    <mat-card class="title">
+    <div class="title">
       {{post.title}}
-    </mat-card>
+    </div>
 
     <div *ngIf="post.imagePath != ''">
       <img src={{post.imagePath}}>
     </div>
 
-    <mat-card class="text">
+    <div class="text">
       {{post.text}}
-    </mat-card>
-
-    <!-- UpVote/DownVote -->
-    <mat-card class="votes">
-      <button
-        *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
-        mat-flat-button color="primary" (click)="upvotePost(post)">
-        UpVote
-      </button>
-       {{post.upvoteCount - post.downvoteCount}}
-      <button
-        *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
-        mat-flat-button color="warn" (click)="downvotePost(post)">
-        DownVote
-      </button>
-    </mat-card>
+    </div>
 
     <!-- Post Interactions -->
-    <button
-      *ngIf="userService.getLoggedIn() && userService.getUserId() === post.userId || userService.getIsAdmin()"
-      mat-flat-button color="warn" (click)="deletePost(post)">
-      Delete Post
-    </button>
+    <div class="buttons">
+        <!-- UpVote/DownVote -->
+        <button
+          *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
+          mat-icon-button (click)="upvotePost(post)">
+          <mat-icon class="upvote-icon" svgIcon="upVote_button"></mat-icon>
+        </button>
 
-    <button
-      *ngIf="userService.getLoggedIn() && userService.getUserId() === post.userId"
-      mat-flat-button color="accent" (click)="openEditWindow(post)">
-      Edit Post
-    </button>
+        {{post.upvoteCount - post.downvoteCount}}
 
-    <button
-      mat-flat-button color="primary" (click)="showComments(post, 'Comments')">
-      Show comments
-    </button>
+        <button
+          *ngIf="userService.getLoggedIn() && !userService.getIsAdmin()"
+          mat-icon-button (click)="downvotePost(post)">
+          <mat-icon class="downvote-icon" svgIcon="downVote_button"></mat-icon>
+        </button>
 
+        <button
+          mat-icon-button (click)="showComments(post, 'Comments')">
+          <mat-icon class="showComments-icon" svgIcon="showComments_button"></mat-icon>
+        </button>
+
+        <button
+          *ngIf="userService.getLoggedIn() && userService.getUserId() === post.userId"
+          mat-icon-button (click)="openEditWindow(post)">
+          <mat-icon class="editPost-icon" svgIcon="editPost_button"></mat-icon>
+        </button>
+
+        <button
+          *ngIf="userService.getLoggedIn() && userService.getUserId() === post.userId || userService.getIsAdmin()"
+          mat-icon-button (click)="deletePost(post)">
+          <mat-icon class="deletePost-icon" svgIcon="deletePost_button"></mat-icon>
+        </button>
+      </div>
   </mat-card>
 </mat-list-item>
 <!--/////////////////////////////////////////////////////////////////////////////////////-->

@@ -26,7 +26,6 @@ export class ProfileComponent {
   showInfo: boolean = true;
   showPost: boolean = false;
   showOrder: boolean = false;
-  showSetting: boolean = false;
 
   userId: number | undefined
   userInfo: any;
@@ -94,7 +93,6 @@ export class ProfileComponent {
     this.showInfo = false
     this.showOrder = false
     this.showPost = false
-    this.showSetting = false
   }
 
   /**
@@ -111,6 +109,7 @@ export class ProfileComponent {
   showPosts() {
     this.resetDisplay()
     this.showPost = true
+    this.posts = []
     
     this.httpClient.get(environment.endpointURL + "post").subscribe((lists: any) => {
       lists.forEach((list: any) => {
@@ -142,6 +141,7 @@ export class ProfileComponent {
   showOrders() {
     this.resetDisplay()
     this.showOrder = true
+    this.orders = []
     
     this.httpClient.get(environment.endpointURL + "order").subscribe((lists: any) => {
       lists.forEach((list: any) => {
@@ -158,14 +158,6 @@ export class ProfileComponent {
         }
       })
     })
-  }
-
-  /**
-   * Shows the settings
-   */
-  showSettings() {
-    this.resetDisplay()
-    this.showSetting = true
   }
 
   editInformation() {

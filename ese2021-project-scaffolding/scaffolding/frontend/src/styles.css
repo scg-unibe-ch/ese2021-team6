@@ -4,25 +4,17 @@
 }
 
 mat-dialog-container {
-  background-color: rgba(25, 25, 25) !important;
+  background-color: rgba(36, 36, 36) !important;
+  border-color:rgb(219, 16, 16) !important;
 }
-
-/*
-.background-image {
-  background-image: url("./Images/muster2.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: auto !important;
-}
-*/
 
 .mat-card {
   margin: 20px 0;
-  background-color: #EEE;
+  background-color: #fff;
 }
 
 body {
-  background-color: gray;
+  background-color: rgb(7, 7, 7);
 }
 
 button, input {
@@ -33,4 +25,3 @@ button, input {
 .mat-form-field-wrapper {
   margin-right: 25px !important;
 }
-

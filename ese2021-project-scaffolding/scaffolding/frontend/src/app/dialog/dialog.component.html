@@ -1,111 +1,117 @@
 <h1 mat-dialog-title>
 
-<div *ngIf="data.value === 'post' || data.value === 'editPost' || data.value === 'product' || data.value === 'editProduct'">
-  <mat-form-field>
-   <input matInput placeholder="Write a title..." [(ngModel)]="postTitle" name="name">
-  </mat-form-field>
-  <p style="color:red">{{ titleErrorMsg }}</p>
-</div>
-
-</h1>
-<!--This it the popup dialogue window for posts or comments (To post or to edit)-->
-<div *ngIf="data.value === 'post' || data.value === 'editPost' || data.value === 'comment' || data.value === 'editComment'" mat-dialog-content>
-  <mat-form-field [style.width.px]=500>
-      <textarea matInput
-            matInput placeholder= "Write something..."
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="9"
-            [(ngModel)] = "text"
-      ></textarea>
-  </mat-form-field>
-</div>
-
-<!--This it the popup dialogue window for products(To post or to edit)-->
-<div *ngIf="data.value === 'product' || data.value === 'editProduct'" mat-dialog-content>
-  <mat-form-field [style.width.px]=500>
-      <textarea matInput
-            matInput placeholder= "Write description..."
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="9"
-            [(ngModel)] = "text"
-      ></textarea>
-  </mat-form-field>
-</div>
-<!--This is to select a Category of a post-->
-<div mat-dialog-actions>
-  <div *ngIf="data.value === 'post'">
-    <mat-form-field appearance="fill">
-      <mat-label>Category</mat-label>
-      <select matNativeControl [(ngModel)] = category>
-        <optgroup label="Type of game">
-          <option value="Rpg">Rpg</option>
-          <option value="Shooter">Shooter</option>
-        </optgroup>
-        <optgroup label="General">
-          <option value="Memes">Memes</option>
-          <option value="Help">Help</option>
-        </optgroup>
-      </select>
-    </mat-form-field>
-    <p style="color:red">{{ categoryErrorMsg }}</p>
-  </div>
-<!--This is to select a Category of a product-->
-  <div *ngIf="data.value === 'product'">
-    <mat-form-field appearance="fill">
-      <mat-label>Category</mat-label>
-      <select matNativeControl [(ngModel)] = category>
-          <option value="Merch">Merch</option>
-          <option value="Keyboard">Keyboard</option>
-          <option value="Mouse">Mouse</option>
-          <option value="Mousepad">Mousepad</option>
-      </select>
-    </mat-form-field>
-    <p style="color:red">{{ categoryErrorMsg }}</p>
-  </div>
-<!--This is to edit the price of a product-->
-  <div *ngIf="data.value === 'product' || data.value === 'editProduct'">
+<div class="dialogue">
+  <div *ngIf="data.value === 'post' || data.value === 'editPost' || data.value === 'product' || data.value === 'editProduct'">
     <mat-form-field>
-     <input matInput placeholder="Put a price" [(ngModel)]="price" name="name">
+    <mat-label class="dialogue-label">Write a title...</mat-label>
+      <input matInput [(ngModel)]="postTitle" name="name">
     </mat-form-field>
-    <p style="color:red">{{ priceErrorMsg }}</p>
+    <p style="color:red">{{ titleErrorMsg }}</p>
   </div>
 
-  <button mat-raised-button color="warn" (click)="closeDialog()">Close</button>
-<!--This is to add a file to a post-->
-  <div *ngIf="data.value === 'post' || data.value === 'product'">
+  <!--This it the popup dialogue window for posts or comments (To post or to edit)-->
+  <div *ngIf="data.value === 'post' || data.value === 'editPost' || data.value === 'comment' || data.value === 'editComment'" mat-dialog-content>
+    <mat-form-field [style.width.px]=500>
+        <mat-label class="dialogue-label">Write something...</mat-label>
+        <textarea matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="9"
+              [(ngModel)] = "text"
+        ></textarea>
+    </mat-form-field>
+  </div>
 
-    <button mat-raised-button color="primary" (click)="publish(data.value)">Publish</button>
-
-    <form action="http://localhost:3000" method="post" enctype="multipart/form-data">
-      <input type="file" class="file-input"
-       (change)="onFileSelected($event)" #fileUpload>
-    </form>
-
-    <div class="file-upload">
-        <button mat-mini-fab color="primary" class="upload-btn"
-          (click)="fileUpload.click()">
-            <mat-icon>+</mat-icon>
-        </button>
+  <!--This it the popup dialogue window for products(To post or to edit)-->
+  <div *ngIf="data.value === 'product' || data.value === 'editProduct'" mat-dialog-content>
+    <mat-form-field [style.width.px]=500>
+        <mat-label class="dialogue-label">Write a description...</mat-label>
+        <textarea matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="9"
+              [(ngModel)] = "text"
+        ></textarea>
+    </mat-form-field>
+  </div>
+  <!--This is to select a Category of a post-->
+  <div mat-dialog-actions>
+    <div *ngIf="data.value === 'post'">
+      <mat-form-field appearance="fill">
+        <mat-label class="dialogue-label">Category</mat-label>
+        <select matNativeControl [(ngModel)] = category>
+          <optgroup label="Type of game">
+            <option value="Rpg">Rpg</option>
+            <option value="Shooter">Shooter</option>
+          </optgroup>
+          <optgroup label="General">
+            <option value="Memes">Memes</option>
+            <option value="Help">Help</option>
+          </optgroup>
+        </select>
+      </mat-form-field>
+      <p style="color:red">{{ categoryErrorMsg }}</p>
     </div>
-  </div>
-<!-- Buttons for everyone -->
+  <!--This is to select a Category of a product-->
+    <div *ngIf="data.value === 'product'">
+      <mat-form-field appearance="fill">
+        <mat-label class="dialogue-label">Category</mat-label>
+        <select matNativeControl [(ngModel)] = category>
+            <option value="Merch">Merch</option>
+            <option value="Keyboard">Keyboard</option>
+            <option value="Mouse">Mouse</option>
+            <option value="Mousepad">Mousepad</option>
+        </select>
+      </mat-form-field>
+      <p style="color:red">{{ categoryErrorMsg }}</p>
+    </div>
+  <!--This is to edit the price of a product-->
+    <div *ngIf="data.value === 'product' || data.value === 'editProduct'">
+      <mat-form-field>
+        <mat-label class="dialogue-label">Put a price</mat-label>
+      <input matInput [(ngModel)]="price" name="name">
+      </mat-form-field>
+      <p style="color:red">{{ priceErrorMsg }}</p>
+    </div>
 
-  <div *ngIf="data.value === 'comment'">
-  <button mat-raised-button color="primary" (click)="publishComment()">Comment</button>
-  </div>
+    <button class="close-button" mat-raised-button (click)="closeDialog()">Close</button>
+  <!--This is to add a file to a post-->
+    <div *ngIf="data.value === 'post' || data.value === 'product'">
 
-  <div *ngIf="data.value === 'editPost' || data.value === 'editComment'">
-  <button mat-raised-button color="primary" (click)="publishEdit()">Save edit</button>
-  </div>
+      <button class="publish-button" mat-raised-button (click)="publish(data.value)">
+        <div class="publish-button-text">Post</div>
+      </button>
 
-  <div *ngIf="data.value === 'editProduct'">
-    <button mat-raised-button color="primary" (click)="publishProductEdit()">Save edit</button>
-  </div>
+      <button mat-icon-button class="upload-btn"
+      (click)="fileUpload.click()">
+        <mat-icon class="menu-icon" svgIcon="upload_button"></mat-icon>
+     </button>
 
-   <!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
-  <!--<button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
+      <form action="http://localhost:3000" method="post" enctype="multipart/form-data">
+        <input type="file" class="file-input"
+        (change)="onFileSelected($event)" #fileUpload>
+      </form>
+    </div>
+
+  <!-- Buttons for everyone -->
+
+    <div *ngIf="data.value === 'comment'">
+      <button class="publish-button" mat-raised-button (click)="publishComment()">
+        <div class="publish-button-text">Comment</div>
+      </button>
+    </div>
+
+    <div *ngIf="data.value === 'editPost' || data.value === 'editComment'">
+      <button class="publish-button" mat-raised-button (click)="publishEdit()">
+        <div class="publish-button-text">Edit</div>
+      </button>
+    </div>
+
+    <div *ngIf="data.value === 'editProduct'">
+      <button class="publish-button" mat-raised-button (click)="publishProductEdit()">
+        <div class="publish-button-text">save edit</div>
+      </button>
+    </div>
 </div>
