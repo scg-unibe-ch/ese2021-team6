@@ -67,28 +67,3 @@ productController.get('/:id/image', (req: Request, res: Response) => {
 });
 
 export const ProductController: Router = productController;
-
-
-// post a product in shop (admin only)
-/*
-// get price of product
-productController.get('/price', (req: Request, res: Response) => {
-    const Id = Number(req.body.productId);
-    Product.findByPk(Id)
-        .then(product => {
-            const price = product.price;
-            res.status(200).send(price.toString());
-        });
-});
-
-// get Id of user-> admin who posted the product
-productController.get('/userId',
-    (req: Request, res: Response) => {
-        const Id = Number(req.body.productId);
-        Product.findByPk(Id)
-            .then(product => {
-                const userId = product.userId;
-                res.status(200).send(userId.toString());
-            });
-    });
-*/

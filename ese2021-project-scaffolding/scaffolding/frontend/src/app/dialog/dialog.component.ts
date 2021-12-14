@@ -16,10 +16,12 @@ export class DialogComponent {
   text: string = '';
   category: string = '';
   price: string = '';
+  file: any = null
 
   titleErrorMsg: string = '';
   categoryErrorMsg: string = '';
   priceErrorMsg: string = '';
+  fileErrorMsg: string = '';
   productInformation: (string|number)[] = []
 
   @Output()
@@ -73,12 +75,12 @@ export class DialogComponent {
     if( this.checkNoEmptyTitle() && this.checkNoEmptyCategory() ){
       if (value == "product") {
         if (this.checkNoEmptyPrice()) {
-          this.productInformation.push(this.postTitle)
-          this.productInformation.push(this.text)
-          this.productInformation.push(this.category)
-          this.productInformation.push(this.price)
-          this.createProduct.emit(this.productInformation);
-          this.dialogRef.close();
+            this.productInformation.push(this.postTitle)
+            this.productInformation.push(this.text)
+            this.productInformation.push(this.category)
+            this.productInformation.push(this.price)
+            this.createProduct.emit(this.productInformation);
+            this.dialogRef.close();
         }
       }
       else {
@@ -101,6 +103,7 @@ export class DialogComponent {
     this.titleErrorMsg = "Please enter a title";
     return false;
   }
+
 
   /**
    * Checks that the price is not zero
@@ -126,7 +129,7 @@ export class DialogComponent {
    */
   checkNoEmptyCategory(): boolean{
     if(this.category != ''){
-      return true;
+     return true
     }
     this.categoryErrorMsg = "Please select a category";
     return false;
@@ -137,10 +140,8 @@ export class DialogComponent {
    * @param event the file selected from the user to be uploaded
    */
   onFileSelected(event: any): void {
-    const file:File = event.target.files[0];
-
-    console.log(file)
-    this.addImage.emit(file)
+    this.file = event.target.files[0];
+    this.addImage.emit(this.file)
   }
 
   publishComment(): void {
