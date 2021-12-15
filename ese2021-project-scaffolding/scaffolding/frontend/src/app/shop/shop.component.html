@@ -14,50 +14,48 @@
 </mat-card>
 
 <!-- Shows all the available products -->
+<mat-grid-list class="shop-items" cols="3" rowHeight="1:1">
+  <mat-grid-tile class="product-list" *ngFor="let product of products">
+    <div class="products">
 
-<mat-list-item *ngFor="let product of products">
-  <mat-card class="product-list">
-                 <p class="product-information">
-                    {{product.category}}
-                    {{product.createdAt |  date:'dd/MM/yyyy'}}
-                 </p>
+        <p class="product-information">
+          {{product.category}}
+          {{product.createdAt |  date:'dd/MM/yyyy'}}
+        </p>
 
-                <mat-card class="title">
-                    {{product.title}}
-                </mat-card>
+        <div class="title">
+          {{product.title}}
+        </div>
 
-                <div *ngIf="product.imagePath != ''">
-                  <img src={{product.imagePath}}>
-                </div>
+        <div class="image" *ngIf="product.imagePath != ''">
+            <img src={{product.imagePath}}>
+        </div>
 
-                <mat-card class="description">
-                    About this product: {{product.description}}
-                </mat-card>
+        <div class="description">
+          {{product.description}}
+        </div>
 
-    <mat-card class="price">
-      Price: {{product.price}} €
-    </mat-card>
+        <div class="price">
+          Price: {{product.price}} €
+        </div>
 
-<!-- Buttons for Admins and Users -->
+        <!-- Buttons for Admins and Users -->
+        <button class="delete-button"
+          *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
+          mat-flat-button (click)="delete(product)">
+            Delete Product
+        </button>
 
-    <button
-      *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
-      mat-flat-button color="warn" (click)="delete(product)">
-        Delete Product
-    </button>
+        <button class="edit-button"
+          *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
+          mat-flat-button (click)="openEditPopUp(product)">
+            Edit Product
+        </button>
 
-    <button
-      *ngIf="userService.getLoggedIn() && userService.getIsAdmin()"
-      mat-flat-button color="accent" (click)="openEditPopUp(product)">
-        Edit Product
-    </button>
-
-    <button class="buy-button"
-      *ngIf="!userService.getIsAdmin()" mat-flat-button color="accent" (click)="buyProduct(product)">
-        BUY NOW
-    </button>
-  </mat-card>
-</mat-list-item>
-
-
-
+        <button class="buy-button"
+          *ngIf="!userService.getIsAdmin()" mat-flat-button color="accent" (click)="buyProduct(product)">
+            BUY NOW
+        </button>
+    </div>
+</mat-grid-tile>
+</mat-grid-list>

@@ -349,7 +349,7 @@ downvotePost(post: Post): void {
           var path = "http://localhost:3000/uploads/" + img.fileName
 
           this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
-            path, list.upvoteCount, list.downvoteCount, list.userId, [], list.category, list.createdAt));
+            path, list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt));
         }, () => {
           console.log("NOT FOUND")
           this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,

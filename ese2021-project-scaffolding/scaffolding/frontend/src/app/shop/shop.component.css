@@ -1,28 +1,22 @@
 .title{
-  background-color: rgba(35, 35, 35, 0.5);
-  border-style: solid;
-  border-color:rgba(53, 53, 53);
   font-weight: bold;
   font-size: 24px;
   width: 60%;
   alignment: top;
   color: white;
+  margin: 20px;
 }
 
 .description {
-  background-color: rgba(35, 35, 35, 0.5);
-  border-style: solid;
-  border-color:rgba(53, 53, 53);
   width: 60%;
   color: white;
+  margin: 10px;
 }
 
 .price{
-  background-color: rgba(35, 35, 35, 0.5);
-  border-style: solid;
-  border-color:rgba(53, 53, 53);
   width: 60%;
   color: white;
+  margin: 10px;
 }
 
 .dashboard {
@@ -38,8 +32,7 @@
 }
 
 .shop-items{
-  display: flex;
-  width: 30%;
+  font-size: 16px;
   color: white;
 }
 
@@ -54,9 +47,16 @@
   float: right;
 }
 
-/*.buy-button{
-  float: right;
-}*/
+.product-information {
+  color: white;
+}
+
+.product-list{
+  position: absolute;
+  background-color: rgba(35, 35, 35, 0.5);
+  border-style: solid;
+  border-color:rgb(255, 0, 0);
+}
 
 .horizontal-mat-list-item {
   float: right;
@@ -70,7 +70,7 @@
 
 .new-product-button{
   right: 9px;
-  background-color: red;
+  background-color: rgb(255, 38, 0);
   color: white;
 }
 
@@ -78,3 +78,23 @@
   left:14px;
   width: 12.2%;
  }
+
+ .image{
+   margin-left: 10px;
+ }
+
+ .delete-button{
+  background-color: rgb(255, 38, 0);
+  color: white;
+ }
+
+ .buy-button{
+  background-color: rgb(255, 38, 0);
+  color: white;
+ }
+
+ .edit-button{
+  background-color: rgba(212, 0, 255, 0.842);
+  color: white;
+ }
+
