@@ -36,6 +36,7 @@
         ></textarea>
     </mat-form-field>
   </div>
+
   <!--This is to select a Category of a post-->
   <div mat-dialog-actions>
     <div *ngIf="data.value === 'post'">
@@ -48,6 +49,7 @@
           </optgroup>
           <optgroup label="General">
             <option value="Memes">Memes</option>
+            <option value="General">General</option>
             <option value="Help">Help</option>
           </optgroup>
         </select>
@@ -87,13 +89,14 @@
       <button mat-icon-button class="upload-btn"
       (click)="fileUpload.click()">
         <mat-icon class="menu-icon" svgIcon="upload_button"></mat-icon>
-     </button>
+       </button>
 
       <form action="http://localhost:3000" method="post" enctype="multipart/form-data">
         <input type="file" class="file-input"
         (change)="onFileSelected($event)" #fileUpload>
       </form>
     </div>
+    <p style="color:red">{{ fileErrorMsg }}</p>
 
   <!-- Buttons for everyone -->
 

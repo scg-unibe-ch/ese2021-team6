@@ -31,7 +31,7 @@ export class PostComponent {
 
   tags = new FormControl();
   selectedTags: string = ""
-  tagList: string[] = ['Rpg', 'Memes', 'Help', 'Shooter'];
+  tagList: string[] = ['Rpg', 'Memes', 'Help', 'Shooter', 'General'];
 
   userId: number | undefined;
 
@@ -351,7 +351,6 @@ downvotePost(post: Post): void {
           this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
             path, list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt));
         }, () => {
-          console.log("NOT FOUND")
           this.posts.push(new Post(list.postId, list.title, list.text, list.imageId,
             '', list.upvoteCount, list.downvoteCount, list.userId, comments, list.category, list.createdAt))
         });
@@ -396,8 +395,10 @@ downvotePost(post: Post): void {
    * @param pageName The "page" that is shown with all the comments on it
    */
   showComments(post: Post, pageName: String) {
+    console.log(post)
     this.post = post
-    this.postCommentService.setPost(post)
+    console.log(this.post)
+    this.postCommentService.setPost(this.post)
     this.router.navigate([`${pageName}`])
   }
 }
