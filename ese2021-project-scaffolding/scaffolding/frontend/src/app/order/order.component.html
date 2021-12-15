@@ -1,24 +1,24 @@
 <div *ngIf="userService.getLoggedIn()">
 
-    <mat-stepper [linear]="isLinear" #stepper>
+    <mat-stepper class="stepper" [linear]="isLinear" #stepper>
 
     <!-- // Address-Form \\ -->
-    <mat-step [stepControl]="addressFormGroup" state="edit" label="Fill out your address">
+    <mat-step class="stepper" [stepControl]="addressFormGroup" state="edit" label="Fill out your address">
         <form [formGroup]="addressFormGroup">
 
             <mat-form-field appearance="standard">
-                <mat-label>Address</mat-label>
-                <input [value]="address" formControlName = "addressCtrl" matInput placeholder="Write your address">
+                <mat-label class="stepper">Write your address</mat-label>
+                <input [value]="address" formControlName = "addressCtrl" matInput>
             </mat-form-field>
 
             <mat-form-field appearance="standard">
-                <mat-label>City</mat-label>
-                <input [value]="city" formControlName = "cityCtrl" matInput placeholder="Write your city">
+                <mat-label class="stepper">Write your city</mat-label>
+                <input [value]="city" formControlName = "cityCtrl" matInput>
             </mat-form-field>
 
             <mat-form-field appearance="standard">
-                <mat-label>Zipcode</mat-label>
-                <input [value]="zipCode" formControlName = "zipCodeCtrl" matInput placeholder="Write your zipcode">
+                <mat-label class="stepper">Write your zipcode</mat-label>
+                <input [value]="zipCode" formControlName = "zipCodeCtrl" matInput>
             </mat-form-field>
 
             <div>
@@ -29,7 +29,7 @@
     </mat-step>
 
      <!-- // Payment-Form \\ -->
-    <mat-step [stepControl]="paymentFormGroup" label="Choose a payment method">
+    <mat-step class="stepper" [stepControl]="paymentFormGroup" label="Choose a payment method">
         <form [formGroup]="paymentFormGroup">
 
             <mat-radio-button value="invoice" formControlName = "invoiceCtrl" ngDefaultControl [checked]="true" >Payment via invoice</mat-radio-button>
@@ -47,7 +47,7 @@
     </mat-step>
 
 
-    <mat-step label="Purchase">
+    <mat-step class="stepper" label="Purchase">
         <p>Click on the purchase button</p>
         <div>
         <button mat-button matStepperPrevious>Back</button>
@@ -58,7 +58,7 @@
         <p style="color:red">{{ purchaseErrorMsg }}</p>
     </mat-step>
 
-    <ng-template matStepperIcon="edit">
+    <ng-template class="stepperIcon" matStepperIcon="edit">
         <mat-icon class="edit-icon" svgIcon="edit_button"></mat-icon>
     </ng-template>
 
