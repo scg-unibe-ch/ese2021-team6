@@ -7,8 +7,47 @@
   margin: 20px;
 }
 
-.select-category{
+.description {
+  width: 60%;
+  color: white;
+  margin: 10px;
+}
+
+.price{
+  width: 60%;
+  color: white;
+  margin: 10px;
+}
+
+.dashboard {
   background-color: rgba(35, 35, 35, 0.5);
+  color: white;
+}
+
+.product-information{
+  text-align: right;
+  font-style: italic;
+  color: black;
+  font-size: 16px;
+}
+
+.shop-items{
+  font-size: 16px;
+  color: white;
+}
+
+.filter{
+  background-color: rgba(35, 35, 35, 0);
+  top:8px;
+  left:14px;
+}
+
+.filterapply-button{
+  bottom:8px;
+  float: right;
+}
+
+.product-information {
   color: white;
 }
 
@@ -19,83 +58,19 @@
   border-color:rgb(255, 0, 0);
 }
 
-.products{
-}
-
-.description {
-  width: 60%;
-  color: white;
-}
-
-.buy-button {
-  background-color: rgba(212, 0, 255, 0.842);
-  color: white;
-  align: left;
-}
-
-.dashboard {
-  background-color: rgba(35, 35, 35, 0.5);
-  color: white;
-}
-
-.price{
-  width: 60%;
-  color: white;
-}
-
-.product-information{
-  text-align: right;
-  text-align: top;
-  font-style: italic;
-  color: white;
-  font-size: 16px;
-}
-
-.filter{
-  background-color: white;
-  top:8px;
-  left:14px;
-}
-
-.filterapply-button{
-  bottom:8px;
-  float: right;
-}
-
 .horizontal-mat-list-item {
   float: right;
   display: list-item;
 }
 
-.title{
-  font-weight: bold;
-  font-size: 24px;
-  width: 60%;
-  alignment: top;
-  color: white;
-  text-align: left;
-  padding-bottom: 10px;
-}
-
-.description {
-  padding-top: 10px;
-  color: white;
-}
-
-
 .select-category{
-  background-color: rgba(35, 35, 35, 0.5);
-  color: white;
+  background-color: rgba(35, 35, 35, 0);
+  color: white
 }
 
 .new-product-button{
   right: 9px;
-  color: white;
-  background-color: rgb(255, 17, 0);
-}
-
-.filter {
-  background-color: rgba(35, 35, 35, 0);
+  background-color: rgb(255, 38, 0);
   color: white;
 }
 
@@ -103,3 +78,23 @@
   left:14px;
   width: 12.2%;
  }
+
+ .image{
+   margin-left: 10px;
+ }
+
+ .delete-button{
+  background-color: rgb(255, 38, 0);
+  color: white;
+ }
+
+ .buy-button{
+  background-color: rgb(255, 38, 0);
+  color: white;
+ }
+
+ .edit-button{
+  background-color: rgba(212, 0, 255, 0.842);
+  color: white;
+ }
+

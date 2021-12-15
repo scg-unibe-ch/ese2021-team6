@@ -33,8 +33,8 @@ export class CommentComponent {
     public dialog: MatDialog,
     public httpClient: HttpClient,
     public postCommentService: PostCommentService,
-    public domSanitizer: DomSanitizer,
-    public matIconRegistry: MatIconRegistry
+    public domSanitizer:DomSanitizer,
+    public matIconRegistry:MatIconRegistry
   ) {
     this.matIconRegistry.addSvgIcon( 
       "editComment_button",

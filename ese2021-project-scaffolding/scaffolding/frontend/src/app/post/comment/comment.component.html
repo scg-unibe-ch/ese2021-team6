@@ -29,31 +29,25 @@
 <!--/////////////////////////////////////////////////////////////////////////////////////-->
 
 <!-- // DISPLAY COMMENTS \\ -->
+<mat-list-item *ngFor="let comment of post.comments">
+    <!-- General Information -->
+    <mat-card class="comment-list">
+      <div class="text"> 
+        {{comment.text}}
+      </div>
 
-  <mat-list-item *ngFor="let comment of post.comments">
-      <!-- General Information -->
-      <mat-card class="comment-list">
-        <div class="text">
-          {{comment.text}}
-        </div>
+      <!-- Comment Interactions -->
+      <button class="buttons"
+        *ngIf="userService.getLoggedIn() && userService.getUserId() === comment.userId"
+        mat-icon-button (click)="openEditPopUp(comment)">
+        <mat-icon class="editComment-icon" svgIcon="editPost_button"></mat-icon>
+      </button>
 
-        <!-- Comment Interactions -->
-        <div class="buttons">
-
-          <button
-            *ngIf="userService.getLoggedIn() && userService.getUserId() === comment.userId"
-            mat-icon-button (click)="openEditPopUp(comment)">
-            <mat-icon class="editComment-icon" svgIcon="editPost_button"></mat-icon>
-          </button>
-
-          <button
-            *ngIf="userService.getLoggedIn() && userService.getUserId() === comment.userId"
-            mat-icon-button (click)="deleteComment(comment)">
-            <mat-icon class="editPost-icon" svgIcon="deleteComment_button"></mat-icon>
-          </button>
-
-        </div>
-      </mat-card>
-    </mat-list-item>
-
+      <button class="buttons"
+        *ngIf="userService.getLoggedIn() && userService.getUserId() === comment.userId"
+        mat-icon-button (click)="deleteComment(comment)">
+        <mat-icon class="editPost-icon" svgIcon="deleteComment_button"></mat-icon>
+      </button>
+    </mat-card>
+</mat-list-item>
 <!--/////////////////////////////////////////////////////////////////////////////////////-->

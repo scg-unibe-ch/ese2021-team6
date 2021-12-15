@@ -4,11 +4,11 @@
 
     <!-- // Address-Form \\ -->
     <mat-step class="stepper" [stepControl]="addressFormGroup" state="edit" label="Fill out your address">
-        <form class="stepper" [formGroup]="addressFormGroup">
+        <form [formGroup]="addressFormGroup">
 
-            <mat-form-field class="stepper" appearance="standard">
-                <mat-label class="stepper">Write your address...</mat-label>
-                <input class="stepper" [value]="address" formControlName = "addressCtrl" matInput>
+            <mat-form-field appearance="standard">
+                <mat-label class="stepper">Write your address</mat-label>
+                <input [value]="address" formControlName = "addressCtrl" matInput>
             </mat-form-field>
 
             <mat-form-field appearance="standard">
@@ -29,7 +29,7 @@
     </mat-step>
 
      <!-- // Payment-Form \\ -->
-    <mat-step [stepControl]="paymentFormGroup" label="Choose a payment method">
+    <mat-step class="stepper" [stepControl]="paymentFormGroup" label="Choose a payment method">
         <form [formGroup]="paymentFormGroup">
 
             <mat-radio-button value="invoice" formControlName = "invoiceCtrl" ngDefaultControl [checked]="true" >Payment via invoice</mat-radio-button>
@@ -58,7 +58,7 @@
         <p style="color:red">{{ purchaseErrorMsg }}</p>
     </mat-step>
 
-    <ng-template matStepperIcon="edit">
+    <ng-template class="stepperIcon" matStepperIcon="edit">
         <mat-icon class="edit-icon" svgIcon="edit_button"></mat-icon>
     </ng-template>
 
