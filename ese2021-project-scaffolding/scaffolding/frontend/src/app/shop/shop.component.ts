@@ -145,6 +145,8 @@ export class ShopComponent {
 
           this.products.push(new Product(list.productId, list.title, list.description, list.category,
             list.price, list.imageId, path, list.userId, list.createdAt))
+
+          this.file = undefined
         })
       }
       else {
@@ -167,13 +169,9 @@ export class ShopComponent {
           this.products.push(new Product(list.productId, list.title, list.description, list.category,
             list.price, list.imageId, path, list.userId, list.createdAt))
         }, () => {
-          console.log("NOT FOUND")
           this.products.push(new Product(list.productId, list.title, list.description, list.category,
             list.price, list.imageId, '', list.userId, list.createdAt))
         });
-
-        this.products.push(new Product(list.productId, list.title, list.description, list.category,
-          list.price, list.imageId, '', list.userId, list.createdAt))
       });
     });
   }
