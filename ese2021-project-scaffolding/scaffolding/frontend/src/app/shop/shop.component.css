@@ -25,6 +25,11 @@
   color: white;
 }
 
+.dashboard {
+  background-color: rgba(35, 35, 35, 0.5);
+  color: white;
+}
+
 .product-information{
   text-align: right;
   font-style: italic;
@@ -39,7 +44,7 @@
 }
 
 .filter{
-  background-color: white;
+  background-color: rgba(35, 35, 35, 0);
   top:8px;
   left:14px;
 }
@@ -59,13 +64,14 @@
 }
 
 .select-category{
-
-  background-color: white;
-  color: black;
+  background-color: rgba(35, 35, 35, 0);
+  color: white
 }
 
 .new-product-button{
   right: 9px;
+  background-color: red;
+  color: white;
 }
 
 .new-product{

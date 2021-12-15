@@ -1,16 +1,17 @@
+<mat-card class="dashboard">
+  <div class="new-product" *ngIf="loggedIn && userService.getIsAdmin()">
+   <button class="new-product-button" mat-raised-button (click)="openPopUp()">New Product</button>
 
-<mat-card class="new-product" *ngIf="loggedIn && userService.getIsAdmin()">
-  <button class="new-product-button" mat-raised-button (click)="openPopUp()">New Product</button>
+    <!-- Filter for the User and Admin -->
+    <mat-form-field class="filter">
+        <mat-label class="select-category">Filter</mat-label>
+        <mat-select [(ngModel)]="selectedTags" [formControl]="tags" multiple>
+          <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag}}</mat-option>
+          <button class="filterapply-button" mat-raised-button (click)="filterProducts()">Apply</button>
+        </mat-select>
+    </mat-form-field>
+  </div>
 </mat-card>
-
-<!-- Filter for the User and Admin -->
-<mat-form-field class="filter">
-    <mat-label class="select-category">Filter</mat-label>
-    <mat-select [(ngModel)]="selectedTags" [formControl]="tags" multiple>
-      <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag}}</mat-option>
-      <button class="filterapply-button" mat-raised-button (click)="filterProducts()">Apply</button>
-    </mat-select>
-</mat-form-field>
 
 <!-- Shows all the available products -->
 
